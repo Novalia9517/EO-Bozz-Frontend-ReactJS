@@ -7,7 +7,7 @@ const LayoutAdmin = ({children}) => {
     const [name, setName] = useState('')
 
     useEffect(() => {
-        setRole('partner')
+        setRole('admin')
         setName('Jane Doe')
     },[])
 

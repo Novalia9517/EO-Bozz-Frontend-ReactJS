@@ -14,6 +14,9 @@ module.exports = {
         'bozz-five':'#E5E5E5',
         'bozz-six':'#F9F5F6'
       },
+      backgroundImage : {
+        'hero-pattern': "url('/src/assets/shoes.jpg')",
+      }
     },
   },
   plugins: [
