@@ -1,12 +1,16 @@
-import { useState } from 'react'
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import Detail from './pages/Detail'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div>
-      <button className='btn btn-primary'>test</button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/detail" element={<Detail />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
