@@ -1,8 +1,11 @@
 import React from 'react'
+import LayoutAdmin from '../../components/LayoutAdmin'
 
 const AddService = () => {
   return (
-    <div>Add Service</div>
+    <LayoutAdmin>
+        
+    </LayoutAdmin>
   )
 }
 
