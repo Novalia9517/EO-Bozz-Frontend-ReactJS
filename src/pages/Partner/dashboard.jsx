@@ -76,15 +76,15 @@ const Dashboard = () => {
             </div>
         }
         {status === 'verify' && listServices === '' ? 
-            <div className='flex flex-col mt-5'>
-                <button className='bg-bozz-two text-bozz-six h-12 p-3 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
+            <div className='flex flex-col mt-3'>
+                <button className='bg-bozz-two text-bozz-six h-8 px-8 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
                 <h1 className='text-xl font-bold text-bozz-one mb-5 border border-bozz-one p-5 rounded-xl'>List Services Not Add Yet</h1>
             </div> 
         : null
         }
         {status === 'verify' && listServices !== '' ? 
-            <div className='flex flex-col mt-5'>
-                <button className='bg-bozz-two text-bozz-six h-12 p-3 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
+            <div className='flex flex-col mt-3'>
+                <button className='bg-bozz-two text-bozz-six h-8 px-8 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
                 <div className='flex'>
                     <button 
                         className={`w-36 h-8 ${active == 'service' ? `bg-bozz-two text-white font-semibold` : `bg-bozz-six border border-bozz-two text-bozz-two font-semibold`}`}
@@ -100,13 +100,13 @@ const Dashboard = () => {
                             <table className='w-full table-auto'>
                                     <thead className='border-b-2 border-bozz-one'>
                                     {serviceHead?.map((title,index) => {
-                                        return <th className='text-bozz-one font-semibold capitalize' key={index}>{title}</th>
+                                        return <th className='text-bozz-three font-semibold capitalize' key={index}>{title}</th>
                                     })}
                                     </thead>
                                     <tbody>
                                     {listServices.map((data, index) => {
                                         return (
-                                        <tr className='text-bozz-one border-b-2 border-bozz-one h-12 text-center py-10' key={index}>
+                                        <tr className='text-bozz-three border-b-2 border-bozz-three h-12 text-center py-10' key={index}>
                                             <td>{index + 1}</td>
                                             <td>{data.package_name}</td>
                                             <td>{data.package_price}</td>
@@ -123,15 +123,15 @@ const Dashboard = () => {
                         </div>
                     : <div className='p-5 bg-white rounded-lg'>
                         <table className='w-full table-auto'>
-                                <thead className='border-b-2 border-bozz-one'>
+                                <thead className='border-b-2 border-bozz-three'>
                                 {additionalHead?.map((title,index) => {
-                                    return <th className='text-bozz-one font-semibold capitalize' key={index}>{title}</th>
+                                    return <th className='text-bozz-three font-semibold capitalize' key={index}>{title}</th>
                                 })}
                                 </thead>
                                 <tbody>
                                 {listAdditional?.map((data, index) => {
                                     return (
-                                    <tr className='text-bozz-one border-b-2 border-bozz-one h-10 text-center' key={index}>
+                                    <tr className='text-bozz-three border-b-2 border-bozz-three h-10 text-center' key={index}>
                                         <td>{index + 1}</td>
                                         <td>{data.additional_name}</td>
                                         <td>{data.additional_price}</td>

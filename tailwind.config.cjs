@@ -9,7 +9,7 @@ module.exports = {
       colors: {
         'bozz-one': '#533e85',
         'bozz-two': '#488fb1',
-        'bozz-three': '#4fd3c4',
+        'bozz-three': '#3056D3',
         'bozz-four': '#c1f8cf',
         'bozz-five':'#E5E5E5',
         'bozz-six':'#F9F5F6'

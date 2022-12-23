@@ -4,6 +4,7 @@ import DashboardAdmin from './pages/Admin/dashboardAdmin'
 import Login from './pages/login'
 import AddService from './pages/Partner/addService'
 import Dashboard from './pages/Partner/dashboard'
+import ListOrder from './pages/Partner/listOrder'
 import RegisterPartner from './pages/registerPartner'
 import RegisterUser from './pages/registerUser'
 
@@ -19,6 +20,7 @@ function App() {
       <Route path='/admin/dashboard' element={<DashboardAdmin/>}/>
       <Route path='/partner/dashboard' element={<Dashboard/>}/>
       <Route path='/partner/add-service' element={<AddService/>}/>
+      <Route path='/partner/list-order' element={<ListOrder/>}/>
     </Routes>
    </BrowserRouter>
   )
