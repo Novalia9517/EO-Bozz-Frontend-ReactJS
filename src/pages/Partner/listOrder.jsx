@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import LayoutAdmin from '../../components/LayoutAdmin'
 
 const ListOrder = () => {
-    const tableHead = ['no', 'event name', 'service name', 'city', 'total order', 'start date', 'end date', 'status', 'action']
+    const tableHead = ['no', 'event name', 'service name', 'city', 'total order', 'start date', 'end date', 'status', 'action', 'payout status', 'transfer file']
     const [orderList, setOrderList] = useState()
 
     const getOrderList = () => {
@@ -14,7 +14,9 @@ const ListOrder = () => {
                 gross_amount : 36000000,
                 start_date : '23/12/2022',
                 end_date : '25/12/2022',
-                status : 'not confirm'
+                status : 'not confirm',
+                payout_status : 'pay',
+                transfer_file : 'https://linkdownload',
             },
             {
                 event_name : 'Wedding John Doe',
@@ -23,7 +25,9 @@ const ListOrder = () => {
                 gross_amount : 32000000,
                 start_date : '30/12/2022',
                 end_date : '01/01/2023',
-                status : 'not confirm'
+                status : 'not confirm',
+                payout_status : 'Holded',
+                transfer_file : 'https://linkdownload',
             },
             {
                 event_name : 'Graduation Party',
@@ -32,7 +36,9 @@ const ListOrder = () => {
                 gross_amount : 42000000,
                 start_date : '27/12/2022',
                 end_date : '29/12/2022',
-                status : 'on going'
+                status : 'on going',
+                payout_status : 'Holded',
+                transfer_file : 'https://linkdownload',
             },
         ]
         setOrderList(orders)
@@ -40,7 +46,7 @@ const ListOrder = () => {
 
     useEffect(() => {
         getOrderList()
-    })
+    },[])
   return (
     <LayoutAdmin>
         <div className='mt-3 w-full h-full'>
@@ -65,7 +71,12 @@ const ListOrder = () => {
                       <td>{data.start_date}</td>
                       <td>{data.end_date}</td>
                       <td>{data.status}</td>
-                      <td>{data.status === 'not confirm' ? <button className='w-20 h-6 bg-bozz-three text-bozz-six rounded-lg text-xs'>Confirm</button> : '-'}</td>
+                      <td>{data.status === 'not confirm' ? <button className='w-16 h-6 bg-bozz-three text-bozz-six rounded-lg text-[10px]'>Confirm</button> : '-'}</td>
+                      <td>{data.payout_status}</td>
+                      <td>{data.transfer_file && data.payout_status === 'pay' ? 
+                        <button className='w-20 h-6 bg-bozz-three text-bozz-six rounded-lg text-[8px]'
+                        src={data.transfer_file}
+                        >Download File</button> : ''}</td>
                     </tr>
                   )
                 })

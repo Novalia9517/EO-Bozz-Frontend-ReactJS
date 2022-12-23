@@ -57,7 +57,7 @@ const Dashboard = () => {
         setStatus('verify')
         getListServices()
         getListAdditionals()
-    })
+    },[])
   return (
     <LayoutAdmin>
         {status === 'not verify' &&
