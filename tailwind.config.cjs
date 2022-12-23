@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+
+
 module.exports = {
   content: [
     "./index.html",
@@ -11,10 +13,10 @@ module.exports = {
         'bozz-two': '#488fb1',
         'bozz-three': '#4fd3c4',
         'bozz-four': '#c1f8cf',
-        'bozz-five':'#E5E5E5',
-        'bozz-six':'#F9F5F6'
+        'bozz-five': '#E5E5E5',
+        'bozz-six': '#F9F5F6'
       },
-      backgroundImage : {
+      backgroundImage: {
         'hero-pattern': "url('/src/assets/shoes.jpg')",
       }
     },
