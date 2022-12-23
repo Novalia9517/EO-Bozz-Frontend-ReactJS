@@ -2,7 +2,7 @@ import React from 'react'
 
 const Navbar = () => {
     return (
-        <div className='relative bg-eo-primary'>
+        <div className='relative bg-bozz-one'>
             <div className='container mx-auto py-px-10'>
                 <div className="navbar text-white">
                     <div className="flex-1">

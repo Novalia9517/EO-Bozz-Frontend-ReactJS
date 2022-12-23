@@ -14,7 +14,7 @@ const CardProduct = () => {
                     <p>Wedding Organizer</p>
                     <p>Wedding Organizer</p>
                     <div className="card-actions">
-                        <button className="btn bg-eo-primary">More Detail</button>
+                        <button className="btn bg-bozz-one">More Detail</button>
                     </div>
                 </div>
             </div>

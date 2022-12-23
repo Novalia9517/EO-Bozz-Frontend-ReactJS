@@ -10,7 +10,7 @@ const Home = () => {
         <div>
             <Navbar />
             <hr className='text-black' />
-            <div className='bg-eo-primary'>
+            <div className='bg-bozz-one'>
                 <div className='container mx-auto py-20 px-20 text-white flex'>
                     <div className='px-10 py-10'>
                         <h1 className=''>Event Organizer<br />Platform</h1>

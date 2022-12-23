@@ -61,9 +61,9 @@ const Detail = () => {
                             <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
                             <p className='text-2xl'>End Date</p>
                             <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-                            <button className='btn bg-eo-primary mt-1'>Check Availability</button>
+                            <button className='btn bg-bozz-one mt-1'>Check Availability</button>
                         </div>
-                        <button className='btn bg-eo-primary mt-1'>Order Now !</button>
+                        <button className='btn bg-bozz-one mt-1'>Order Now !</button>
                     </div>
                 </div>
                 <hr />
@@ -71,7 +71,7 @@ const Detail = () => {
                     <p className='text-2xl text-[#023372]'>Tuliskan pertanyaanmu dibawah sini</p>
                     <textarea className="textarea textarea-bordered w-max" placeholder="Tuliskan pertanyaan"></textarea>\
                     <div className='flex'>
-                        <button className='btn bg-eo-primary w-min'>Submit</button>
+                        <button className='btn bg-bozz-one w-min'>Submit</button>
                         <p className='text-[#726F6F] px-5'>Maksimal 300Characters</p>
                     </div>
                 </div>
