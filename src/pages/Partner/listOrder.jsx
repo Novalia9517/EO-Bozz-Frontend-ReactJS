@@ -44,7 +44,7 @@ const ListOrder = () => {
   return (
     <LayoutAdmin>
         <div className='mt-3 w-full h-full'>
-          <h1 className='text-xl font-bold text-bozz-one mb-5'>List Register Partner</h1>
+          <h1 className='text-xl font-bold text-bozz-one mb-5'>List Order Partner</h1>
           <div className='px-6 py-3 bg-white rounded-lg'>
             <table className='w-full table-fixed'>
               <thead className='border-b-2 border-bozz-three'>
