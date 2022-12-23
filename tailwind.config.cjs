@@ -7,11 +7,18 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    colors: {
-      'eo-primary': '#533E85',
-      'eo-secondary': '#F9F5F6',
-      black: '#000000',
-      white: '#ffffff',
+    extend: {
+      colors: {
+        'bozz-one': '#533e85',
+        'bozz-two': '#488fb1',
+        'bozz-three': '#4fd3c4',
+        'bozz-four': '#c1f8cf',
+        'bozz-five': '#E5E5E5',
+        'bozz-six': '#F9F5F6'
+      },
+      backgroundImage: {
+        'hero-pattern': "url('/src/assets/shoes.jpg')",
+      }
     },
   },
   plugins: [
