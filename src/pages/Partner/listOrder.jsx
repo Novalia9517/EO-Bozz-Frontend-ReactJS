@@ -54,9 +54,11 @@ const ListOrder = () => {
           <div className='px-6 py-3 bg-white rounded-lg'>
             <table className='w-full table-fixed'>
               <thead className='border-b-2 border-bozz-three'>
-                {tableHead.map((title,index) => {
-                  return <th className='text-bozz-two font-semibold capitalize text-md' key={index}>{title}</th>
-                })}
+                <tr>
+                  {tableHead.map((title,index) => {
+                    return <th className='text-bozz-two font-semibold capitalize text-md' key={index}>{title}</th>
+                  })}
+                </tr>
               </thead>
               <tbody>
                 {orderList ? 

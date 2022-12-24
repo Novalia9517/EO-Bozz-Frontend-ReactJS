@@ -50,13 +50,15 @@ const ListOrderAdmin = () => {
   return (
     <LayoutAdmin>
         <div className='mt-3 w-full h-full'>
-          <h1 className='text-xl font-bold text-bozz-one mb-5'>List Order Partner</h1>
+          <h1 className='text-xl font-bold text-bozz-one mb-5'>List Order</h1>
           <div className='px-6 py-3 bg-white rounded-lg'>
             <table className='w-full table-fixed'>
               <thead className='border-b-2 border-bozz-three'>
-                {tableHead.map((title,index) => {
-                  return <th className='text-bozz-two font-semibold capitalize text-md' key={index}>{title}</th>
-                })}
+                <tr>
+                  {tableHead.map((title,index) => {
+                    return <th className='text-bozz-two font-semibold capitalize text-md' key={index}>{title}</th>
+                  })}
+                </tr>
               </thead>
               <tbody>
                 {orderList ? 
@@ -74,19 +76,14 @@ const ListOrderAdmin = () => {
                     </tr>
                   )
                 })
-                : <p className='text-lg font-semibold text-bozz-one mt-10'>Belum Ada Order Yang Masuk</p>
+                : <tr className='text-lg font-semibold text-bozz-one mt-10'>Belum Ada Order Yang Masuk</tr>
             }
               </tbody>
             </table>
 
           </div>
         </div>
-        <PayoutModal
-                // onSubmitFeedback={(e) => onSubmitRevisi(e)}
-                // comment={comment}
-                // setRevisi={(e) => setRevisi(e.target.value)}
-                // onChangeSelect={(e) => setStatus(e.target.value)}
-            />
+        <PayoutModal/>
     </LayoutAdmin>
   )
 }
