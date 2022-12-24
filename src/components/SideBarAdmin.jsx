@@ -16,23 +16,19 @@ const SideBarAdmin = ({role, name}) => {
                         <FaHome  className='text-3xl mx-4'/>
                         <span>Dashboard</span>
                     </li>
-                    <li 
+                    {/* <li 
                         className='flex text-white font-bold text-md my-3 items-center'
-                        onClick={() => navigate('/partner/dashboard')}
+                        onClick={() => navigate('/partner/')}
                         >
                         <FaThList className='text-2xl mx-5'/>
                         <span>My Services</span>
-                    </li>
+                    </li> */}
                     <li 
                         className='flex text-white font-bold text-md my-3 items-center'
                         onClick={() => navigate('/partner/list-order')}
                         >
                         <FaTable className='text-2xl mx-5'/>
                         <span>My Order</span>
-                    </li>
-                    <li className='flex text-white font-bold text-md my-3 items-center'>
-                        <FaMoneyCheckAlt className='text-2xl mx-5'/>
-                        <span>My Deposit</span>
                     </li>
                 </ul>
             : <ul className='flex flex-col px-10 w-full mt-8'>

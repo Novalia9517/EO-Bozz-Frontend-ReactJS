@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import LayoutAdmin from '../../components/LayoutAdmin'
+import { formatCurrency } from '../../utils/formatCurrency'
 
 const ListOrder = () => {
     const tableHead = ['no', 'event name', 'service name', 'city', 'total order', 'start date', 'end date', 'status', 'action', 'payout status', 'transfer file']
     const [orderList, setOrderList] = useState()
+    const navigate = useNavigate()
 
     const getOrderList = () => {
         const orders = [
@@ -69,11 +72,14 @@ const ListOrder = () => {
                       <td>{data.event_name}</td>
                       <td>{data.service_name}</td>
                       <td>{data.event_location}</td>
-                      <td>{data.gross_amount}</td>
+                      <td>{formatCurrency(data.gross_amount)}</td>
                       <td>{data.start_date}</td>
                       <td>{data.end_date}</td>
                       <td>{data.status}</td>
-                      <td>{data.status === 'not confirm' ? <button className='w-16 h-6 bg-bozz-three text-bozz-six rounded-lg text-[10px]'>Confirm</button> : '-'}</td>
+                      <td>{data.status === 'not confirm' ? 
+                        <button className='w-16 h-6 bg-bozz-three text-bozz-six rounded-lg text-[10px]'
+                        onClick={() => navigate('/partner/confirm-order')}
+                        >Confirm</button> : '-'}</td>
                       <td>{data.payout_status}</td>
                       <td>{data.transfer_file && data.payout_status === 'pay' ? 
                         <button className='w-20 h-6 bg-bozz-three text-bozz-six rounded-lg text-[8px]'
