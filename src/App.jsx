@@ -2,6 +2,7 @@
 import DashboardAdmin from './pages/Admin/dashboardAdmin'
 import ListOrderAdmin from './pages/Admin/listOrder'
 import Profile from './pages/Admin/profile'
+import VerifyPartner from './pages/Admin/verifyPartner'
 import Login from './pages/login'
 import AddService from './pages/Partner/addService'
 import ConfirmOrder from './pages/Partner/confirmorder'
@@ -25,6 +26,7 @@ function App() {
         <Route path='/admin/' element={<DashboardAdmin />} />
         <Route path='/admin/profile' element={<Profile/>}/>
         <Route path='/admin/list-order' element={<ListOrderAdmin/>}/>
+        <Route path='/admin/verify-partner' element={<VerifyPartner/>}/>
         <Route path='/partner/' element={<Dashboard/>}/>
         <Route path='/partner/add-service' element={<AddService/>}/>
          <Route path='/partner/list-order' element={<ListOrder/>}/>
