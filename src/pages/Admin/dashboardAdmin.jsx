@@ -34,9 +34,11 @@ const DashboardAdmin = () => {
           <div className='p-5 bg-white rounded-lg'>
             <table className='w-full table-auto'>
               <thead className='border-b-2 border-bozz-two'>
-                {tableHead.map((title,index) => {
+                <tr>
+                  {tableHead.map((title,index) => {
                   return <th className='text-bozz-two font-semibold' key={index}>{title}</th>
-                })}
+                  })}
+                </tr>
               </thead>
               <tbody>
                 {datas.map((data, index) => {

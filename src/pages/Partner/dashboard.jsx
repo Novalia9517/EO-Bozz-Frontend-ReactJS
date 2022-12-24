@@ -99,9 +99,11 @@ const Dashboard = () => {
                         <div className='p-5 bg-white rounded-lg'>
                             <table className='w-full table-auto'>
                                     <thead className='border-b-2 border-bozz-one'>
-                                    {serviceHead?.map((title,index) => {
-                                        return <th className='text-bozz-three font-semibold capitalize' key={index}>{title}</th>
-                                    })}
+                                        <tr>
+                                            {serviceHead?.map((title,index) => {
+                                                return <th className='text-bozz-three font-semibold capitalize' key={index}>{title}</th>
+                                            })}
+                                        </tr>
                                     </thead>
                                     <tbody>
                                     {listServices.map((data, index) => {
