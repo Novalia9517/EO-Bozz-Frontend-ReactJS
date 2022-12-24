@@ -6,7 +6,7 @@ const SideBarAdmin = ({role, name}) => {
     const navigate = useNavigate()
   return (
     <div className='min-h-screen w-[25%] bg-bozz-one pt-24 px-10 cursor-pointer'>
-        <h1 className='text-white font-bold text-4xl text-center drop-shadow-[0_4px_4px_#352360]'>EO-Bozz</h1>
+        <h1 className='text-white font-bold text-4xl text-center drop-shadow-[0_4px_4px_#352360] hover:animate-bounce'>EO-Bozz</h1>
             { role === 'partner' ? 
                 <ul className='flex flex-col px-10 w-full mt-8'>
                     <li 

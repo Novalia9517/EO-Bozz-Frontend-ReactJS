@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import LayoutAdmin from '../../components/LayoutAdmin'
+import PayoutModal from '../../components/PayoutModal'
 
 const ListOrderAdmin = () => {
      // company name, clent name,start date, end date, gross ammount, status, paaction(pay)
     const tableHead = ['no', 'company name', 'client name', 'start date', 'end date', 'total', 'status', 'action']
     const [orderList, setOrderList] = useState()
+    const [revisi, setRevisi] = useState()
+    const [revisiNote, setRevisiNote] = useState()
 
     const getOrderList = () => {
         const orders = [
@@ -36,6 +39,11 @@ const ListOrderAdmin = () => {
         setOrderList(orders)
     }
 
+    const onSubmitRevisi = (e) => {
+      console.log('revisi')
+      e.preventDefault()
+    }
+
     useEffect(() => {
         getOrderList()
     },[])
@@ -62,7 +70,7 @@ const ListOrderAdmin = () => {
                       <td>{data.start_date}</td>
                       <td>{data.end_date}</td>
                       <td>{data.status}</td>
-                      <td>{data.status === 'waiting for payout' ? <button className='w-16 h-6 bg-bozz-three text-bozz-six rounded-lg text-[10px]'>Pay</button> : '-'}</td>
+                      <td>{data.status === 'waiting for payout' ? <label htmlFor="my-modal-4" className='btn btn-xs border border-white w-16 h-6 bg-bozz-three hover:bg-bozz-two text-bozz-six rounded-lg text-[10px]'>Pay</label> : '-'}</td>
                     </tr>
                   )
                 })
@@ -73,6 +81,12 @@ const ListOrderAdmin = () => {
 
           </div>
         </div>
+        <PayoutModal
+                // onSubmitFeedback={(e) => onSubmitRevisi(e)}
+                // comment={comment}
+                // setRevisi={(e) => setRevisi(e.target.value)}
+                // onChangeSelect={(e) => setStatus(e.target.value)}
+            />
     </LayoutAdmin>
   )
 }
