@@ -1,8 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import LayoutAdmin from '../../components/LayoutAdmin'
 
 const DashboardAdmin = () => {
   const tableHead = ['No', 'Company Name', 'Register Date', 'City', 'Status', 'Action']
+  const navigate = useNavigate()
+  const onVerify = () => {
+    navigate('/admin/verify-partner')
+  }
   const datas = [
     {
       order_id : 1,
@@ -49,7 +54,10 @@ const DashboardAdmin = () => {
                       <td>{data.register_date}</td>
                       <td>{data.company_location}</td>
                       <td>{data.register_status}</td>
-                      <td>{data.register_status === 'need verify' ? <button className='w-24 h-8 bg-bozz-two text-bozz-six rounded-lg'>Verify</button> : '-'}</td>
+                      <td>{data.register_status === 'need verify' ? 
+                        <button className='w-24 h-8 bg-bozz-two text-bozz-six rounded-lg hover:bg-bozz-three hover:scale-110' onClick={onVerify}>Verify</button> 
+                        : '-'}
+                      </td>
                     </tr>
                   )
                 })}

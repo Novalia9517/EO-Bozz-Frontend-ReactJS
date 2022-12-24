@@ -123,7 +123,7 @@ const Profile = () => {
                         />
                     </div>
                     <div className='flex justify-end w-full mt-8 text-sm'>
-                        <button className='bg-red-200 h-8 w-16 rounded-lg text-bozz-three hover:scale-110'>Cancel</button>
+                        <button className='bg-[#EF6D58] h-8 w-16 rounded-lg text-bozz-six hover:scale-110'>Cancel</button>
                         <button className='bg-bozz-three text-bozz-six w-28 mx-3 rounded-lg hover:scale-110'>Submit Edit</button>
                     </div>
                 </div>
