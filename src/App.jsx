@@ -4,6 +4,7 @@ import ListOrderAdmin from './pages/Admin/listOrder'
 import Profile from './pages/Admin/profile'
 import Login from './pages/login'
 import AddService from './pages/Partner/addService'
+import ConfirmOrder from './pages/Partner/confirmorder'
 import Dashboard from './pages/Partner/dashboard'
 import ListOrder from './pages/Partner/listOrder'
 import RegisterPartner from './pages/registerPartner'
@@ -28,6 +29,7 @@ function App() {
         <Route path='/partner/add-service' element={<AddService/>}/>
          <Route path='/partner/list-order' element={<ListOrder/>}/>
          <Route path='/partner/profile' element={<Profile/>}/>
+         <Route path='/partner/confirm-order' element={<ConfirmOrder/>}/>
       </Routes>
     </BrowserRouter>
   )

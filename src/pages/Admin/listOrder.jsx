@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import LayoutAdmin from '../../components/LayoutAdmin'
 import PayoutModal from '../../components/PayoutModal'
+import { formatCurrency } from '../../utils/formatCurrency'
 
 const ListOrderAdmin = () => {
      // company name, clent name,start date, end date, gross ammount, status, paaction(pay)
@@ -68,7 +69,7 @@ const ListOrderAdmin = () => {
                       <td>{index + 1}</td>
                       <td>{data.company_name}</td>
                       <td>{data.client_name}</td>
-                      <td>{data.gross_amount}</td>
+                      <td>{formatCurrency(data.gross_amount)}</td>
                       <td>{data.start_date}</td>
                       <td>{data.end_date}</td>
                       <td>{data.status}</td>

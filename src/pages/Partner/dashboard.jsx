@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LayoutAdmin from '../../components/LayoutAdmin'
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'
+import { formatCurrency } from '../../utils/formatCurrency'
 
 const Dashboard = () => {
     const [status, setStatus] = useState()
@@ -111,7 +112,7 @@ const Dashboard = () => {
                                         <tr className='text-bozz-three border-b-2 border-bozz-three h-12 text-center py-10' key={index}>
                                             <td>{index + 1}</td>
                                             <td>{data.package_name}</td>
-                                            <td>{data.package_price}</td>
+                                            <td>{formatCurrency(data.package_price)}</td>
                                             <td>{data.package_category}</td>
                                             <td className='flex justify-evenly items-center py-3 text-lg'>
                                                 <FaEdit className='text-bozz-two'/>
@@ -136,7 +137,7 @@ const Dashboard = () => {
                                     <tr className='text-bozz-three border-b-2 border-bozz-three h-10 text-center' key={index}>
                                         <td>{index + 1}</td>
                                         <td>{data.additional_name}</td>
-                                        <td>{data.additional_price}</td>
+                                        <td>{formatCurrency(data.additional_price)}</td>
                                         <td  className='flex justify-evenly items-center py-3 text-lg'>
                                             <FaEdit className='text-bozz-two'/>
                                             <FaTrashAlt className='text-red-400'/>
