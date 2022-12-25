@@ -44,26 +44,28 @@ function RegisterPartner() {
   return (
     <div className={`h-screen w-screen relative`}>
         <img src={Background} className='w-full h-full object-fill relative'/>         
-        <div className="absolute top-0 px-32 py-10 w-[100%] h-full">
-            <div className='card rounded-xl w-full bg-bozz-five px-12 py-5 h-full'>
+        <div className="absolute top-0 px-32 py-10 w-[100%] h-full flex justify-center">
+            <div className='card rounded-[50px] w-[80%] bg-bozz-five px-12 py-5 h-full shadow-[6px_6px_6px_rgba(83,62,133,0.5)]'>
                 <h1 className='text-center font-bold text-3xl text-bozz-one mb-3'>REGISTER</h1>
                 <div className='flex justify-start ml-[-100px]'>
                     <ul className="steps w-[90%]">
                         {steps.map((step, i) => {
                         return <li key={i} className={`flex items-center justify-end`}> 
                                     <div className={`h-1 w-full ${activeStep.key === step.key || step.isDone ? 'bg-bozz-one' : 'bg-bozz-four'} ${ i + 1 !== 1 ? `block` : `hidden`}`} value="100" max="100"></div>
-                                    <div className={`text-bozz-six text-lg w-6 h-6 flex justify-center items-center rounded-full p-5 ${activeStep.key === step.key || step.isDone ? 'bg-bozz-one' : 'bg-bozz-four'}`}>
+                                    <div className={`text-bozz-six text-lg w-5 h-5 flex justify-center items-center rounded-full p-5 ${activeStep.key === step.key || step.isDone ? 'bg-bozz-one' : 'bg-bozz-four'}`}>
                                         <span>{i + 1}</span></div>
                                 </li>
                         })}
                     </ul>
                 </div>
-                <div className="step-component">
-                    {activeStep.component}
-                </div>
-                <div className="btn-component mt-3 flex justify-between pr-16 bottom-0">
-                    <input type="button" className='w-[170px] h-[44px] bg-bozz-one rounded-xl text-lg text-bozz-six bottom-10' value="Back" onClick={handleBack} disabled={steps[0].key === activeStep.key} />
-                    <input type="button" className='w-[170px] h-[44px] bg-bozz-one rounded-xl text-lg text-bozz-six bottom-10' value={steps[steps.length - 1].key !== activeStep.key ? 'Next' : 'Submit'} onClick={handleNext} />
+                <div className='flex flex-col justify-between h-full '>
+                  <div className="step-component">
+                      {activeStep.component}
+                  </div>
+                  <div className="btn-component mt-3 flex justify-between bottom-0">
+                      <input type="button" className='w-[170px] h-10 bg-bozz-one rounded-xl text-sm text-bozz-six bottom-10' value="Back" onClick={handleBack} disabled={steps[0].key === activeStep.key} />
+                      <input type="button" className='w-[170px] h-10 bg-bozz-one rounded-xl text-sm text-bozz-six bottom-10' value={steps[steps.length - 1].key !== activeStep.key ? 'Next' : 'Submit'} onClick={handleNext} />
+                  </div>
                 </div>
             </div>
         </div>
