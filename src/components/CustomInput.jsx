@@ -4,23 +4,23 @@ import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 const CustomInput = ({width, type = 'text', placeholder, label}) => {
     const [seePwd, setSeePwd] = useState(false)
   return (
-    <div className="form-control w-full pr-16">
+    <div className="form-control w-full">
         <label className="label mb-[-10px]">
-        <span className="label-text text-bozz-one">{label}</span>
+        <span className="label-text text-bozz-one text-xs capitalize">{label}</span>
         </label>
-        {type === 'text' && 
+        {type == 'text' || type =='number' ?
             <input
                 type={type} id={label}
                 placeholder={placeholder}
-                className={`input input-bordered ${width} border-bozz-one bg-bozz-five caret-text-bozz-one text-bozz-one`}
+                className={`input input-bordered ${width} border-bozz-one bg-bozz-five caret-text-bozz-one text-bozz-one text-xs h-10`}
                 required
-            />
+            /> : null
         }
         {type === 'file' && 
             <input
                 type={type} id={label}
                 placeholder={placeholder}
-                className={`h-12 rounded-lg border ${width} border-bozz-one bg-bozz-five caret-text-bozz-one text-bozz-one file:bg-bozz-one file:h-full`}
+                className={`h-10 text-xs rounded-lg border ${width} border-bozz-one bg-bozz-five caret-text-bozz-one text-bozz-one file:bg-bozz-one file:h-full`}
                 required
             />
         }
@@ -35,7 +35,7 @@ const CustomInput = ({width, type = 'text', placeholder, label}) => {
                     </div>
                     <input
                     type={seePwd ? `text` : "password"}
-                    className={`input border-bozz-one  bg-bozz-five text-bozz-one w-full caret-bozz-one`}
+                    className={`input border-bozz-one h-10 bg-bozz-five text-bozz-one w-full caret-bozz-one`}
                     placeholder="Password"
                     />
                 </div>

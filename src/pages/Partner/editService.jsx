@@ -6,9 +6,11 @@ import { BiLeftArrowCircle, BiRightArrowCircle } from 'react-icons/bi'
 import {IoClose} from 'react-icons/io5'
 import { IoMdAdd} from 'react-icons/io'
 
-const AddService = () => {
+const EditService = () => {
   let [step,setStep] = useState(1)
   let [tags, setTags] = useState([])
+
+//   fieldnya disesuaikan setelah get dari api
 
   const onAddTags = (e) => {
     if(e.key === 'Enter'){
@@ -27,9 +29,9 @@ const AddService = () => {
           Back To List
       </button>
       <div className='px-10 py-3 bg-bozz-six rounded-[50px]  w-full h-full text-bozz-one border  border-bozz-one'>
-        <h1 className='text-lg font-semibold text-center uppercase '>Add Service</h1>
+        <h1 className='text-lg font-semibold text-center uppercase '>Edit Service</h1>
         <div className='w-full flex justify-center'>
-          <ul className="steps w-20">
+          <ul className="steps w-32">
           <li className={`flex items-center justify-end`}> 
               <div className={`text-bozz-six text-xs w-2 h-2 flex justify-center items-center rounded-full p-4 bg-bozz-one`}>
                   <span>1</span></div>
@@ -97,4 +99,4 @@ const AddService = () => {
   )
 }
 
-export default AddService
+export default EditService

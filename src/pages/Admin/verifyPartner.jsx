@@ -7,7 +7,7 @@ const VerifyPartner = () => {
   return (
     <LayoutAdmin>
         <h1 className='text-center font-bold text-xl text-bozz-one underline underline-offset-4'>Verify Partner</h1>
-        <ol class='list-decimal marker:text-blue-700'>
+        <ol className='list-decimal marker:text-blue-700'>
             <li><List title={'Company Name'} value={'Company Issue'}/></li>
             <li><List title={'Company Email'} value={'company@gmail.com'}/></li>
             <li><List title={'Company Phone'} value={'089912345678'}/></li>
