@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+
+
 module.exports = {
   content: [
     "./index.html",
@@ -15,7 +17,7 @@ module.exports = {
         'bozz-six':'#F9F5F6',
         'bozz-seven':'#B9B9BA'
       },
-      backgroundImage : {
+      backgroundImage: {
         'hero-pattern': "url('/src/assets/shoes.jpg')",
       }
     },
