@@ -5,15 +5,15 @@ const RegisterTwo = () => {
   return (
     <div className='w-full mt-3'>
     <h1 className='text-xl font-semibold text-bozz-one'>PIC INFORMATION</h1>
-    <div className='flex justify-between'>
+    <div className='flex justify-between  gap-5'>
         <CustomInput width='w-full' type ='text' placeholder='PIC Name' label='PIC Name'/>
         <CustomInput width='w-full' type ='text' placeholder='PIC Position' label='PIC Position'/>
     </div>
-    <div className='flex justify-between'>
+    <div className='flex justify-between  gap-5'>
         <CustomInput width='w-full' type ='text' placeholder='PIC Phone' label='PIC Phone'/>
         <CustomInput width='w-full' type ='text' placeholder='PIC Email' label='PIC Email'/>
     </div>
-    <div className="form-control w-full pr-16">
+    <div className="form-control w-full">
         <label className="label mb-[-10px]">
         <span className="label-text text-bozz-one">PIC Address</span>
         </label>

@@ -5,19 +5,19 @@ const RegisterOne = () => {
   return (
     <div className='w-full mt-3'>
         <h1 className='text-xl font-semibold text-bozz-one'>COMPANY INFORMATION</h1>
-        <div className='flex justify-between'>
+        <div className='flex justify-between  gap-5 gap-5'>
             <CustomInput width='w-full' type ='text' placeholder='Company Name' label='Company Name'/>
             <CustomInput width='w-full' type ='text' placeholder='Company Email' label='Company Email'/>
         </div>
-        <div className='flex justify-between'>
+        <div className='flex justify-between  gap-5'>
             <CustomInput width='w-full' type ='text' placeholder='Company Phone' label='Company Phone'/>
             <CustomInput width='w-full' type ='text' placeholder='Category' label='Category'/>
         </div>
-        <div className='flex justify-between'>
+        <div className='flex justify-between  gap-5'>
             <CustomInput width='w-full' type ='text' placeholder='Company City' label='Company City'/>
             <CustomInput width='w-full' type ='file' placeholder='Company Profile' label='Company Image'/>
         </div>
-        <div className="form-control w-full pr-16">
+        <div className="form-control w-full">
             <label className="label mb-[-10px]">
             <span className="label-text text-bozz-one">Company Address</span>
             </label>

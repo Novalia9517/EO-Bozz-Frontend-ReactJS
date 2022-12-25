@@ -8,6 +8,7 @@ import ConfirmOrder from './pages/Partner/confirmorder'
 import Dashboard from './pages/Partner/dashboard'
 import EditService from './pages/Partner/editService'
 import ListOrder from './pages/Partner/listOrder'
+import RevisiRegister from './pages/Partner/revisiRegister'
 import RegisterPartner from './pages/registerPartner'
 import RegisterUser from './pages/registerUser'
 import PageNotFound from './404'
@@ -44,6 +45,7 @@ function App() {
          <Route path='/partner/list-order' element={<ListOrder/>}/>
          <Route path='/partner/profile' element={<Profile/>}/>
          <Route path='/partner/confirm-order' element={<ConfirmOrder/>}/>
+         <Route path='/partner/revisi-registrasi' element={<RevisiRegister/>}/>
          <Route path='*' element={<PageNotFound/>}/>
       </Routes>
     </BrowserRouter>
