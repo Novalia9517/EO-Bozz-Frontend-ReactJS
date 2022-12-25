@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route} from 'react-router-dom'
+import PageNotFound from './404'
 import DashboardAdmin from './pages/Admin/dashboardAdmin'
 import ListOrderAdmin from './pages/Admin/listOrder'
 import Profile from './pages/Admin/profile'
@@ -8,6 +9,7 @@ import Login from './pages/login'
 import AddService from './pages/Partner/addService'
 import ConfirmOrder from './pages/Partner/confirmorder'
 import Dashboard from './pages/Partner/dashboard'
+import EditService from './pages/Partner/editService'
 import ListOrder from './pages/Partner/listOrder'
 import RegisterPartner from './pages/registerPartner'
 import RegisterUser from './pages/registerUser'
@@ -27,9 +29,11 @@ function App() {
       <Route path='/admin/verify-partner' element={<VerifyPartner/>}/>
       <Route path='/partner/' element={<Dashboard/>}/>
       <Route path='/partner/add-service' element={<AddService/>}/>
+      <Route path='/partner/edit-service' element={<EditService/>}/>
       <Route path='/partner/list-order' element={<ListOrder/>}/>
       <Route path='/partner/profile' element={<Profile/>}/>
       <Route path='/partner/confirm-order' element={<ConfirmOrder/>}/>
+      <Route path='*' element={<PageNotFound/>}/>
     </Routes>
    </BrowserRouter>
   )
