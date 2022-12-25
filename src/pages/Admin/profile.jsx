@@ -21,14 +21,14 @@ const Profile = () => {
                 </div>
                 <p className='text-xl text-bozz-one font-semibold text-center capitalize mt-3'>{name}</p>
                 <p className='text-sm text-bozz-one font-semibold text-center capitalize'>{role}</p>
-                <button className='underline text-bozz-one mt-8 font-semibold ' >Edit Password</button>
+                <p className='underline text-bozz-one mt-8 font-semibold bg-bozz-five' >Edit Password</p>
             </div>
             <div className='w-[75%] h-full py-12 pl-8 pr-16'>
                 <div className='flex justify-between w-full'>
                     <h1 className='text-bozz-one font-bold text-xl'>PROFILE INFO</h1>
-                    <button 
+                    <p 
                         className='text-bozz-one cursor-pointer font-semibold flex' 
-                        onClick={() => setEdit(!edit)}><FaEdit className='text-xl'/>Edit</button>
+                        onClick={() => setEdit(!edit)}><FaEdit className='text-xl'/>Edit</p>
                 </div>
                 {edit === false ?
                     <div className='mt-5'>
@@ -123,7 +123,7 @@ const Profile = () => {
                         />
                     </div>
                     <div className='flex justify-end w-full mt-8 text-sm'>
-                        <button className='bg-[#EF6D58] h-8 w-16 rounded-lg text-bozz-six hover:scale-110'>Cancel</button>
+                        <button className='bg-[#EF6D58] px-3 w-20 rounded-lg text-bozz-six hover:scale-110'>Cancel</button>
                         <button className='bg-bozz-three text-bozz-six w-28 mx-3 rounded-lg hover:scale-110'>Submit Edit</button>
                     </div>
                 </div>

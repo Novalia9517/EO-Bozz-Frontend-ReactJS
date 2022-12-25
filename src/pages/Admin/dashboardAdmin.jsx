@@ -55,7 +55,7 @@ const DashboardAdmin = () => {
                       <td>{data.company_location}</td>
                       <td>{data.register_status}</td>
                       <td>{data.register_status === 'need verify' ? 
-                        <button className='w-24 h-8 bg-bozz-two text-bozz-six rounded-lg hover:bg-bozz-three hover:scale-110' onClick={onVerify}>Verify</button> 
+                        <button className='w-24 h-8 text-center py-0 bg-bozz-two text-bozz-six rounded-lg hover:bg-bozz-three hover:scale-110' onClick={onVerify}>Verify</button> 
                         : '-'}
                       </td>
                     </tr>

@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 const NavbarAdmin = ({role, name}) => {
     const link = role === 'partner' ? '/partner/profile' : '/admin/profile'
     return (
-        <div className='flex justify-between items-center w-full mb-5'>
+        <div className='flex justify-between items-center w-full mb-2'>
             <div className='flex flex-col'>
                 <h1 className='text-4xl font-bold text-bozz-one'>Hello {name} !</h1>
                 <p className='text-sm font-semibold text-bozz-one'>You're doing great</p>

@@ -13,10 +13,10 @@ const ConfirmOrder = () => {
     }
   return (
     <LayoutAdmin>
-        <button className='text-bozz-one font-bold flex mb-3 items-center'>
+        <div className='text-bozz-two font-bold flex mb-3 items-center'>
             <BiLeftArrow className='mx-2 text-xl font-bold'/>
             Back To List
-        </button>
+        </div>
         <div className='w-full border border-bozz-one px-8 py-5'>
             <h1 className='text-center text-xl font-bold text-bozz-one mb-3'>Order Information</h1>
             <table className='w-full'>

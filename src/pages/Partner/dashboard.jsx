@@ -78,22 +78,22 @@ const Dashboard = () => {
         }
         {status === 'verify' && listServices === '' ? 
             <div className='flex flex-col mt-3'>
-                <button className='bg-bozz-two text-bozz-six h-8 px-8 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
+                <button className='bg-bozz-two text-bozz-six h-8 py-0 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
                 <h1 className='text-xl font-bold text-bozz-one mb-5 border border-bozz-one p-5 rounded-xl'>List Services Not Add Yet</h1>
             </div> 
         : null
         }
         {status === 'verify' && listServices !== '' ? 
             <div className='flex flex-col mt-3'>
-                <button className='bg-bozz-two text-bozz-six h-8 px-8 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
+                <button className='bg-bozz-two text-bozz-six h-8 py-0 px-8 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
                 <div className='flex'>
-                    <button 
-                        className={`w-36 h-8 ${active == 'service' ? `bg-bozz-two text-white font-semibold` : `bg-bozz-six border border-bozz-two text-bozz-two font-semibold`}`}
-                        onClick={() => setActive('service')}>List Services</button>
-                    <button 
-                        className={`w-36 h-8 ${active != 'service' ? `bg-bozz-two  text-white font-semibold` : `bg-bozz-six border border-bozz-two text-bozz-two font-semibold`}`}
+                    <div 
+                        className={`w-40 text-sm h-8 text-center py-2 ${active == 'service' ? `bg-bozz-two text-white font-semibold` : `bg-bozz-six border border-bozz-two text-bozz-two font-semibold`}`}
+                        onClick={() => setActive('service')}>List Services</div>
+                    <div 
+                        className={`w-40 text-sm h-8  text-center py-2 ${active != 'service' ? `bg-bozz-two  text-white font-semibold` : `bg-bozz-six border border-bozz-two text-bozz-two font-semibold`}`}
                         onClick={() => setActive('additional')}
-                        >List Additionals</button>
+                        >List Additionals</div>
                 </div>
                 {active == 'service'
                     ?  
