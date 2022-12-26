@@ -2,11 +2,42 @@ import React from 'react'
 import Admin from '../assets/shoes.jpg'
 import { FaUserAlt } from 'react-icons/fa'
 import { TbLogout } from 'react-icons/tb'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
+import { useCookies} from 'react-cookie'
 
 
 const NavbarAdmin = ({role, name}) => {
-    const link = role === 'partner' ? '/partner/profile' : '/admin/profile'
+    const link = role === 'Partner' ? '/partner/profile' : '/admin/profile'
+    const [cookie, removeCookie] = useCookies()
+    const navigate = useNavigate()
+    const onLogout = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#17345f",
+            confirmButtonText: "Yes, sure",
+            cancelButtonColor: "#F47522",
+            cancelButtonText: "Not now",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                text: "logout success, see you 👋🏻",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              removeCookie("token", { path: "/" });
+              removeCookie("name", { path: "/" });
+              removeCookie("id", { path: "/" });
+              removeCookie("role", { path: "/" });
+              
+              navigate('/login')
+            }
+          });
+    }
     return (
         <div className='flex justify-between items-center w-full mb-2'>
             <div className='flex flex-col'>
@@ -26,7 +57,7 @@ const NavbarAdmin = ({role, name}) => {
                                 className="justify-between"><FaUserAlt className='text-md'
                                 onClick={() => profileClick()}/>Profile</Link>
                         </li>
-                        <li><a className="justify-between"><TbLogout className='text-lg'/>Logout</a></li>
+                        <li onClick={onLogout}><a className="justify-between"><TbLogout className='text-lg'/>Logout</a></li>
                     </ul>
                 </div>
             </div>

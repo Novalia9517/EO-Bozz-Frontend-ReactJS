@@ -23,16 +23,15 @@ const Login = () => {
         const body = {email : values.email, password : values.password}
         apiRequest(`login`, `POST`, body)
             .then(res => {
-                console.log(res),
                 setRole(res.data.role)
                 setCookie("name", res.data.name, { path: "/" });
                 setCookie("id", res.data.id, { path: "/" });
                 setCookie("role", res.data.role, { path: "/" });
                 setCookie("token", res.data.token, { path: "/" });
 
-                if(role === 'Partner'){
+                if(res.data.role == 'Partner'){
                     navigate('/partner/')
-                }else if(role === 'Admin'){
+                }else if(res.data.role == 'Admin'){
                     navigate('/admin/')
                 }else{
                     navigate('/')
@@ -46,9 +45,15 @@ const Login = () => {
                 })
             }
             )
-            .catch(err => console.log(err))
-        // console.log('submitted')
-        // navigate('/')
+            .catch(err => {
+                setLoading(false)
+                Swal.fire({
+                    position : "center",
+                    icon : "error",
+                    title : `${err.response.data.message}`,
+                    showConfirmButton : true
+                })
+            })
     }
 
     const {values,errors, touched, handleBlur, handleChange, handleSubmit} = useFormik({
@@ -144,6 +149,8 @@ const Login = () => {
                             </a>
                         </p> : null
                     }
+
+                    <p className='underline text-bozz-one text-xs font-semibold text-center mt-3' onClick={() => setRole('')}>Choose Login</p>
               </form>
             </div>
             }

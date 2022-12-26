@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import LayoutAdmin from '../../components/LayoutAdmin'
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { formatCurrency } from '../../utils/formatCurrency'
@@ -17,16 +17,19 @@ const Dashboard = () => {
     const getListServices = () => {
         const services = [
             {
+                id : 1,
                 package_name : 'Wedding Package',
                 package_price : 12000000,
                 package_category : 'wedding',
             },
             {
+                id :2,
                 package_name : 'Wedding Package',
                 package_price : 12000000,
                 package_category : 'wedding',
             },
             {
+                id: 3,
                 package_name : 'Wedding Package',
                 package_price : 12000000,
                 package_category : 'wedding',
@@ -53,6 +56,11 @@ const Dashboard = () => {
 
         setListAdditional(additionals)
     }
+    const goEdit = (id) => {
+        navigate('/partner/edit-service', {
+          state : { id : id}
+        })
+      }
 
     useEffect(() => {
         setStatus('verify')
@@ -102,7 +110,7 @@ const Dashboard = () => {
                                     <thead className='border-b-2 border-bozz-one'>
                                         <tr>
                                             {serviceHead?.map((title,index) => {
-                                                return <th className='text-bozz-three font-semibold capitalize' key={index}>{title}</th>
+                                                return <td className='text-bozz-three font-semibold capitalize' key={index}>{title}</td>
                                             })}
                                         </tr>
                                     </thead>
@@ -115,7 +123,7 @@ const Dashboard = () => {
                                             <td>{formatCurrency(data.package_price)}</td>
                                             <td>{data.package_category}</td>
                                             <td className='flex justify-evenly items-center py-3 text-lg'>
-                                                <FaEdit className='text-bozz-two'/>
+                                                <FaEdit className='text-bozz-two' onClick={() => goEdit(data.id)}/>
                                                 <FaTrashAlt className='text-red-400'/>
                                             </td>
                                         </tr>
