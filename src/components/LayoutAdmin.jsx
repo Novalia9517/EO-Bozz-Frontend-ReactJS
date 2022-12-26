@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import NavbarAdmin from './NavbarAdmin'
 import SideBarAdmin from './SideBarAdmin'
+import { useCookies } from 'react-cookie';
 
 const LayoutAdmin = ({children}) => {
-    const [role, setRole] = useState('')
-    const [name, setName] = useState('')
+    const [cookie, setCookie] = useCookies()
+    const role = cookie.role
+    const name = cookie.name
 
     useEffect(() => {
-        setRole('admin')
-        setName('Jane Doe')
+        // setRole('admin')
+        // setName('Jane Doe')
     },[])
 
   return (

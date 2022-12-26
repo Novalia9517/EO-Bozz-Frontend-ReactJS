@@ -1,24 +1,128 @@
 import React, { useState } from 'react';
 import Background from '../assets/shoes.jpg'
+import CustomInput from '../components/CustomInput';
 import RegisterFour from '../components/RegisterFour';
 import RegisterOne from '../components/RegisterOne';
 import RegisterTree from '../components/RegisterTree';
 import RegisterTwo from '../components/RegisterTwo';
+import { registerPartnerSchema } from '../validations/validations';
+import InputReg from '../components/inputReg';
+import { useFormik } from 'formik';
+import InputRegFile from '../components/inputRegFile';
+import InputRegPwd from '../components/inputRegPwd';
+import { apiRequest } from '../services/api';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterPartner() {
+  const [loading, setLoading] = useState(false)
+  const [image, setImage] = useState('')
+  const [siupImg, setSiupImg] = useState('')
+  const [nibImg, setNibImg] = useState('')
+  const [eventImg1, setEventImg1] = useState('')
+  const [eventImg2, setEventImg2] = useState('')
+  const [eventImg3, setEventImg3] = useState('')
+  const navigate = useNavigate()
 
   const [steps, setSteps] = useState([
-    { key: 'firstStep', isDone: true, component: <RegisterOne/> },
-    { key: 'secondStep', isDone: false, component:<RegisterTwo/> },
-    { key: 'thirdStep', isDone: false, component: <RegisterTree/> },
-    { key: 'finalStep', isDone: false, component: <RegisterFour/> },
+    { key: 'firstStep', isDone: true, component: 1 },
+    { key: 'secondStep', isDone: false, component: 2 },
+    { key: 'thirdStep', isDone: false, component: 3 },
+    { key: 'finalStep', isDone: false, component: 4 },
   ]);
 
   const [activeStep, setActiveStep] = useState(steps[0]);
+  const onSubmit = async() => {
+    setLoading(true)
+    const body = new FormData()
+    body.append('name', values.picname) 
+    body.append('email', values.picemail)
+    body.append('password', values.password)
+    body.append('pic_position', values.picposition)
+    body.append('pic_phone', values.picphone)
+    body.append('pic_address', values.picaddress)
+    body.append('company_name', values.companyname)
+    body.append('company_phone', values.companyphone)
+    body.append('company_city', values.companycity)
+    // body.append('company_image_file', image)
+    body.append('company_image_file', 'image')
+    body.append('company_address', values.companyaddress)
+    body.append('link_website', values.linkwebsite)
+    body.append('nib_number', values.nib)
+    // body.append('nib_image_file', nibImg)
+    body.append('nib_image_file', 'nib image')
+    body.append('siup_number', values.siup)
+    // body.append('siup_image_file', siupImg)
+    body.append('siup_image_file', 'siup image')
+    body.append('event1_name', values.event1)
+    // body.append('event1_image_url', eventImg1)
+    body.append('event1_image_url', 'event 1 image')
+    body.append('event2_name', values.event2)
+    // body.append('event2_image_url', eventImg2)
+    body.append('event2_image_url', 'event 2 image')
+    body.append('event3_name', values.event3)
+    // body.append('event3_image_url', eventImg3)
+    body.append('event3_image_url', 'event3 image')
+    body.append('bank_name', values.bankname)
+    body.append('bank_account_number', values.banknumber)
+    body.append('bank_account_name', values.bankaccountname)
+    body.append('file', image)
+
+    apiRequest(`partners`, `POST`, body, `multipart/form-data`)
+    .then(res => { 
+        setLoading(false)
+        Swal.fire({
+            position : "center",
+            icon : "success",
+            title : 'Register Successfull, Let\'s Login...',
+            showConfirmButton : true
+        })    
+        console.log(res)
+        navigate('/login')
+    })
+    .catch(err => {
+        setLoading(false)
+        Swal.fire({
+            position : "center",
+            icon : "error",
+            title : `${err.response.data.message}`,
+            showConfirmButton : true
+        })
+    })
+  }
+
+  const {values,errors, touched, handleBlur, handleChange, handleSubmit} = useFormik({
+    initialValues : {
+      companyname : '',
+      companyemail : '',
+      companyphone: '',
+      picname : '',
+      picposition : '',
+      picphone: '',
+      picemail : '',
+      picaddress : '',
+      companycity : '',
+      companyaddress : '',
+      linkwebsite : '',
+      nib : '',
+      siup : '',
+      event1 : '',
+      event2 : '',
+      event3 : '',
+      bankname :'',
+      bankaccountname :'',
+      banknumber :'',
+      password : '',
+      confirmPassword : ''
+    },
+    validationSchema : registerPartnerSchema,
+    onSubmit
+})
 
   const handleNext = () => {
     if (steps[steps.length - 1].key === activeStep.key) {
-      alert('You have completed all steps.');
+      // alert('You have completed all steps.');
+      onSubmit()
       return;
     }
 
@@ -44,7 +148,7 @@ function RegisterPartner() {
   return (
     <div className={`h-screen w-screen relative`}>
         <img src={Background} className='w-full h-full object-fill relative'/>         
-        <div className="absolute top-0 px-32 py-10 w-[100%] h-full flex justify-center">
+        <div className="absolute top-0 px-32 py-3 w-[100%] h-full flex justify-center">
             <div className='card rounded-[50px] w-[80%] bg-bozz-five px-12 py-5 h-full shadow-[6px_6px_6px_rgba(83,62,133,0.5)]'>
                 <h1 className='text-center font-bold text-3xl text-bozz-one mb-3'>REGISTER</h1>
                 <div className='flex justify-start ml-[-100px]'>
@@ -58,14 +162,125 @@ function RegisterPartner() {
                         })}
                     </ul>
                 </div>
+                {/* <form onSubmit={handleSubmit}> */}
                 <div className='flex flex-col justify-between h-full '>
                   <div className="step-component">
-                      {activeStep.component}
+                      {activeStep.component === 1 &&
+                        <div className='w-full'>
+                        <h1 className='text-xl font-semibold text-bozz-one'>COMPANY INFORMATION</h1>
+                        <div className='flex justify-between  gap-5'>
+                            <InputReg title='companyname' id='companyname' placeholder='companyname123' value={values.companyname} check1={errors.companyname} check2={touched.companyname} change={handleChange} blur={handleBlur}/>
+                            <InputReg title='companyemail' id='companyemail' placeholder='companyemail123' value={values.companyemail} check1={errors.companyemail} check2={touched.companyemail} change={handleChange} blur={handleBlur}/>
+                        </div>
+                        <div className='flex justify-between gap-5'>
+                          <InputReg title='companyphone' id='companyphone' placeholder='companyphone123' value={values.companyphone} check1={errors.companyphone} check2={touched.companyphone} change={handleChange} blur={handleBlur}/>
+                          <InputReg title='companycity' id='companycity' placeholder='companycity123' value={values.companycity} check1={errors.companycity} check2={touched.companycity} change={handleChange} blur={handleBlur}/>
+                        </div>
+                        <div className="form-control w-full">
+                            <label className="label mb-[-10px]">
+                            <span className="label-text text-bozz-one capitalize">Profile Image</span>
+                            </label>
+                            <input
+                                type='file' id='file'
+                                placeholder='Input image'
+                                className={`border rounded-lg h-8 border-bozz-one focus:outline-none focus:ring-2 focus:ring-bozz-two text-xs px-3 w-full bg-bozz-five caret-text-bozz-one text-bozz-one file:bg-bozz-one file:h-full rounded-none px-0`}
+                                onChange={(e) => setImage(e.target.files[0])} required
+                            />
+                        </div>
+                        <div className="form-control w-full">
+                            <label className="label mb-[-10px]">
+                            <span className="label-text text-bozz-one">Company Address</span>
+                            </label>
+                            <textarea
+                                value={values.companyaddress} id='companyaddress'
+                                placeholder='Company Address'
+                                className={`border rounded-lg h-14 resize-none focus:outline-none focus:ring-2 focus:ring-bozz-two text-xs p-3 ${errors.companyaddress && touched.companyaddress ? `border-red-700` : `border-bozz-one`} w-full bg-bozz-five caret-text-bozz-one text-bozz-one`}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                            {errors.companyaddress && touched.companyaddress ? <p className='text-xs text-red-700'>{errors.companyaddress}</p> : null}
+                        </div>
+                        <InputReg title='linkwebsite' id='linkwebsite' placeholder='linkwebsite123' value={values.linkwebsite} check1={errors.linkwebsite} check2={touched.linkwebsite} change={handleChange} blur={handleBlur}/>
+                    </div>
+                    }
+
+                    {activeStep.component === 2 &&
+                      <div className='w-full mt-3'>
+                        <h1 className='text-xl font-semibold text-bozz-one'>PIC INFORMATION</h1>
+                        <div className='flex justify-between  gap-5'>
+                            <InputReg title='picname' id='picname' placeholder='picname123' value={values.picname} check1={errors.picname} check2={touched.picname} change={handleChange} blur={handleBlur}/>
+                            <InputReg title='picposition' id='picposition' placeholder='picposition123' value={values.picposition} check1={errors.picposition} check2={touched.picposition} change={handleChange} blur={handleBlur}/>
+                        </div>
+                        <div className='flex justify-between  gap-5'>
+                          <InputReg title='picphone' id='picphone' placeholder='picphone123' value={values.picphone} check1={errors.picphone} check2={touched.picphone} change={handleChange} blur={handleBlur}/>
+                          <InputReg title='picemail' id='picemail' placeholder='picemail123' value={values.picemail} check1={errors.picemail} check2={touched.picemail} change={handleChange} blur={handleBlur}/>
+                        </div>
+                        <div className="form-control w-full">
+                              <label className="label mb-[-10px]">
+                              <span className="label-text text-bozz-one">Company Address</span>
+                              </label>
+                              <textarea
+                                  value={values.picaddress} id='picaddress'
+                                  placeholder='Company Address'
+                                  className={`border rounded-lg h-14 resize-none focus:outline-none focus:ring-2 focus:ring-bozz-two text-xs p-3 ${errors.picaddress && touched.picaddress ? `border-red-700` : `border-bozz-one`} w-full bg-bozz-five caret-text-bozz-one text-bozz-one`}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                              />
+                              {errors.picaddress && touched.picaddress ? <p className='text-xs text-red-700'>{errors.picaddress}</p> : null}
+                        </div>
+                      </div>
+                    }
+
+                    {activeStep.component === 3 &&
+                      <div className='w-full mt-3'>
+                        <h1 className='text-xl font-semibold text-bozz-one'>DOCUMENTS</h1>
+                        <div className='flex justify-between  gap-5'>
+                          <InputReg title='nib' id='nib' placeholder='nib123' value={values.nib} check1={errors.nib} check2={touched.nib} change={handleChange} blur={handleBlur}/>
+                          <InputRegFile title='scan nib' placeholder={'input nib'} change={(e) => setNibImg(e.target.files[0])}/>
+                        </div>
+                        <div className='flex justify-between  gap-5'>
+                          <InputReg title='siup' id='siup' placeholder='siup123' value={values.siup} check1={errors.siup} check2={touched.siup} change={handleChange} blur={handleBlur}/>
+                          <InputRegFile title='scan siup' placeholder={'input siup'} change={(e) => setSiupImg(e.target.files[0])}/>
+                        </div>
+                        <h1 className='text-xl font-semibold text-bozz-one'>EVENTS</h1>
+                        <div className='flex justify-between  gap-5'>
+                          <InputReg title='event3' id='event1' placeholder='event1123' value={values.event1} check1={errors.event1} check2={touched.event1} change={handleChange} blur={handleBlur}/>
+                          <InputRegFile title='scan siup' placeholder={'input siup'} change={(e) => setEventImg1(e.target.files[0])}/>
+                        </div>
+                        <div className='flex justify-between  gap-5'>
+                          <InputReg title='event2' id='event2' placeholder='event2123' value={values.event2} check1={errors.event2} check2={touched.event2} change={handleChange} blur={handleBlur}/>
+                          <InputRegFile title='scan siup' placeholder={'input siup'} change={(e) => setEventImg2(e.target.files[0])}/>
+                        </div>
+                        <div className='flex justify-between  gap-5'>
+                          <InputReg title='event3' id='event3' placeholder='event3123' value={values.event3} check1={errors.event3} check2={touched.event3} change={handleChange} blur={handleBlur}/>
+                          <InputRegFile title='scan siup' placeholder={'input siup'} change={(e) => setEventImg3(e.target.files[0])}/>
+                        </div>
+                    </div>
+                    }
+
+                    {activeStep.component === 4 &&
+                      <div className='w-full mt-3'>
+                      <h1 className='text-xl font-semibold text-bozz-one'>BANK ACCOUNT</h1>
+                      <div className='flex justify-between gap-5'>
+                        <InputReg title='bankname' id='bankname' placeholder='bankname123' value={values.bankname} check1={errors.bankname} check2={touched.bankname} change={handleChange} blur={handleBlur}/>
+                        <InputReg title='bankaccountname' id='bankaccountname' placeholder='bankaccountname123' value={values.bankaccountname} check1={errors.bankaccountname} check2={touched.bankaccountname} change={handleChange} blur={handleBlur}/>
+                      </div>
+                      <InputReg title='banknumber' id='banknumber' placeholder='banknumber123' value={values.banknumber} check1={errors.banknumber} check2={touched.banknumber} change={handleChange} blur={handleBlur}/>
+                      <h1 className='text-xl font-semibold text-bozz-one mt-5'>PASSWORD</h1>
+                      <div className='flex justify-between gap-5'>
+                        <InputRegPwd title='password' id='password' placeholder='password123' value={values.password} check1={errors.password} check2={touched.password} change={handleChange} blur={handleBlur}/>
+                        <InputRegPwd title='confirmPassword' id='confirmPassword' placeholder='confirmPassword123' value={values.confirmPassword} check1={errors.confirmPassword} check2={touched.confirmPassword} change={handleChange} blur={handleBlur}/>
+                      </div>
+                  </div>
+                    }
+
+                  {/* </form> */}
                   </div>
                   <div className="btn-component mt-3 flex justify-between bottom-0">
                       <input type="button" className='w-[170px] h-10 bg-bozz-one rounded-xl text-sm text-bozz-six bottom-10' value="Back" onClick={handleBack} disabled={steps[0].key === activeStep.key} />
                       <input type="button" className='w-[170px] h-10 bg-bozz-one rounded-xl text-sm text-bozz-six bottom-10' value={steps[steps.length - 1].key !== activeStep.key ? 'Next' : 'Submit'} onClick={handleNext} />
                   </div>
+
                 </div>
             </div>
         </div>

@@ -46,11 +46,11 @@ const RegisterUser = () => {
             setLoading(false)
             Swal.fire({
                 position : "center",
-                icon : "danger",
-                title : 'There\'s Something Wrong, Please Try Again letter',
+                icon : "error",
+                title : `${err.response.data.message}`,
                 showConfirmButton : true
             })
-            console.log(err)
+            console.log(err.response.data.message)
         })
     }
 

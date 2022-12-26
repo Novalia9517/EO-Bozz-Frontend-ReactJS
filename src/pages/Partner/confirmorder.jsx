@@ -3,20 +3,61 @@ import LayoutAdmin from '../../components/LayoutAdmin'
 import Row from '../../components/Row'
 import { BiLeftArrow } from 'react-icons/bi'
 import { formatCurrency } from '../../utils/formatCurrency'
+import Swal from 'sweetalert2'
+import { Link } from 'react-router-dom'
 
 const ConfirmOrder = () => {
-    const onConfirm = () => {
-        alert('confirm order')
-    }
     const onDecline = () => {
-        alert('You decline the order')
+        Swal.fire({
+            title: "Are you sure to decline this order?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#17345f",
+            confirmButtonText: "Yes, Sure",
+            cancelButtonColor: "#F47522",
+            cancelButtonText: "No, Cancel Decline",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                text: "Decline Order success",
+                showConfirmButton: true,
+                timer: 1500,
+              });
+      
+            }
+          });
+    }
+
+    const onConfirm = () => {
+        Swal.fire({
+            title: "You can\t cancel this order once you confirm it, Still sure to confirm?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#17345f",
+            confirmButtonText: "Yes, Sure",
+            cancelButtonColor: "#F47522",
+            cancelButtonText: "No, Give me a seconds",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                text: "Confirm Order success",
+                showConfirmButton: true,
+                timer: 1500,
+              });
+      
+            }
+          });
     }
   return (
     <LayoutAdmin>
-        <div className='text-bozz-two font-bold flex mb-3 items-center'>
+        <Link to='/partner/list-order' className='text-bozz-two font-bold flex mb-3 items-center'>
             <BiLeftArrow className='mx-2 text-xl font-bold'/>
             Back To List
-        </div>
+        </Link>
         <div className='w-full border border-bozz-one px-8 py-5'>
             <h1 className='text-center text-xl font-bold text-bozz-one mb-3'>Order Information</h1>
             <table className='w-full'>
