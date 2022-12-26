@@ -11,6 +11,7 @@ import TransactionList from './pages/TransactionList'
 import Rating from './pages/Rating'
 import ProfileUser from './pages/ProfileUser'
 import Payment from './pages/Payment'
+import ProfilePartner from './pages/ProfilePartner'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/orderdetail" element={<Rating />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/profile" element={<ProfileUser />} />
+        <Route path="/profilepartner" element={<ProfilePartner />} />
         <Route path='/login' element={<Login role='admin' />} />
         <Route path='/register/user' element={<RegisterUser />} />
         <Route path='/register/partner' element={<RegisterPartner />} />
