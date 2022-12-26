@@ -5,16 +5,50 @@ import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { loginSchema } from '../validations/validations';
+import { apiRequest } from '../services/api';
+import { useCookies } from 'react-cookie';
+import Swal from 'sweetalert2';
 
 
 const Login = () => {
     const [role, setRole] = useState('')
     const [seePwd, setSeePwd] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [cookie, setCookie] = useCookies()
     const navigate = useNavigate()
 
-    const onSubmit = () => {
-        console.log('submitted')
-        navigate('/register/user')
+    const onSubmit = async() => {
+        setLoading(true)
+        console.log(values.email, values.password)
+        const body = {email : values.email, password : values.password}
+        apiRequest(`login`, `POST`, body)
+            .then(res => {
+                console.log(res),
+                setRole(res.data.role)
+                setCookie("name", res.data.name, { path: "/" });
+                setCookie("id", res.data.id, { path: "/" });
+                setCookie("role", res.data.role, { path: "/" });
+                setCookie("token", res.data.token, { path: "/" });
+
+                if(role === 'Partner'){
+                    navigate('/partner/')
+                }else if(role === 'Admin'){
+                    navigate('/admin/')
+                }else{
+                    navigate('/')
+                }
+
+                Swal.fire({
+                    position : "center",
+                    icon : "success",
+                    title : 'Login Successfull',
+                    showConfirmButton : true
+                })
+            }
+            )
+            .catch(err => console.log(err))
+        // console.log('submitted')
+        // navigate('/')
     }
 
     const {values,errors, touched, handleBlur, handleChange, handleSubmit} = useFormik({
@@ -32,7 +66,6 @@ const Login = () => {
             navigate('/register/user')
         }
     }
-    console.log(errors)
 
   return (
     <div className='flex h-screen w-screen bg-white'>
@@ -94,7 +127,6 @@ const Login = () => {
                     <div className="flex justify-center">
                         <button
                         className="bg-bozz-one text-bozz-six h-[40px] w-full mt-8 rounded-lg"
-                        // onClick={() => onLogin()}
                         type='submit'
                         >
                         Login

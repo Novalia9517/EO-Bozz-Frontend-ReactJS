@@ -9,10 +9,10 @@ export const loginSchema = yup.object().shape({
     password: yup
       .string()
       .required("Password is required")
-      .min(8, "password minimal 8 characters")
-      .max(30, "password must not exceed 30 characters")
-      .matches(/^(?=.*[A-Z])/, "password must contain one uppercase")
-      .matches(/^(?=.*[0-9])/, "password must contain one number")
+    //   .min(8, "password minimal 8 characters")
+    //   .max(30, "password must not exceed 30 characters")
+    //   .matches(/^(?=.*[A-Z])/, "password must contain one uppercase")
+    //   .matches(/^(?=.*[0-9])/, "password must contain one number")
   });
 
 export const registerSchema = yup.object().shape({
@@ -28,6 +28,17 @@ export const registerSchema = yup.object().shape({
         .string()
         .required("Email is required")
         .min(12, "phone number minimal 12 number"),
+    gender: yup
+        .string()
+        .required("Gender is required"),
+    city: yup
+        .string()
+        .required("City is required"),
+    address: yup
+        .string()
+        .required("City is required")
+        .min(25, "Address minimal 25 character"),
+    file: yup.mixed().required('File is required'),
     password: yup
       .string()
       .required("Password is required")
