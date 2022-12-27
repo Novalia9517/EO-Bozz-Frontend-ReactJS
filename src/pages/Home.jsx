@@ -1,11 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../component/Navbar'
 import imgHome from '../assets/HomeImage.png'
 import CardHome from '../component/CardHome'
 import CardProduct from '../component/CardProduct'
 import Footer from '../component/Footer'
+import axios from 'axios'
 
 const Home = () => {
+
+    const getDataService = async () => {
+        await axios.get(`https://irisminty.my.id/services`), {
+            headers: { Authorization: `Bearer ${localStorage.setItem('userToken')}` },
+        }
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    useEffect(() => {
+        getDataService()
+    }, [])
+
+
     return (
         <div>
             <Navbar />
