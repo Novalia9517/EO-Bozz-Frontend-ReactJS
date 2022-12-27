@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import LayoutAdmin from '../../components/LayoutAdmin'
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { formatCurrency } from '../../utils/formatCurrency'
+import { apiWithAuth } from '../../services/api'
+import { useCookies } from 'react-cookie'
 
 const Dashboard = () => {
     const [status, setStatus] = useState()
@@ -12,6 +14,8 @@ const Dashboard = () => {
     const serviceHead = ['no','package name', 'package price', 'package category', 'action']
     const additionalHead =  ['no','additional name', 'additional price']
     const [active, setActive] = useState('service')
+    const [cookie, setCoookie] = useCookies()
+    const token = cookie.token
 
     const navigate = useNavigate()
     const getListServices = () => {
@@ -39,22 +43,12 @@ const Dashboard = () => {
         setListServices(services)
     }
     const getListAdditionals = () => {
-        const additionals = [
-            {
-                additional_name : 'Wedding additional',
-                additional_price : 12000000,
-            },
-            {
-                additional_name : 'Wedding additional',
-                additional_price : 12000000,
-            },
-            {
-                additional_name : 'Wedding additional',
-                additional_price : 12000000,
-            },
-        ]
 
-        setListAdditional(additionals)
+        // Masih get All Additional belum by ID
+        apiWithAuth(`additionals`, `GET`, null,"application/json", token)
+        .then(res => setListAdditional(res.data))
+        .catch(err => console.log(err))
+
     }
     const goEdit = (id) => {
         navigate('/partner/edit-service', {
@@ -93,7 +87,10 @@ const Dashboard = () => {
         }
         {status === 'verify' && listServices !== '' ? 
             <div className='flex flex-col mt-3'>
-                <button className='bg-bozz-two text-bozz-six h-8 py-0 px-8 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
+                {active == 'service' ? 
+                    <button className='bg-bozz-two text-bozz-six h-8 py-0 px-8 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
+                    : <button className='bg-bozz-two text-bozz-six h-8 py-0 px-8 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-additional')}> Add New Additional</button>
+                }   
                 <div className='flex'>
                     <div 
                         className={`w-40 text-sm h-8 text-center py-2 ${active == 'service' ? `bg-bozz-two text-white font-semibold` : `bg-bozz-six border border-bozz-two text-bozz-two font-semibold`}`}
@@ -108,7 +105,7 @@ const Dashboard = () => {
                         <div className='p-5 bg-white rounded-lg'>
                             <table className='w-full table-auto'>
                                     <thead className='border-b-2 border-bozz-one'>
-                                        <tr>
+                                        <tr className='text-center'>
                                             {serviceHead?.map((title,index) => {
                                                 return <td className='text-bozz-three font-semibold capitalize' key={index}>{title}</td>
                                             })}
@@ -135,9 +132,11 @@ const Dashboard = () => {
                     : <div className='p-5 bg-white rounded-lg'>
                         <table className='w-full table-auto'>
                                 <thead className='border-b-2 border-bozz-three'>
-                                {additionalHead?.map((title,index) => {
-                                    return <th className='text-bozz-three font-semibold capitalize' key={index}>{title}</th>
-                                })}
+                                    <tr className='text-center'>
+                                        {additionalHead?.map((title,index) => {
+                                            return <th className='text-bozz-three font-semibold capitalize' key={index}>{title}</th>
+                                        })}
+                                    </tr>
                                 </thead>
                                 <tbody>
                                 {listAdditional?.map((data, index) => {
