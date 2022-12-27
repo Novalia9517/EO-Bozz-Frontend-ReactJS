@@ -34,6 +34,7 @@ function App() {
         <Route path="/orderdetail" element={<Rating />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/profile" element={<ProfileUser />} />
+        <Route path="/profilepartner" element={<ProfilePartner />} />
         <Route path='/login' element={<Login role='admin' />} />
         <Route path='/register/user' element={<RegisterUser />} />
         <Route path='/register/partner' element={<RegisterPartner />} />

@@ -1,4 +1,5 @@
 import React from 'react'
+import { AiOutlineStar } from 'react-icons/ai'
 
 const CardProduct = () => {
     return (
@@ -8,12 +9,14 @@ const CardProduct = () => {
                     <img src="https://placeimg.com/400/225/arch" alt="Shoes" className="rounded-xl" />
                 </figure>
                 <div className="card-body items-center text-left">
-                    <h2 className="card-title">Wedding Package</h2>
-                    <p>Wedding Organizer</p>
-                    <p>Wedding Organizer</p>
-                    <p>Wedding Organizer</p>
-                    <p>Wedding Organizer</p>
-                    <div className="card-actions">
+                    <div className='grid grid-cols-2'>
+                        <div>
+                            <p className='text-lg'>Wedding Organizer</p>
+                            <p className='flex mt-2 text-lg'><AiOutlineStar className='mt-1 mr-2' /> Average Rating</p>
+                        </div>
+                        <p className='mx-5 text-lg'>Idr 12.000.000</p>
+                    </div>
+                    <div className="card-actions mt-2">
                         <button className="btn bg-bozz-one">More Detail</button>
                     </div>
                 </div>
