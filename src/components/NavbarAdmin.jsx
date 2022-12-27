@@ -7,7 +7,7 @@ import Swal from 'sweetalert2'
 import { useCookies} from 'react-cookie'
 
 
-const NavbarAdmin = ({role, name}) => {
+const NavbarAdmin = ({role, name, img}) => {
     const link = role === 'Partner' ? '/partner/profile' : '/admin/profile'
     const [cookie, removeCookie] = useCookies()
     const navigate = useNavigate()

@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 
-const List = ({title, value, link}) => {
-    const [check, setCheck] = useState(false)
-    console.log(check)
+const List = ({title, value, link, checked, onChange}) => {
   return (
     <div className="form-control flex justify-between">
         <label className="cursor-pointer label">
@@ -12,7 +10,7 @@ const List = ({title, value, link}) => {
                 {link ? <button className='w-32 h-8 text-white text-xs bg-bozz-one rounded-lg mt-2'>Download File</button> : null}
             </div>
             <input 
-                type="checkbox" onChange={() => setCheck(!check)} checked={check}
+                type="checkbox" onChange={onChange} checked={checked}
                 className="checkbox checkbox-primary checkbox-md checked:text-white" />
         </label>
     </div>

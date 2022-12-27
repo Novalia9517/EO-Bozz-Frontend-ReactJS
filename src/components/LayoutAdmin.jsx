@@ -6,10 +6,11 @@ import { apiRequest, apiWithAuth } from '../services/api';
 
 const LayoutAdmin = ({children}) => {
     const [cookie, setCookie] = useCookies()
-    const role = cookie.role
+    // const role = cookie.role
     const token = cookie.token
-    // const role = 'Admin'
+    const role = 'Admin'
     const name = cookie.name
+    const img = cookie.img
     const getCity = async() => {
       apiWithAuth(`city`, `GET`, null, "application/json", token)
       .then(res => console.log(res.data))
@@ -17,16 +18,14 @@ const LayoutAdmin = ({children}) => {
     }
 
     useEffect(() => {
-        // setRole('admin')
-        // setName('Jane Doe')
-        getCity()
+        // getCity()
     },[])
 
   return (
     <div className='min-h-screen w-screen flex bg-bozz-five'>
         <SideBarAdmin role={role} name={name}/>
         <div className='flex flex-col w-[75%] px-14 py-3'>
-            <NavbarAdmin role={role} name={name}/>
+            <NavbarAdmin role={role} name={name} img={img}/>
             <div>{children}</div>
         </div>
     </div>

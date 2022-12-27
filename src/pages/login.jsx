@@ -28,6 +28,7 @@ const Login = () => {
                 setCookie("id", res.data.id, { path: "/" });
                 setCookie("role", res.data.role, { path: "/" });
                 setCookie("token", res.data.token, { path: "/" });
+                
 
                 if(res.data.role == 'Partner'){
                     navigate('/partner/')
