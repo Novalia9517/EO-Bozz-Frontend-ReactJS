@@ -127,3 +127,9 @@ export const registerPartnerSchema = yup.object().shape({
         .oneOf([yup.ref("password"), null], "Password Must Match")
         .required("Confirm Password is required")
   });
+
+  export const askSchema = yup.object().shape({
+    ask: yup
+        .string()
+        .max(300, "Must Not more then 300 Char")
+    });

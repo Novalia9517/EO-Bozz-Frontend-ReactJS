@@ -8,7 +8,7 @@ const CardHome = () => {
                 <div className="gap-12 p-8 md:flex flex-col-sm justify-center">
                     <div>
                         <p>Pilih Category</p>
-                        <select className="select select-bordered w-full max-w-xs">
+                        <select className="select select-bordered border-bozz-one w-full max-w-xs bg-bozz-six text-bozz-one">
                             <option>Wedding</option>
                             <option>EO</option>
                             <option>EO Esport</option>
@@ -16,7 +16,7 @@ const CardHome = () => {
                     </div>
                     <div>
                         <p>Pilih Domisili</p>
-                        <select className="select select-bordered w-full max-w-xs">
+                        <select className="select select-bordered border-bozz-one w-full max-w-xs bg-bozz-six text-bozz-one">
                             <option>Jakarta</option>
                             <option>Solo</option>
                             <option>Bogor</option>
@@ -24,15 +24,15 @@ const CardHome = () => {
                     </div>
                     <div>
                         <p>Min Price</p>
-                        <input type="text" placeholder="RP" className="input w-full max-w-xs" />
+                        <input type="number" placeholder="RP" className="input w-full max-w-xs border border-bozz-one w-full max-w-xs bg-bozz-six text-bozz-one" />
                     </div>
                     <div>
                         <p>Max Price</p>
-                        <input type="text" placeholder="RP" className="input w-full max-w-xs" />
+                        <input type="number" placeholder="RP" className="input w-full max-w-xs border border-bozz-one w-full max-w-xs bg-bozz-six text-bozz-one" />
                     </div>
                 </div>
                 <div className='text-center flex justify-center py-5'>
-                    <button className='btn'>Cari</button>
+                    <button className='btn bg-bozz-one text-bozz-six font-semibold'>Cari</button>
                 </div>
 
             </form>

@@ -14,6 +14,7 @@ const ProfileUser = () => {
     const [address, setAddress] = useState('')
     const [file, setFile] = useState()
     const [cookie, setCookie] = useCookies()
+    const id = localStorage.getItem('id')
     const navigate = useNavigate()
 
     const updateUser = async () => {

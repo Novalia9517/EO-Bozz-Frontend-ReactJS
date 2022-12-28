@@ -22,6 +22,7 @@ import ProfileUser from './pages/ProfileUser'
 import Payment from './pages/Payment'
 import ProfilePartner from './pages/Partner/profilePartner'
 import AddAdditional from './pages/Partner/addAdditional'
+import EditAdditional from './pages/Partner/editAdditional'
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
         <Route path='/partner/add-service' element={<AddService/>}/>
         <Route path='/partner/add-additional' element={<AddAdditional/>}/>
          <Route path='/partner/edit-service' element={<EditService/>}/>
+         <Route path='/partner/edit-additional' element={<EditAdditional/>}/>
          <Route path='/partner/list-order' element={<ListOrder/>}/>
          <Route path='/partner/profile' element={<ProfilePartner/>}/>
          <Route path='/partner/confirm-order' element={<ConfirmOrder/>}/>
