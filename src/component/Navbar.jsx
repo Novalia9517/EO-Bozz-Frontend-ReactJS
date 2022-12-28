@@ -50,7 +50,7 @@ const Navbar = () => {
 
                     <div className="flex-none gap-2">
                         <div className="form-control text-black">
-                            <input type="text" placeholder="Search" className="input input-bordered" />
+                            <input type="text" placeholder="Search" className="input input-bordered bg-white text-bozz-one" />
                         </div>
                             {token ? (
                                 <div className="dropdown dropdown-end">
@@ -59,13 +59,13 @@ const Navbar = () => {
                                             <img src="https://placeimg.com/80/80/people" />
                                         </div>
                                     </label>
-                                <ul tabIndex={0} className="text-bozz-one mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
+                                <ul tabIndex={0} className="text-bozz-one mt-3 p-2 shadow menu menu-compact dropdown-content bg-bozz-six rounded-box w-52 cursor-pointer">
                                     <li>
                                         <Link to={"/profile"} className="justify-between">
                                             Profile
                                         </Link>
                                     </li>
-                                    <li className='cursor-pointer' onClick={onLogout}>Logout</li>
+                                    <li className='justify-between' onClick={onLogout}>Logout</li>
                                 </ul>
                                 </div>
                             ) : <div className='flex gap-5'>

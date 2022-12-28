@@ -23,6 +23,7 @@ import Payment from './pages/Payment'
 import ProfilePartner from './pages/Partner/profilePartner'
 import AddAdditional from './pages/Partner/addAdditional'
 import EditAdditional from './pages/Partner/editAdditional'
+import ProfilePartnerUser from './pages/ProfilePartnerUser'
 
 function App() {
   return (
@@ -35,7 +36,7 @@ function App() {
         <Route path="/orderdetail" element={<Rating />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/profile" element={<ProfileUser />} />
-        <Route path="/profilepartner" element={<ProfilePartner />} />
+        <Route path="/profilepartner" element={<ProfilePartnerUser />} />
         <Route path='/login' element={<Login role='admin' />} />
         <Route path='/register/user' element={<RegisterUser />} />
         <Route path='/register/partner' element={<RegisterPartner />} />
