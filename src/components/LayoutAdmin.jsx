@@ -17,16 +17,14 @@ const LayoutAdmin = ({children}) => {
     }
 
     useEffect(() => {
-        // setRole('admin')
-        // setName('Jane Doe')
-        getCity()
+        // getCity()
     },[])
 
   return (
     <div className='min-h-screen w-screen flex bg-bozz-five'>
         <SideBarAdmin role={role} name={name}/>
         <div className='flex flex-col w-[75%] px-14 py-3'>
-            <NavbarAdmin role={role} name={name}/>
+            <NavbarAdmin role={role} name={name} img={img}/>
             <div>{children}</div>
         </div>
     </div>

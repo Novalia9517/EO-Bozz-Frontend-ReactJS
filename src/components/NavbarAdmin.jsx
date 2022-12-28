@@ -47,8 +47,8 @@ const NavbarAdmin = ({ role, name }) => {
                 <img src={Admin} className='rounded-full w-14 h-14 border border-bozz-one mx-5' />
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="flex flex-col">
-                        <p className='text-lg font-semibold text-bozz-one hover:scale-110'>{name}</p>
-                        <p className='text-sm font-semibold text-bozz-one capitalize'>{role}</p>
+                      <p className='text-lg font-semibold text-bozz-one hover:scale-110 capitalize'>{name}</p>
+                      <p className='text-sm font-semibold text-bozz-one capitalize'>{role}</p>
                     </label>
                     <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-bozz-six text-bozz-one border border-bozz-one rounded-box w-32">
                         <li>

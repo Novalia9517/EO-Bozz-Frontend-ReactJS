@@ -15,14 +15,14 @@ const Dashboard = () => {
     const serviceHead = ['no', 'package name', 'package price', 'package category', 'action']
     const additionalHead = ['no', 'additional name', 'additional price']
     const [active, setActive] = useState('service')
-    const [cookie, setCookie] = useCookies()
+    const [cookie, setCoookie] = useCookies()
+    const token = cookie.token
 
     const getDataPartner = async () => {
         await axios.get(`https://irisminty.my.id/${cookie.id}`, {
             headers: { Authorization: `Bearer ${cookie.token}` },
         })
     }
-
 
     const navigate = useNavigate()
     const getListServices = () => {
@@ -111,14 +111,14 @@ const Dashboard = () => {
                         ?
                         <div className='p-5 bg-white rounded-lg'>
                             <table className='w-full table-auto'>
-                                <thead className='border-b-2 border-bozz-one'>
-                                    <tr>
-                                        {serviceHead?.map((title, index) => {
-                                            return <td className='text-bozz-three font-semibold capitalize' key={index}>{title}</td>
-                                        })}
-                                    </tr>
-                                </thead>
-                                <tbody>
+                                    <thead className='border-b-2 border-bozz-one'>
+                                        <tr className='text-center'>
+                                            {serviceHead?.map((title,index) => {
+                                                return <td className='text-bozz-three font-semibold capitalize' key={index}>{title}</td>
+                                            })}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                     {listServices.map((data, index) => {
                                         return (
                                             <tr className='text-bozz-three border-b-2 border-bozz-three h-12 text-center py-10' key={index}>

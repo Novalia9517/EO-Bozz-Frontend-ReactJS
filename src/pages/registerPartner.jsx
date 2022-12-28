@@ -44,29 +44,29 @@ function RegisterPartner() {
     body.append('company_name', values.companyname)
     body.append('company_phone', values.companyphone)
     body.append('company_city', values.companycity)
-    // body.append('company_image_file', image)
-    body.append('company_image_file', 'image')
+    body.append('company_image_file', image)
+    // body.append('company_image_file', 'image')
     body.append('company_address', values.companyaddress)
     body.append('link_website', values.linkwebsite)
     body.append('nib_number', values.nib)
-    // body.append('nib_image_file', nibImg)
-    body.append('nib_image_file', 'nib image')
+    body.append('nib_image_file', nibImg)
+    // body.append('nib_image_file', 'nib image')
     body.append('siup_number', values.siup)
-    // body.append('siup_image_file', siupImg)
-    body.append('siup_image_file', 'siup image')
+    body.append('siup_image_file', siupImg)
+    // body.append('siup_image_file', 'siup image')
     body.append('event1_name', values.event1)
-    // body.append('event1_image_url', eventImg1)
-    body.append('event1_image_url', 'event 1 image')
+    body.append('event1_image_url', eventImg1)
+    // body.append('event1_image_url', 'event 1 image')
     body.append('event2_name', values.event2)
-    // body.append('event2_image_url', eventImg2)
-    body.append('event2_image_url', 'event 2 image')
+    body.append('event2_image_url', eventImg2)
+    // body.append('event2_image_url', 'event 2 image')
     body.append('event3_name', values.event3)
-    // body.append('event3_image_url', eventImg3)
-    body.append('event3_image_url', 'event3 image')
+    body.append('event3_image_url', eventImg3)
+    // body.append('event3_image_url', 'event3 image')
     body.append('bank_name', values.bankname)
     body.append('bank_account_number', values.banknumber)
     body.append('bank_account_name', values.bankaccountname)
-    body.append('file', image)
+    // body.append('file', image)
 
     apiRequest(`partners`, `POST`, body, `multipart/form-data`)
     .then(res => { 
@@ -169,12 +169,12 @@ function RegisterPartner() {
                         <div className='w-full'>
                         <h1 className='text-xl font-semibold text-bozz-one'>COMPANY INFORMATION</h1>
                         <div className='flex justify-between  gap-5'>
-                            <InputReg title='companyname' id='companyname' placeholder='companyname123' value={values.companyname} check1={errors.companyname} check2={touched.companyname} change={handleChange} blur={handleBlur}/>
-                            <InputReg title='companyemail' id='companyemail' placeholder='companyemail123' value={values.companyemail} check1={errors.companyemail} check2={touched.companyemail} change={handleChange} blur={handleBlur}/>
+                            <InputReg title='Company Name' id='companyname' placeholder='Company Star 227' value={values.companyname} check1={errors.companyname} check2={touched.companyname} change={handleChange} blur={handleBlur}/>
+                            {/* <InputReg title='Company Email' id='companyemail' placeholder='yourmail@gmail.com' value={values.companyemail} check1={errors.companyemail} check2={touched.companyemail} change={handleChange} blur={handleBlur}/> */}
                         </div>
                         <div className='flex justify-between gap-5'>
-                          <InputReg title='companyphone' id='companyphone' placeholder='companyphone123' value={values.companyphone} check1={errors.companyphone} check2={touched.companyphone} change={handleChange} blur={handleBlur}/>
-                          <InputReg title='companycity' id='companycity' placeholder='companycity123' value={values.companycity} check1={errors.companycity} check2={touched.companycity} change={handleChange} blur={handleBlur}/>
+                          <InputReg title='Company Phone' id='companyphone' placeholder='089123456' value={values.companyphone} check1={errors.companyphone} check2={touched.companyphone} change={handleChange} blur={handleBlur}/>
+                          <InputReg title='Company City' id='companycity' placeholder='Jakarta' value={values.companycity} check1={errors.companycity} check2={touched.companycity} change={handleChange} blur={handleBlur}/>
                         </div>
                         <div className="form-control w-full">
                             <label className="label mb-[-10px]">
@@ -200,7 +200,7 @@ function RegisterPartner() {
                             />
                             {errors.companyaddress && touched.companyaddress ? <p className='text-xs text-red-700'>{errors.companyaddress}</p> : null}
                         </div>
-                        <InputReg title='linkwebsite' id='linkwebsite' placeholder='linkwebsite123' value={values.linkwebsite} check1={errors.linkwebsite} check2={touched.linkwebsite} change={handleChange} blur={handleBlur}/>
+                        <InputReg title='Link Website' id='linkwebsite' placeholder='http://linkwebsiteku.com' value={values.linkwebsite} check1={errors.linkwebsite} check2={touched.linkwebsite} change={handleChange} blur={handleBlur}/>
                     </div>
                     }
 
@@ -208,16 +208,16 @@ function RegisterPartner() {
                       <div className='w-full mt-3'>
                         <h1 className='text-xl font-semibold text-bozz-one'>PIC INFORMATION</h1>
                         <div className='flex justify-between  gap-5'>
-                            <InputReg title='picname' id='picname' placeholder='picname123' value={values.picname} check1={errors.picname} check2={touched.picname} change={handleChange} blur={handleBlur}/>
-                            <InputReg title='picposition' id='picposition' placeholder='picposition123' value={values.picposition} check1={errors.picposition} check2={touched.picposition} change={handleChange} blur={handleBlur}/>
+                            {/* <InputReg title='picname' id='picname' placeholder='picname123' value={values.picname} check1={errors.picname} check2={touched.picname} change={handleChange} blur={handleBlur}/> */}
+                            <InputReg title='Pic Position' id='picposition' placeholder='manager' value={values.picposition} check1={errors.picposition} check2={touched.picposition} change={handleChange} blur={handleBlur}/>
                         </div>
                         <div className='flex justify-between  gap-5'>
-                          <InputReg title='picphone' id='picphone' placeholder='picphone123' value={values.picphone} check1={errors.picphone} check2={touched.picphone} change={handleChange} blur={handleBlur}/>
-                          <InputReg title='picemail' id='picemail' placeholder='picemail123' value={values.picemail} check1={errors.picemail} check2={touched.picemail} change={handleChange} blur={handleBlur}/>
+                          <InputReg title='Pic Phone' id='picphone' placeholder='08912345678' value={values.picphone} check1={errors.picphone} check2={touched.picphone} change={handleChange} blur={handleBlur}/>
+                          {/* <InputReg title='picemail' id='picemail' placeholder='picemail123' value={values.picemail} check1={errors.picemail} check2={touched.picemail} change={handleChange} blur={handleBlur}/> */}
                         </div>
                         <div className="form-control w-full">
                               <label className="label mb-[-10px]">
-                              <span className="label-text text-bozz-one">Company Address</span>
+                              <span className="label-text text-bozz-one">PIC Address</span>
                               </label>
                               <textarea
                                   value={values.picaddress} id='picaddress'
@@ -262,14 +262,18 @@ function RegisterPartner() {
                       <div className='w-full mt-3'>
                       <h1 className='text-xl font-semibold text-bozz-one'>BANK ACCOUNT</h1>
                       <div className='flex justify-between gap-5'>
-                        <InputReg title='bankname' id='bankname' placeholder='bankname123' value={values.bankname} check1={errors.bankname} check2={touched.bankname} change={handleChange} blur={handleBlur}/>
-                        <InputReg title='bankaccountname' id='bankaccountname' placeholder='bankaccountname123' value={values.bankaccountname} check1={errors.bankaccountname} check2={touched.bankaccountname} change={handleChange} blur={handleBlur}/>
+                        <InputReg title='Bank Name' id='bankname' placeholder='BCA/BRI/MANDIRI' value={values.bankname} check1={errors.bankname} check2={touched.bankname} change={handleChange} blur={handleBlur}/>
+                        <InputReg title='Bank Account Name' id='bankaccountname' placeholder='Budi' value={values.bankaccountname} check1={errors.bankaccountname} check2={touched.bankaccountname} change={handleChange} blur={handleBlur}/>
                       </div>
-                      <InputReg title='banknumber' id='banknumber' placeholder='banknumber123' value={values.banknumber} check1={errors.banknumber} check2={touched.banknumber} change={handleChange} blur={handleBlur}/>
-                      <h1 className='text-xl font-semibold text-bozz-one mt-5'>PASSWORD</h1>
+                      <InputReg title='Bank Number' id='banknumber' placeholder='29912345678' value={values.banknumber} check1={errors.banknumber} check2={touched.banknumber} change={handleChange} blur={handleBlur}/>
+                      <h1 className='text-xl font-semibold text-bozz-one mt-5'>EMAIL &and; PASSWORD TO LOGIN</h1>
                       <div className='flex justify-between gap-5'>
-                        <InputRegPwd title='password' id='password' placeholder='password123' value={values.password} check1={errors.password} check2={touched.password} change={handleChange} blur={handleBlur}/>
-                        <InputRegPwd title='confirmPassword' id='confirmPassword' placeholder='confirmPassword123' value={values.confirmPassword} check1={errors.confirmPassword} check2={touched.confirmPassword} change={handleChange} blur={handleBlur}/>
+                        <InputReg title='Name (could be PIC name or Company Name to login' id='picname' placeholder='name to login' value={values.picname} check1={errors.picname} check2={touched.picname} change={handleChange} blur={handleBlur}/>
+                        <InputReg title='Email' id='picemail' placeholder='Email_to_login@gmail.com' value={values.picemail} check1={errors.picemail} check2={touched.picemail} change={handleChange} blur={handleBlur}/>
+                      </div>
+                      <div className='flex justify-between gap-5'>
+                        <InputRegPwd title='Password' id='password' placeholder='password123' value={values.password} check1={errors.password} check2={touched.password} change={handleChange} blur={handleBlur}/>
+                        <InputRegPwd title='Confirm Password' id='confirmPassword' placeholder='password123' value={values.confirmPassword} check1={errors.confirmPassword} check2={touched.confirmPassword} change={handleChange} blur={handleBlur}/>
                       </div>
                   </div>
                     }

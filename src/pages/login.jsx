@@ -23,6 +23,12 @@ const Login = () => {
         const body = { email: values.email, password: values.password }
         apiRequest(`login`, `POST`, body)
             .then(res => {
+                setRole(res.data.role)
+                setCookie("name", res.data.name, { path: "/" });
+                setCookie("id", res.data.id, { path: "/" });
+                setCookie("role", res.data.role, { path: "/" });
+                setCookie("token", res.data.token, { path: "/" });
+                
                 const data = res.data
                 localStorage.setItem("name", data.name);
                 localStorage.setItem("id", data.id);
