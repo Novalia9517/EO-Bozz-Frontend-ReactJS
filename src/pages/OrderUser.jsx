@@ -9,7 +9,6 @@ const OrderUser = () => {
     const location = useLocation()
     const startDate = location?.state?.startDate
     const endDate = location?.state?.endDate
-    console.log(startDate, endDate)
     return (
         <div className='bg-bozz-six text-bozz-one'>
             <Navbar />
@@ -68,15 +67,12 @@ const OrderUser = () => {
 
                     <div className='py-10'>
                         <h1 className='text-3xl'>Service Detail</h1>
-                        <div className='w-full h-full border border-bozz-one'></div>
-                        <div className='py-5 border rounded-md w-full border-bozz-one px-5'>
-                            <Row keyName={'Service Name'} value={'Wedding Package'}/>
-                            <Row keyName={'Service Price'} value={formatCurrency(12000000)}/>
+                        <div className='py-10 border rounded-md w-full border-bozz-one px-10'>
                             <div className='grid grid-cols-3 lg:grid-cols-3 px-2'>
                                 <div>
-                                    <p className='text-lg font-semibold'>Service Name</p>
-                                    <p className='text-lg font-semibold'>Service Price</p>
-                                    <p className='text-lg font-semibold'>Additionals</p>
+                                    <p className='text-lg'>Service Name</p>
+                                    <p className='text-lg'>Service Price</p>
+                                    <p className='text-lg'>Additionals</p>
                                     <p className='text-md my-3'>1. Souvenir @100pcs</p>
                                     <p className='text-md my-3'>1. Souvenir @100pcs</p>
                                 </div>
@@ -85,36 +81,36 @@ const OrderUser = () => {
                                     <p className='font-extrabold'>:</p>
                                     <p className='font-extrabold'>:</p>
                                     <div className='my-3 flex'>
-                                        <button className='btn'>-</button>
-                                        <p className='text-lg px-2'>1</p>
-                                        <button className='btn'>+</button>
-                                        <p className='text-lg px-2'>x Rp.1.200.000</p>
+                                        <button className='h-8 w-5 flex justify-center items-center bg-bozz-six border border-bozz-one hover:bg-bozz-one hover:text-white'>-</button>
+                                        <p className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center'>1</p>
+                                        <button className='h-8 w-5 flex justify-center items-center bg-bozz-six border border-bozz-one hover:bg-bozz-one hover:text-white'>+</button>
+                                        <p className='text-md px-2'>x {formatCurrency(1200000)}</p>
                                     </div>
                                     <div className='my-3 flex'>
-                                        <button className='btn'>-</button>
-                                        <p className='text-lg px-2'>1</p>
-                                        <button className='btn'>+</button>
-                                        <p className='text-lg px-2'>x Rp.1.200.000</p>
+                                    <button className='h-8 w-5 flex justify-center items-center bg-bozz-six border border-bozz-one hover:bg-bozz-one hover:text-white'>-</button>
+                                        <p className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center'>1</p>
+                                        <button className='h-8 w-5 flex justify-center items-center bg-bozz-six border border-bozz-one hover:bg-bozz-one hover:text-white'>+</button>
+                                        <p className='text-md px-2'>x {formatCurrency(1200000)}</p>
                                     </div>
                                 </div>
                                 <div>
-                                    <p className='text-xl'>Package Name</p>
-                                    <p className='text-xl'>Rp. 12.000.000</p>
-                                    <p className='text-xl my-6'>Rp. 1.200.000</p>
-                                    <p className='text-xl my-6'>Rp. 1.200.000</p>
+                                    <p className='text-lg font-bold'>Package Name</p>
+                                    <p className='text-lg font-bold'>{formatCurrency(1200000)}</p>
+                                    <p className='text-lg font-bold my-6'>{formatCurrency(1200000)}</p>
+                                    <p className='text-lg font-bold my-6'>{formatCurrency(1200000)}</p>
                                 </div>
                             </div>
-                            <hr className='w-[90%] ml-5' />
+                            <div className="divider bg-bozz-one h-0.5"></div> 
                             <div className='grid grid-cols-3 lg:grid-cols-3 my-5'>
                                 <p className='text-lg font-bold ml-2'>TOTAL</p>
                                 <p className='text-lg font-bold' >:</p>
-                                <p className='text-lg font-bold'>Rp.15.000.000</p>
-                            </div>
-                            <div className='flex justify-center mt-'>
-                                <button className='btn btn-warning mx-2 text-white'>Cancel</button>
-                                <button className='btn'>Order</button>
+                                <p className='text-lg font-bold'>{formatCurrency(15000000)}</p>
                             </div>
                         </div>
+                            <div className='flex justify-end  mt-4'>
+                                <button className='btn hover:btn-warning bg-orange-400 mx-2 text-white'>Cancel</button>
+                                <button className='btn bg-bozz-one hover:bg-bozz-two text-white'>Order</button>
+                            </div>
                     </div>
                 </form>
             </div>
