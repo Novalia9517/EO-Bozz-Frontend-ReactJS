@@ -14,13 +14,13 @@ const Login = () => {
     const [role, setRole] = useState('')
     const [seePwd, setSeePwd] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [cookie, setCookie] = useCookies()
+    const [cookie, setCookie] = useCookies(["userToken"])
     const navigate = useNavigate()
 
-    const onSubmit = async() => {
+    const onSubmit = async () => {
         setLoading(true)
         console.log(values.email, values.password)
-        const body = {email : values.email, password : values.password}
+        const body = { email: values.email, password: values.password }
         apiRequest(`login`, `POST`, body)
             .then(res => {
                 setRole(res.data.role)
@@ -29,136 +29,141 @@ const Login = () => {
                 setCookie("role", res.data.role, { path: "/" });
                 setCookie("token", res.data.token, { path: "/" });
                 
+                const data = res.data
+                localStorage.setItem("name", data.name);
+                localStorage.setItem("id", data.id);
+                localStorage.setItem("role", data.role);
+                localStorage.setItem('userToken', data.token)
 
-                if(res.data.role == 'Partner'){
+                if (res.data.role == 'Partner') {
                     navigate('/partner/')
-                }else if(res.data.role == 'Admin'){
+                } else if (res.data.role == 'Admin') {
                     navigate('/admin/')
-                }else{
+                } else {
                     navigate('/')
                 }
 
                 Swal.fire({
-                    position : "center",
-                    icon : "success",
-                    title : 'Login Successfull',
-                    showConfirmButton : true
+                    position: "center",
+                    icon: "success",
+                    title: 'Login Successfull',
+                    showConfirmButton: true
                 })
             }
             )
             .catch(err => {
                 setLoading(false)
                 Swal.fire({
-                    position : "center",
-                    icon : "error",
-                    title : `${err.response.data.message}`,
-                    showConfirmButton : true
+                    position: "center",
+                    icon: "error",
+                    title: `${err.response.data.message}`,
+                    showConfirmButton: true
                 })
             })
     }
 
-    const {values,errors, touched, handleBlur, handleChange, handleSubmit} = useFormik({
-        initialValues : {
-            email : '',
-            password : ''
+    const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+        initialValues: {
+            email: '',
+            password: ''
         },
-        validationSchema : loginSchema,
+        validationSchema: loginSchema,
         onSubmit
     })
     const onRegister = () => {
-        if(role === 'partner'){
+        if (role === 'partner') {
             navigate('/register/partner')
-        }else if(role === 'clients'){
+        } else if (role === 'clients') {
             navigate('/register/user')
         }
     }
 
-  return (
-    <div className='flex h-screen w-screen bg-white'>
-        <div className={`w-[55%]`} >
-            <img src='src/assets/shoes.jpg' className='w-full h-full object-fill' style={{borderRadius : '0 110px 110px 0'}}/>
-        </div>
-        <div className='w-[45%] h-full grid place-items-center p-10'>
-            { role === '' ?
-                <div className='card rounded-[47px] w-[80%] h-[90%] border border-bozz-one flex flex-col justity- p-10 px-24 shadow-[6px_6px_6px_rgba(83,62,133,0.5)] bg-bozz-six'>
-                    <h2 className='text-bozz-one font-bold text-center text-xl mb-10'>LOGIN AS</h2>
-                    <button className='bg-bozz-five text-bozz-one w-full h-12 rounded-xl font-bold border border-bozz-one hover:scale-110' onClick={() => setRole('clients')}>User</button>
-                    <p className='text-black text-center my-3 text-xs'>OR</p>
-                    <button className='bg-bozz-five text-bozz-one w-full h-12 rounded-xl font-bold border border-bozz-one hover:scale-110' onClick={() => setRole('partner')}>Partner</button>
-                    <p className='text-black text-center my-3 text-xs'>OR</p>
-                    <button className='bg-bozz-five text-bozz-one w-full h-12 rounded-xl font-bold border border-bozz-one hover:scale-110' onClick={() => setRole('admin')}>Admin</button>
-                </div>
-            :
-                <div className='card rounded-[47px] w-[80%] h-[90%] border border-bozz-one flex flex-col justity- p-10 px-24 shadow-[6px_6px_6px_rgba(83,62,133,0.5)] bg-bozz-six'>
-                    <h2 className='text-bozz-one font-bold text-center text-xl mb-10'>LOGIN AS {role.toUpperCase()}</h2>
-                    <form onSubmit={handleSubmit}>
-                    <div className="form-control w-full max-w-xs">
-                        <label className="label mb-[-10px]">
-                        <span className="label-text text-bozz-one">Email</span>
-                        </label>
-                        <input
-                            type="email" value={values.email} id='email'
-                            placeholder="your_email@mail.com"
-                            className={`input input-bordered ${errors.email && touched.email ? `border-red-700` : `border-bozz-one`} w-full bg-bozz-five caret-text-bozz-one text-bozz-one`}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                        />
-                        {errors.email && touched.email? <p className='text-xs text-red-700'>{errors.email}</p> : null}
-                    </div>
-                    <div className="form-control w-full max-w-xs">
-                        <label className="label mb-[-10px]">
-                        <span className="label-text text-bozz-one text-sm">Password</span>
-                        </label>
-                        <div className="flex">
-                            <div className="relative w-full">
-                                <div
-                                className="absolute top-3 right-3 items-center"
-                                onClick={() => setSeePwd(!seePwd)}
-                                >
-                                {seePwd ? <FaRegEye className='text-bozz-one'/> : <FaRegEyeSlash className='text-bozz-one'/>}
-                                </div>
-                                <input
-                                value={values.password} id='password'
-                                type={seePwd ? `text` : "password"}
-                                className={`input ${errors.password && touched.password ? `border-red-700` : `border-bozz-one`}  bg-bozz-five text-bozz-one w-full caret-bozz-one`}
-                                placeholder="Password"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                />
-                            </div>
-                        </div>
-                        {errors.password && touched.password ? <p className='text-xs text-red-700'>{errors.password}</p> : null}
-                    </div>
-                    <a className="text-bozz-one text-xs mt-1">Forgot Your Password?</a>
-                    <div className="flex justify-center">
-                        <button
-                        className="bg-bozz-one text-bozz-six h-[40px] w-full mt-8 rounded-lg"
-                        type='submit'
-                        >
-                        Login
-                        </button>
-                    </div>
-                    { role !== 'admin' ?
-                        <p className="text-bozz-one text-sm mt-3">
-                            Dont have an account ?
-                            <a
-                            className="font-semibold cursor-pointer"
-                            onClick={() => onRegister()}
-                            >
-                            {" "}
-                            Register
-                            </a>
-                        </p> : null
-                    }
-
-                    <p className='underline text-bozz-one text-xs font-semibold text-center mt-3' onClick={() => setRole('')}>Choose Login</p>
-              </form>
+    return (
+        <div className='flex h-screen w-screen bg-white'>
+            <div className={`w-[55%]`} >
+                <img src='src/assets/shoes.jpg' className='w-full h-full object-fill' style={{ borderRadius: '0 110px 110px 0' }} />
             </div>
-            }
-           
+            <div className='w-[45%] h-full grid place-items-center p-10'>
+                {role === '' ?
+                    <div className='card rounded-[47px] w-[80%] h-[90%] border border-bozz-one flex flex-col justity- p-10 px-24 shadow-[6px_6px_6px_rgba(83,62,133,0.5)] bg-bozz-six'>
+                        <h2 className='text-bozz-one font-bold text-center text-xl mb-10'>LOGIN AS</h2>
+                        <button className='bg-bozz-five text-bozz-one w-full h-12 rounded-xl font-bold border border-bozz-one hover:scale-110' onClick={() => setRole('clients')}>User</button>
+                        <p className='text-black text-center my-3 text-xs'>OR</p>
+                        <button className='bg-bozz-five text-bozz-one w-full h-12 rounded-xl font-bold border border-bozz-one hover:scale-110' onClick={() => setRole('partner')}>Partner</button>
+                        <p className='text-black text-center my-3 text-xs'>OR</p>
+                        <button className='bg-bozz-five text-bozz-one w-full h-12 rounded-xl font-bold border border-bozz-one hover:scale-110' onClick={() => setRole('admin')}>Admin</button>
+                    </div>
+                    :
+                    <div className='card rounded-[47px] w-[80%] h-[90%] border border-bozz-one flex flex-col justity- p-10 px-24 shadow-[6px_6px_6px_rgba(83,62,133,0.5)] bg-bozz-six'>
+                        <h2 className='text-bozz-one font-bold text-center text-xl mb-10'>LOGIN AS {role.toUpperCase()}</h2>
+                        <form onSubmit={handleSubmit}>
+                            <div className="form-control w-full max-w-xs">
+                                <label className="label mb-[-10px]">
+                                    <span className="label-text text-bozz-one">Email</span>
+                                </label>
+                                <input
+                                    type="email" value={values.email} id='email'
+                                    placeholder="your_email@mail.com"
+                                    className={`input input-bordered ${errors.email && touched.email ? `border-red-700` : `border-bozz-one`} w-full bg-bozz-five caret-text-bozz-one text-bozz-one`}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                {errors.email && touched.email ? <p className='text-xs text-red-700'>{errors.email}</p> : null}
+                            </div>
+                            <div className="form-control w-full max-w-xs">
+                                <label className="label mb-[-10px]">
+                                    <span className="label-text text-bozz-one text-sm">Password</span>
+                                </label>
+                                <div className="flex">
+                                    <div className="relative w-full">
+                                        <div
+                                            className="absolute top-3 right-3 items-center"
+                                            onClick={() => setSeePwd(!seePwd)}
+                                        >
+                                            {seePwd ? <FaRegEye className='text-bozz-one' /> : <FaRegEyeSlash className='text-bozz-one' />}
+                                        </div>
+                                        <input
+                                            value={values.password} id='password'
+                                            type={seePwd ? `text` : "password"}
+                                            className={`input ${errors.password && touched.password ? `border-red-700` : `border-bozz-one`}  bg-bozz-five text-bozz-one w-full caret-bozz-one`}
+                                            placeholder="Password"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                        />
+                                    </div>
+                                </div>
+                                {errors.password && touched.password ? <p className='text-xs text-red-700'>{errors.password}</p> : null}
+                            </div>
+                            <a className="text-bozz-one text-xs mt-1">Forgot Your Password?</a>
+                            <div className="flex justify-center">
+                                <button
+                                    className="bg-bozz-one text-bozz-six h-[40px] w-full mt-8 rounded-lg"
+                                    type='submit'
+                                >
+                                    Login
+                                </button>
+                            </div>
+                            {role !== 'admin' ?
+                                <p className="text-bozz-one text-sm mt-3">
+                                    Dont have an account ?
+                                    <a
+                                        className="font-semibold cursor-pointer"
+                                        onClick={() => onRegister()}
+                                    >
+                                        {" "}
+                                        Register
+                                    </a>
+                                </p> : null
+                            }
+
+                            <p className='underline text-bozz-one text-xs font-semibold text-center mt-3' onClick={() => setRole('')}>Choose Login</p>
+                        </form>
+                    </div>
+                }
+
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default Login

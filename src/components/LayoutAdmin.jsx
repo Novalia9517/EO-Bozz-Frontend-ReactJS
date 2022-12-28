@@ -6,11 +6,10 @@ import { apiRequest, apiWithAuth } from '../services/api';
 
 const LayoutAdmin = ({children}) => {
     const [cookie, setCookie] = useCookies()
-    // const role = cookie.role
+    const role = cookie.role
     const token = cookie.token
-    const role = 'Admin'
+    // const role = 'Admin'
     const name = cookie.name
-    const img = cookie.img
     const getCity = async() => {
       apiWithAuth(`city`, `GET`, null, "application/json", token)
       .then(res => console.log(res.data))
