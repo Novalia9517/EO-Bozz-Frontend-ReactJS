@@ -5,7 +5,7 @@ import { formatCurrency } from '../utils/formatCurrency'
 const CardProduct = ({ name, rating, price, click, company, city }) => {
     return (
         <div>
-            <div className="card w-96 bg-bozz-six shadow-xl text-bozz-one">
+            <div className="card w-96 bg-bozz-six shadow-xl text-bozz-one mx-3">
                 <figure className="px-10 pt-10">
                     <img src="https://placeimg.com/400/225/arch" alt="Shoes" className="rounded-xl" />
                 </figure>
