@@ -10,14 +10,14 @@ import {
     PURGE,
     REGISTER,
 } from 'redux-persist';
-import usersSlice from "./features/usersSlice";
+import userSlice from "./features/userSlice";
 
 const persistConfig = {
     key: 'storePersist',
     storage,
 };
 
-const reducers = combineReducers({ users: usersSlice });
+const reducers = combineReducers({ users: userSlice });
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 
