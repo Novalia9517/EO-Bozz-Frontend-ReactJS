@@ -40,7 +40,7 @@ const NavbarAdmin = ({ role, name }) => {
     return (
         <div className='flex justify-between items-center w-full mb-2'>
             <div className='flex flex-col'>
-                <h1 className='text-4xl font-bold text-bozz-one'>Hello {name} !</h1>
+                <h1 className='text-4xl font-bold text-bozz-one capitalize'>Hello {name} !</h1>
                 <p className='text-sm font-semibold text-bozz-one'>You're doing great</p>
             </div>
             <div className='flex items-center'>

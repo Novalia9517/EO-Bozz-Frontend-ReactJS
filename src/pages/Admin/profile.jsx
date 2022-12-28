@@ -1,13 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SideBarAdmin from '../../components/SideBarAdmin'
 import Admin from '../../assets/employee.png'
 import { Link } from 'react-router-dom'
 import { FaEdit } from 'react-icons/fa'
+import { useCookies } from 'react-cookie'
+import { apiWithAuth } from '../../services/api'
 
 const Profile = () => {
+    const [cookie, setCookie] = useCookies()
+    const userId = cookie.id
+    const userToken = cookie.token
+    const [userData, setUserData] = useState()
+    console.log(userId)
+    console.log(userToken)
     const role = 'admin'
     const name = 'Jane Doe'
     const [edit,setEdit] = useState(false)
+
+    // const getUserData = async() => {
+    //     apiWithAuth(`partners`, `GET`, null,"application/json", userToken)
+    //     .then(res => {
+    //         // console.log(res.data)
+    //         const datas = res.data
+    //         datas.map(data => data.id == userId && setUserData(data))
+    //     })
+    //     .catch(err => console.log(err))
+    // }
+    
+    // useEffect(() => {
+    //     getUserData()
+    // },[])
+    console.log(userData)
   return (
     <div className='min-h-screen w-screen flex bg-bozz-five'>
         <SideBarAdmin role={role} name={name}/>

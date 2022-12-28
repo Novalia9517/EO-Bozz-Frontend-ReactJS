@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import LayoutAdmin from '../../components/LayoutAdmin'
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { formatCurrency } from '../../utils/formatCurrency'
-import { useCookies } from 'react-cookie';
+import { apiWithAuth } from '../../services/api'
+import { useCookies } from 'react-cookie'
 import axios from 'axios'
 
 const Dashboard = () => {
@@ -48,24 +49,13 @@ const Dashboard = () => {
 
         setListServices(services)
     }
-    const getListAdditionals = () => {
-        const additionals = [
-            {
-                additional_name: 'Wedding additional',
-                additional_price: 12000000,
-            },
-            {
-                additional_name: 'Wedding additional',
-                additional_price: 12000000,
-            },
-            {
-                additional_name: 'Wedding additional',
-                additional_price: 12000000,
-            },
-        ]
-
-        setListAdditional(additionals)
+    const getListAdditionals = async() => {
+        // Masih get All Additional belum by ID
+        apiWithAuth(`additionals`, `GET`, null,"application/json", token)
+        .then(res => setListAdditional(res.data))
+        .catch(err => console.log(err))
     }
+    
     const goEdit = (id) => {
         navigate('/partner/edit-service', {
             state: { id: id }
@@ -91,27 +81,30 @@ const Dashboard = () => {
                                     {log === 'revision with note' ? <a className='text-bozz-two font-bold underline'> Link Revisi</a> : ''}
                                 </span>
                             </li>
-                        })}
-                    </ul>
-                </div>
-            }
-            {status === 'verify' && listServices === '' ?
-                <div className='flex flex-col mt-3'>
-                    <button className='bg-bozz-two text-bozz-six h-8 py-0 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
-                    <h1 className='text-xl font-bold text-bozz-one mb-5 border border-bozz-one p-5 rounded-xl'>List Services Not Add Yet</h1>
-                </div>
-                : null
-            }
-            {status === 'verify' && listServices !== '' ?
-                <div className='flex flex-col mt-3'>
+                    })}
+                </ul>
+            </div>
+        }
+        {status === 'verify' && listServices === '' ? 
+            <div className='flex flex-col mt-3'>
+                <button className='bg-bozz-two text-bozz-six h-8 py-0 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
+                <h1 className='text-xl font-bold text-bozz-one mb-5 border border-bozz-one p-5 rounded-xl'>List Services Not Add Yet</h1>
+            </div> 
+        : null
+        }
+        {status === 'verify' && listServices !== '' ? 
+            <div className='flex flex-col mt-3'>
+                {active == 'service' ? 
                     <button className='bg-bozz-two text-bozz-six h-8 py-0 px-8 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
-                    <div className='flex'>
-                        <div
-                            className={`w-40 text-sm h-8 text-center py-2 ${active == 'service' ? `bg-bozz-two text-white font-semibold` : `bg-bozz-six border border-bozz-two text-bozz-two font-semibold`}`}
-                            onClick={() => setActive('service')}>List Services</div>
-                        <div
-                            className={`w-40 text-sm h-8  text-center py-2 ${active != 'service' ? `bg-bozz-two  text-white font-semibold` : `bg-bozz-six border border-bozz-two text-bozz-two font-semibold`}`}
-                            onClick={() => setActive('additional')}
+                    : <button className='bg-bozz-two text-bozz-six h-8 py-0 px-8 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-additional')}> Add New Additional</button>
+                }   
+                <div className='flex'>
+                    <div 
+                        className={`w-40 text-sm h-8 text-center py-2 ${active == 'service' ? `bg-bozz-two text-white font-semibold` : `bg-bozz-six border border-bozz-two text-bozz-two font-semibold`}`}
+                        onClick={() => setActive('service')}>List Services</div>
+                    <div 
+                        className={`w-40 text-sm h-8  text-center py-2 ${active != 'service' ? `bg-bozz-two  text-white font-semibold` : `bg-bozz-six border border-bozz-two text-bozz-two font-semibold`}`}
+                        onClick={() => setActive('additional')}
                         >List Additionals</div>
                     </div>
                     {active == 'service'
@@ -146,9 +139,11 @@ const Dashboard = () => {
                         : <div className='p-5 bg-white rounded-lg'>
                             <table className='w-full table-auto'>
                                 <thead className='border-b-2 border-bozz-three'>
-                                    {additionalHead?.map((title, index) => {
-                                        return <th className='text-bozz-three font-semibold capitalize' key={index}>{title}</th>
-                                    })}
+                                    <tr className='text-center'>
+                                        {additionalHead?.map((title,index) => {
+                                            return <th className='text-bozz-three font-semibold capitalize' key={index}>{title}</th>
+                                        })}
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     {listAdditional?.map((data, index) => {

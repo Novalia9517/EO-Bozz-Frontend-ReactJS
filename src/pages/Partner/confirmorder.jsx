@@ -32,7 +32,7 @@ const ConfirmOrder = () => {
 
     const onConfirm = () => {
         Swal.fire({
-            title: "You can\t cancel this order once you confirm it, Still sure to confirm?",
+            title: "You can't cancel this order once you confirm it, Still sure to confirm?",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#17345f",
