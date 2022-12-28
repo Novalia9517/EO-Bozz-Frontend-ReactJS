@@ -24,10 +24,18 @@ import ProfilePartner from './pages/Partner/profilePartner'
 import AddAdditional from './pages/Partner/addAdditional'
 import EditAdditional from './pages/Partner/editAdditional'
 import ProfilePartnerUser from './pages/ProfilePartnerUser'
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
+import store from './store/store'
+
+let persistor = persistStore(store);
 
 function App() {
   return (
-    <BrowserRouter>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/detail" element={<Detail />} />
@@ -56,7 +64,8 @@ function App() {
          <Route path='*' element={<PageNotFound/>}/>
       </Routes>
     </BrowserRouter>
-  )
-}
+      </PersistGate>
+    </Provider>
+
 
 export default App

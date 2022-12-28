@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../component/Navbar'
 import imgHome from '../assets/HomeImage.png'
 import CardHome from '../component/CardHome'
@@ -8,24 +8,39 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
+
+    const [data_service, setDataService] = useState()
+
     const navigate = useNavigate()
+
     const getDataService = async () => {
-        await axios.get(`https://irisminty.my.id/services`), {
-            headers: { Authorization: `Bearer ${localStorage.setItem('userToken')}` },
-        }
+        await axios.get(`https://irisminty.my.id/services`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
+        })
             .then(res => {
-                console.log(res)
+                const data = res.data.data
+                console.log(data)
+                setDataService(data)
             })
             .catch(err => {
                 console.log(err)
             })
     }
-    const onClick = () => {
-        navigate('/detail')
+    // const onClick = () => {
+    //     navigate('/detail')
+    // }
+
+    const onDetail = (id) => {
+        navigate('/detail', {
+            state: {
+                id: id
+            }
+        })
     }
 
     useEffect(() => {
         getDataService()
+        console.log('this', data_service)
     }, [])
 
 
@@ -48,12 +63,19 @@ const Home = () => {
             </div>
             <div className='container mx-auto px-5 py-5 '>
                 <div className='grid gap-8 grid-cols-1 lg:grid-cols-3 md:grid-cols-'>
-                    <CardProduct name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
-                    <CardProduct name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
-                    <CardProduct name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
-                    <CardProduct name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
-                    <CardProduct name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
-                    <CardProduct name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
+                    {data_service ? (data_service.map((item) => {
+                        return (
+                            <CardProduct
+                                name={item.service_name}
+                                rating={item.average_rating}
+                                price={item.service_price}
+                                click={() => onDetail(item.id)}
+                                company='Company A'
+                                city={item.city} />
+                        )
+                    })
+                    ) : <></>}
+
                 </div>
                 <div className="btn-group justify-center flex py-5">
                     <button className="btn btn-ghost">«</button>
