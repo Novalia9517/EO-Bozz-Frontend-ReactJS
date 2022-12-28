@@ -4,12 +4,12 @@ import { FaUserAlt } from 'react-icons/fa'
 import { TbLogout } from 'react-icons/tb'
 import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import { useCookies} from 'react-cookie'
+import { useCookies } from 'react-cookie'
 
 
-const NavbarAdmin = ({role, name}) => {
+const NavbarAdmin = ({ role, name }) => {
     const link = role === 'Partner' ? '/partner/profile' : '/admin/profile'
-    const [cookie, removeCookie] = useCookies()
+    const [cookie, removeCookie] = useCookies(["userToken"])
     const navigate = useNavigate()
     const onLogout = () => {
         Swal.fire({
@@ -20,23 +20,22 @@ const NavbarAdmin = ({role, name}) => {
             confirmButtonText: "Yes, sure",
             cancelButtonColor: "#F47522",
             cancelButtonText: "Not now",
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                text: "logout success, see you 👋🏻",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              removeCookie("token", { path: "/" });
-              removeCookie("name", { path: "/" });
-              removeCookie("id", { path: "/" });
-              removeCookie("role", { path: "/" });
-              
-              navigate('/login')
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    text: "logout success, see you 👋🏻",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                localStorage.removeItem("userToken");
+                localStorage.removeItem("name");
+                localStorage.removeItem("id");
+                localStorage.removeItem("role");
+                navigate('/login')
             }
-          });
+        });
     }
     return (
         <div className='flex justify-between items-center w-full mb-2'>
@@ -45,19 +44,19 @@ const NavbarAdmin = ({role, name}) => {
                 <p className='text-sm font-semibold text-bozz-one'>You're doing great</p>
             </div>
             <div className='flex items-center'>
-                <img src={Admin} className='rounded-full w-14 h-14 border border-bozz-one mx-5'/>
+                <img src={Admin} className='rounded-full w-14 h-14 border border-bozz-one mx-5' />
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="flex flex-col">
-                            <p className='text-lg font-semibold text-bozz-one hover:scale-110 capitalize'>{name}</p>
-                            <p className='text-sm font-semibold text-bozz-one capitalize'>{role}</p>
+                        <p className='text-lg font-semibold text-bozz-one hover:scale-110'>{name}</p>
+                        <p className='text-sm font-semibold text-bozz-one capitalize'>{role}</p>
                     </label>
                     <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-bozz-six text-bozz-one border border-bozz-one rounded-box w-32">
                         <li>
                             <Link to={link}
                                 className="justify-between"><FaUserAlt className='text-md'
-                                onClick={() => profileClick()}/>Profile</Link>
+                                    onClick={() => profileClick()} />Profile</Link>
                         </li>
-                        <li onClick={onLogout}><a className="justify-between"><TbLogout className='text-lg'/>Logout</a></li>
+                        <li onClick={onLogout}><a className="justify-between"><TbLogout className='text-lg' />Logout</a></li>
                     </ul>
                 </div>
             </div>
