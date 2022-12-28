@@ -52,13 +52,13 @@ const Navbar = () => {
                         <div className="form-control text-black">
                             <input type="text" placeholder="Search" className="input input-bordered" />
                         </div>
-                        <div className="dropdown dropdown-end">
-                            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                                <div className="w-10 rounded-full">
-                                    <img src="https://placeimg.com/80/80/people" />
-                                </div>
-                            </label>
                             {token ? (
+                                <div className="dropdown dropdown-end">
+                                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                        <div className="w-10 rounded-full">
+                                            <img src="https://placeimg.com/80/80/people" />
+                                        </div>
+                                    </label>
                                 <ul tabIndex={0} className="text-bozz-one mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                                     <li>
                                         <Link to={"/profile"} className="justify-between">
@@ -67,12 +67,12 @@ const Navbar = () => {
                                     </li>
                                     <li className='cursor-pointer' onClick={onLogout}>Logout</li>
                                 </ul>
-                            ) : <div>
-                                <button>Login</button>
-                                <button>Register</button>
+                                </div>
+                            ) : <div className='flex gap-5'>
+                                <Link to='/login' ><button className='bg-bozz-six text-bozz-one ring-2 ring-bozz-two'>Login</button></Link>
+                                <Link to='/register/user' ><button className='bg-bozz-six text-bozz-one ring-2 ring-bozz-two'>Register as Clients</button></Link>
                             </div>}
 
-                        </div>
                     </div>
                 </div>
             </div>

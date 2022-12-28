@@ -5,9 +5,10 @@ import CardHome from '../component/CardHome'
 import CardProduct from '../component/CardProduct'
 import Footer from '../component/Footer'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
-
+    const navigate = useNavigate()
     const getDataService = async () => {
         await axios.get(`https://irisminty.my.id/services`), {
             headers: { Authorization: `Bearer ${localStorage.setItem('userToken')}` },
@@ -19,6 +20,9 @@ const Home = () => {
                 console.log(err)
             })
     }
+    const onClick = () => {
+        navigate('/detail')
+    }
 
     useEffect(() => {
         getDataService()
@@ -26,7 +30,7 @@ const Home = () => {
 
 
     return (
-        <div>
+        <div className='bg-bozz-six'>
             <Navbar />
             <hr className='text-black' />
             <div className='bg-bozz-one'>
@@ -44,12 +48,12 @@ const Home = () => {
             </div>
             <div className='container mx-auto px-5 py-5 '>
                 <div className='grid gap-8 grid-cols-1 lg:grid-cols-3 md:grid-cols-'>
-                    <CardProduct />
-                    <CardProduct />
-                    <CardProduct />
-                    <CardProduct />
-                    <CardProduct />
-                    <CardProduct />
+                    <CardProduct name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
+                    <CardProduct name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
+                    <CardProduct name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
+                    <CardProduct name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
+                    <CardProduct name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
+                    <CardProduct name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
                 </div>
                 <div className="btn-group justify-center flex py-5">
                     <button className="btn btn-ghost">«</button>

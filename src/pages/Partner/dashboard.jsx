@@ -5,6 +5,7 @@ import { FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { formatCurrency } from '../../utils/formatCurrency'
 import { apiWithAuth } from '../../services/api'
 import { useCookies } from 'react-cookie'
+import Swal from 'sweetalert2'
 import axios from 'axios'
 
 const Dashboard = () => {
@@ -18,11 +19,11 @@ const Dashboard = () => {
     const [cookie, setCoookie] = useCookies()
     const token = cookie.token
 
-    const getDataPartner = async () => {
-        await axios.get(`https://irisminty.my.id/${cookie.id}`, {
-            headers: { Authorization: `Bearer ${cookie.token}` },
-        })
-    }
+    // const getDataPartner = async () => {
+    //     await axios.get(`https://irisminty.my.id/${cookie.id}`, {
+    //         headers: { Authorization: `Bearer ${cookie.token}` },
+    //     })
+    // }
 
     const navigate = useNavigate()
     const getListServices = () => {
@@ -61,9 +62,35 @@ const Dashboard = () => {
             state: { id: id }
         })
     }
+    const goEditAdd = (data) => {
+        navigate('/partner/edit-additional', {
+            state: { data: data }
+        })
+    }
 
+    const deleteAdditional = (id) => {
+        apiWithAuth(`additionals/${parseInt(id)}`, `DELETE`,null, "application/json",token)
+        .then(res => {
+            Swal.fire({
+                title: "Success Delete additional.",
+                icon: "success",
+                confirmButtonColor: "#533e85",
+                confirmButtonText: "Oke",
+              })
+              getListAdditionals()
+              console.log(res.data)
+        })
+        .catch(err => {
+            Swal.fire({
+                position : "center",
+                icon : "error",
+                title : `${err.response.data.message}`,
+                showConfirmButton : true
+            })
+        })
+    }
     useEffect(() => {
-        getDataPartner()
+        // getDataPartner()
         setStatus('verify')
         getListServices()
         getListAdditionals()
@@ -146,15 +173,15 @@ const Dashboard = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {listAdditional?.map((data, index) => {
+                                    {listAdditional && listAdditional?.map((data, index) => {
                                         return (
                                             <tr className='text-bozz-three border-b-2 border-bozz-three h-10 text-center' key={index}>
                                                 <td>{index + 1}</td>
                                                 <td>{data.additional_name}</td>
                                                 <td>{formatCurrency(data.additional_price)}</td>
                                                 <td className='flex justify-evenly items-center py-3 text-lg'>
-                                                    <FaEdit className='text-bozz-two' />
-                                                    <FaTrashAlt className='text-red-400' />
+                                                    <FaEdit className='text-bozz-two' onClick={() => goEditAdd(data)}/>
+                                                    <FaTrashAlt className='text-red-400' onClick={() => deleteAdditional(data.id)}/>
                                                 </td>
                                             </tr>
                                         )
