@@ -9,6 +9,7 @@ import Loading from '../../components/Loading'
 import Row from '../../components/Row'
 import EditInput from '../../components/EditInput'
 import Swal from 'sweetalert2'
+import { useSelector } from 'react-redux'
 
 const ProfilePartner = () => {
     const [cookie, setCookie] = useCookies()
@@ -24,50 +25,74 @@ const ProfilePartner = () => {
     const [city, setCity] = useState()
     const [address, setAddress] = useState()
     const [edit,setEdit] = useState(false)
+    const currentUser = useSelector(state => state.users.currentUser)
 
     const getUserData = async() => {
-        apiWithAuth(`partners`, `GET`, null,"application/json", userToken)
-        .then(res => {
-            // console.log(res.data)
-            const datas = res.data
-            datas.map(data => {
-                if(data.user_id == userId) {
-                    setUserData(data)
-                    setName(data.company_name)
-                    setEmail(data.email)
-                    setPhone(data.company_phone)
-                    setCity(data.company_city)
-                    setAddress(data.company_address)
-                }})
+        // const currentUser = useSelector(state => state.users.currentUser)
+        setUserData(currentUser)
+        setName(userData?.company_name)
+        setEmail(userData.email)
+        setPhone(userData.company_phone)
+        setCity(userData.company_city)
+        setAddress(userData.company_address)
+    }
+    const onEdit = async() => {
+        const body = new FormData()
+        body.append('name', userData.name) 
+        body.append('email', email)
+        // body.append('password', userData.password)
+        body.append('pic_position', userData.pic_position)
+        body.append('pic_phone', userData.pic_phone)
+        body.append('pic_address', userData.pic_address)
+        body.append('company_name', name)
+        body.append('company_phone', phone)
+        body.append('company_city', city)
+        body.append('company_image_file', userData.company_image_file)
+        body.append('company_address', address)
+        body.append('link_website', userData.link_website)
+        body.append('nib_number', userData.nib_number)
+        body.append('nib_image_file', userData.nib_image_file)
+        body.append('siup_number', userData.siup_number)
+        body.append('siup_image_file', userData.siup_image_file)
+        body.append('event1_name', userData.event1_name)
+        body.append('event1_image_file', userData.event1_image_file)
+        body.append('event2_name', userData.event2_name)
+        body.append('event2_image_file', userData.event2_image_file)
+        body.append('event3_name', userData.event3_name)
+        body.append('event3_image_file', userData.event3_image_file)
+        body.append('bank_name', userData.bank_name)
+        body.append('bank_account_number', userData.bank_number)
+        body.append('bank_account_name', userData.bank_account_name)
+        body.append('file', userData.company_image_file)
+
+        console.log([...body])
+    
+        apiWithAuth(`partners`, `PUT`, body, `multipart/form-data`, localStorage.getItem('userToken'))
+        .then(res => { 
+            Swal.fire({
+                position : "center",
+                icon : "success",
+                title : 'Edit Profile Successfull, Let\'s Login...',
+                showConfirmButton : true
+            })    
+            console.log(res.data)
+            navigate('/partner/')
         })
-        .catch(err => console.log(err))
-    }
-    const onEdit = () => {
-        console.log('edited')
-        Swal.fire({
-            title: "Are you sure to edit data profile?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#17345f",
-            confirmButtonText: "Yes, Sure",
-            cancelButtonColor: "#F47522",
-            cancelButtonText: "No, Cancel Decline",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                text: "Edit success",
-                showConfirmButton: true,
-                timer: 1500,
-              });
-      
-            }
-          });
-    }
+        .catch(err => {
+            Swal.fire({
+                position : "center",
+                icon : "error",
+                title : `${err.response.data.message}`,
+                showConfirmButton : true
+            })
+        })
+      }
+
+
     useEffect(() => {
         getUserData()
-    },[])
+    },[userData])
+    // console.log(currentUser)
   return (
     <>
         {userData ? 

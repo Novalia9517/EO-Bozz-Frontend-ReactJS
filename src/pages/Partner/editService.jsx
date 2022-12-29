@@ -52,11 +52,12 @@ const EditService = () => {
   const onSubmit = async() => {
     const body = new FormData()
     body.append('service_name', values.servicename) 
+    body.append('service_include', tags) 
     body.append('service_description', values.description) 
     body.append('service_category', values.category) 
     body.append('service_price', values.serviceprice)
     body.append('average_rating', '0') 
-    body.append('average_image_file', img) 
+    body.append('service_image_file', img) 
     body.append('city', city) 
     console.log([...body])
 
