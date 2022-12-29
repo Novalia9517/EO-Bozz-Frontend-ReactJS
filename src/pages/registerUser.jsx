@@ -28,7 +28,7 @@ const RegisterUser = () => {
         body.append('address', values.address)
         body.append('city', values.city)
         body.append('phone', values.phone)
-        body.append('file', image)
+        body.append('client_image_file', image)
 
         apiRequest(`clients`, `POST`, body, `multipart/form-data`)
         .then(res => { 

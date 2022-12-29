@@ -67,7 +67,7 @@ const ListOrder = () => {
                 {orderList ? 
                     orderList.map((data, index) => {
                   return (
-                    <tr className='text-bozz-two border-b-2 border-bozz-three h-6 text-center text-xs font-semibold'>
+                    <tr className='text-bozz-two border-b-2 border-bozz-three h-6 text-center text-xs font-semibold' key={index}>
                       <td>{index + 1}</td>
                       <td>{data.event_name}</td>
                       <td>{data.service_name}</td>

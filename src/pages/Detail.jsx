@@ -28,6 +28,7 @@ const Detail = () => {
     const [cookie, setCookie] = useCookies()
     const location = useLocation();
     const id = location?.state?.id;
+    const [company, setCompany] = useState()
 
     const getDataId = async () => {
         await axios.get(`https://irisminty.my.id/services/${id}`, {
@@ -49,11 +50,22 @@ const Detail = () => {
             .then(res => {
                 const dataDiscussion = res.data.data
                 console.log(dataDiscussion)
-                setDiscussion(dataDiscussion)
+                setDiscussion(dataDiscussion.filter(item => item.service_id === id))
             })
             .catch(err => {
                 console.log(err)
             })
+    }
+
+    const getCompany = async() => {
+        apiWithAuth(`partners`, `GET`, null, "application/json", localStorage.getItem('userToken'))
+        .then(res => {
+            res.data.map((company,i) => {
+                if(company.id == serviceId?.partner_id) setCompany(company.company_name)
+            })
+            console.log(company)
+        })
+        .catch(err => console.log(err))
     }
 
     const onSubmit = () => {
@@ -112,6 +124,7 @@ const Detail = () => {
     useEffect(() => {
         getDiscussion()
         getDataId()
+        getCompany()
     }, [])
     return (
         <>
@@ -123,6 +136,7 @@ const Detail = () => {
                             <img className='mx-auto h-[320px]' src={imgHome} alt="home" width={500} />
                             <div className='mx-auto text-bozz-one'>
                                 <p className='py-3 px-3 font-bold text-xl'>{serviceId.service_name}</p>
+                                <p className='px-3 font-bold text-xl'>{company}</p>
                                 <p className='py-3 px-3 font-bold text-xl text-bozz-two'>{formatCurrency(serviceId.service_price)}</p>
                                 <p className=' px-3 text-lg text-[#726F6F]'>Category {serviceId.service_category}</p>
                                 <p className=' px-3 text-lg text-[#726F6F] flex'><AiFillStar className='text-2xl text-orange-300' /> {serviceId.average_rating} Ratings</p>
@@ -194,15 +208,15 @@ const Detail = () => {
                             </div>
                         </div>
                         <div>
-                            {discussions ? (
-                                discussions.map((item) => {
+                            {discussions && discussions.length >= 1 ? (
+                                discussions.map((item, i) => {
                                     return (
-                                        <div className='px-10 py-10 border rounded-lg my-5'>
+                                        <div className='px-10 py-10 border rounded-lg my-5' key={i}>
                                             <div className='grid grid-cols-1 lg:grid-cols-2'>
                                                 <div className='px-2'>
                                                     <div className='flex'>
                                                         <img src={Art} className='w-12 h-12 rounded-full border border-bozz-one' />
-                                                        <p className='px-4 text-2xl font-semibold'>Username<br /><span className='text-[#726F6F] text-lg'>{item.created_at}</span></p>
+                                                        <p className='px-4 text-2xl font-semibold'>Username<br /><span className='text-[#726F6F] text-lg'>{item.created_at.slice(0,18).split('T').join(' ')}</span></p>
                                                     </div>
                                                     <p>{item.comment}</p>
                                                     <a className='py-3 cursor-pointer'>Balas</a>
@@ -211,7 +225,7 @@ const Detail = () => {
                                         </div>
                                     )
                                 })
-                            ) : <></>}
+                            ) : <p className='px-10'>Belum ada Diskusi</p>}
                             <a className='flex  justify-center text-center cursor-pointer py-10'>Lihat lebih banyak</a>
                         </div>
                     </div>

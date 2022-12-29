@@ -33,6 +33,7 @@ const NavbarAdmin = ({ role, name }) => {
                 localStorage.removeItem("name");
                 localStorage.removeItem("id");
                 localStorage.removeItem("role");
+                localStorage.removeItem("partner_id");
                 navigate('/login')
             }
         });

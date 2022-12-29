@@ -103,7 +103,7 @@ export const registerPartnerSchema = yup.object().shape({
     event2: yup
         .string()
         .required("Event2 is required, minimal 3 event required"),
-    event2: yup
+    event3: yup
         .string()
         .required("Event3 is required, minimal 3 event required"),
     bankname: yup
@@ -133,3 +133,20 @@ export const registerPartnerSchema = yup.object().shape({
         .string()
         .max(300, "Must Not more then 300 Char")
     });
+
+export const serviceSchema = yup.object().shape({
+    servicename : yup
+        .string()
+        .min(8, "Service Name minimal 8 Character")
+        .max(35, "Service Name Maksimal 50 Character"),
+    serviceprice : yup
+        .number(),
+    category : yup
+        .string()
+        .min(8, "Service Category minimal 8 Character")
+        .max(25, "Service Category Maksimal 25 Character"),
+    description : yup
+        .string()
+        .min(15, "Service Description minimal 8 Character")
+        .max(300, "Service Description Maksimal 300 Character"),
+})

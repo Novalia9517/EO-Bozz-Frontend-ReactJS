@@ -24,6 +24,7 @@ import ProfilePartner from './pages/Partner/profilePartner'
 import AddAdditional from './pages/Partner/addAdditional'
 import EditAdditional from './pages/Partner/editAdditional'
 import ProfilePartnerUser from './pages/ProfilePartnerUser'
+import Discussion from './pages/Partner/discussion'
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
@@ -61,6 +62,7 @@ function App() {
             <Route path='/partner/profile' element={<ProfilePartner />} />
             <Route path='/partner/confirm-order' element={<ConfirmOrder />} />
             <Route path='/partner/revisi-registrasi' element={<RevisiRegister />} />
+            <Route path='/partner/discussion' element={<Discussion/>}/>
             <Route path='*' element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
