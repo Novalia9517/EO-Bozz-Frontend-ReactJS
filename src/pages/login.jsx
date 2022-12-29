@@ -26,11 +26,14 @@ const Login = () => {
                 setRole(res.data.role)
                 setCookie("name", res.data.name, { path: "/" });
                 setCookie("id", res.data.id, { path: "/" });
+                setCookie("partner_id", res.data.partner_id, { path: "/" });
                 setCookie("role", res.data.role, { path: "/" });
                 setCookie("token", res.data.token, { path: "/" });
 
                 const data = res.data
                 localStorage.setItem("name", data.name);
+                localStorage.setItem("id", data.id);
+                localStorage.setItem("partner_id", data.partner_id);
                 localStorage.setItem("idclient", data.client_id);
                 localStorage.setItem("idpartner", data.partner_id);
                 localStorage.setItem("role", data.role);
