@@ -120,7 +120,7 @@ const Dashboard = () => {
                         confirmButtonText: "Oke",
                       })
                       getListServices()
-                      console.log(res.data)
+                    //   console.log(res.data)
         
                 })
         .catch(err => {
@@ -137,13 +137,13 @@ const Dashboard = () => {
     useEffect(() => {
         // getDataPartner()
         getDataPartner()
-        setStatus('not verify')
+        setStatus('verify')
         getListServices()
         getListAdditionals()
-        console.log('this', currentUsers)
+        // console.log('this', currentUsers)
     }, [])
 
-    console.log(listServices)
+    // console.log(listServices)
     return (
         <LayoutAdmin>
             {status === 'not verify' &&

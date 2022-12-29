@@ -6,10 +6,12 @@ import CardProduct from '../component/CardProduct'
 import Footer from '../component/Footer'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { apiWithAuth } from '../services/api'
 
 const Home = () => {
 
     const [data_service, setDataService] = useState()
+    const [listCompany, setListCompany] = useState()
 
     const navigate = useNavigate()
 
@@ -19,7 +21,7 @@ const Home = () => {
         })
             .then(res => {
                 const data = res.data.data
-                console.log(data)
+                // console.log(data)
                 setDataService(data)
             })
             .catch(err => {
@@ -38,9 +40,16 @@ const Home = () => {
         })
     }
 
+    const getCompany = async() => {
+        apiWithAuth(`partners`, `GET`, null, "application/json", localStorage.getItem('userToken'))
+        .then(res => setListCompany(res.data))
+        .catch(err => console.log(err))
+    }
+
     useEffect(() => {
         getDataService()
-        console.log('this', data_service)
+        getCompany()
+        // console.log('this', data_service)
     }, [])
 
 
@@ -64,13 +73,18 @@ const Home = () => {
             <div className='container mx-auto px-5 py-5 '>
                 <div className='grid gap-8 grid-cols-1 lg:grid-cols-3 md:grid-cols-'>
                     {data_service ? (data_service.map((item) => {
+                        let compName = ''
+                        listCompany?.map((company,i) => {
+                            if(company.id == item.partner_id) compName = company.company_name
+                        })
                         return (
                             <CardProduct
+                                img={item.service_image_file}
                                 name={item.service_name}
                                 rating={item.average_rating}
                                 price={item.service_price}
                                 click={() => onDetail(item.id)}
-                                company='Company A'
+                                company={compName} 
                                 city={item.city} />
                         )
                     })

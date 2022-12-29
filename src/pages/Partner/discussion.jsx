@@ -17,13 +17,13 @@ const Discussion = () => {
         getDiscussions()
     },[])
 
-    console.log(myDiscussions)
+    // console.log(myDiscussions)
   return (
     <>
-    {myDiscussions ? 
+    {myDiscussions? 
         <LayoutAdmin>
             <h4 className='text-bozz-one text-lg font-semibold'>Discussion</h4>
-            {myDiscussions &&
+            {myDiscussions && myDiscussions.length >= 1 ?
                 myDiscussions?.map((item, index) => {
                     return <div className='flex flex-col justify-between'><div key={index} className='h-16 w-full p-3 rounded-lg shadow text-bozz-one border border-bozz-one bg-bozz-six'>
                         <p>{item.comment}</p>
@@ -34,6 +34,7 @@ const Discussion = () => {
                         </div>
                         </div>
                 })
+                : <p className='text-md font-semibold text-bozz-one'>Belum Ada diskusi</p>
             }
         </LayoutAdmin>
     : <Loading/>
