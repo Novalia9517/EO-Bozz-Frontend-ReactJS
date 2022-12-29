@@ -7,6 +7,8 @@ import { apiWithAuth } from '../../services/api'
 import { useCookies } from 'react-cookie'
 import Swal from 'sweetalert2'
 import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateUser } from '../../store/features/userSlice'
 
 const Dashboard = () => {
     const [status, setStatus] = useState()
@@ -19,6 +21,21 @@ const Dashboard = () => {
     const [cookie, setCoookie] = useCookies()
     const token = localStorage.getItem('userToken')
     const partnerId = localStorage.getItem('partner_id')
+    const dispatch = useDispatch();
+    const currentUsers = useSelector((state) => state.users.currentUser)
+
+    const getDataPartner = async () => {
+        await axios.get(`https://irisminty.my.id/partners/${localStorage.getItem('idpartner')}`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
+        })
+            .then(res => {
+                const data = res.data.data
+                dispatch(updateUser(data));
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
     const navigate = useNavigate()
     const getListServices = () => {
@@ -31,13 +48,13 @@ const Dashboard = () => {
         .catch(err => console.log(err))
 
     }
-    const getListAdditionals = async() => {
+    const getListAdditionals = async () => {
         // Masih get All Additional belum by ID
         apiWithAuth(`additionals`, `GET`, null,"application/json", token)
         .then(res => setListAdditional(res.data.filter(data => data.partner_id == partnerId)))
         .catch(err => console.log(err))
     }
-    
+
     const goEdit = (id) => {
         navigate('/partner/edit-service', {
             state: { id: id }
@@ -48,7 +65,7 @@ const Dashboard = () => {
             state: { data: data }
         })
     }
-
+    
     const deleteService = (id) => {
         Swal.fire({
             title: "Are you sure?",
@@ -119,9 +136,11 @@ const Dashboard = () => {
     }
     useEffect(() => {
         // getDataPartner()
-        setStatus('verify')
+        getDataPartner()
+        setStatus('not verify')
         getListServices()
         getListAdditionals()
+        console.log('this', currentUsers)
     }, [])
 
     console.log(listServices)
@@ -168,15 +187,15 @@ const Dashboard = () => {
                         ?
                         <div className='p-5 bg-white rounded-lg'>
                             <table className='w-full table-auto'>
-                                    <thead className='border-b-2 border-bozz-one'>
-                                        <tr className='text-center'>
-                                            {serviceHead?.map((title,index) => {
-                                                return <td className='text-bozz-three font-semibold capitalize' key={index}>{title}</td>
-                                            })}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    {listServices?.map((data, index) => {
+                                <thead className='border-b-2 border-bozz-one'>
+                                    <tr className='text-center'>
+                                        {serviceHead?.map((title, index) => {
+                                            return <td className='text-bozz-three font-semibold capitalize' key={index}>{title}</td>
+                                        })}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {listServices.map((data, index) => {
                                         return (
                                             <tr className='text-bozz-three border-b-2 border-bozz-three h-12 text-center py-10' key={index}>
                                                 <td>{index + 1}</td>
@@ -198,7 +217,7 @@ const Dashboard = () => {
                             <table className='w-full table-auto'>
                                 <thead className='border-b-2 border-bozz-three'>
                                     <tr className='text-center'>
-                                        {additionalHead?.map((title,index) => {
+                                        {additionalHead?.map((title, index) => {
                                             return <th className='text-bozz-three font-semibold capitalize' key={index}>{title}</th>
                                         })}
                                     </tr>
@@ -211,8 +230,8 @@ const Dashboard = () => {
                                                 <td>{data.additional_name}</td>
                                                 <td>{formatCurrency(data.additional_price)}</td>
                                                 <td className='flex justify-evenly items-center py-3 text-lg'>
-                                                    <FaEdit className='text-bozz-two' onClick={() => goEditAdd(data)}/>
-                                                    <FaTrashAlt className='text-red-400' onClick={() => deleteAdditional(data.id)}/>
+                                                    <FaEdit className='text-bozz-two' onClick={() => goEditAdd(data)} />
+                                                    <FaTrashAlt className='text-red-400' onClick={() => deleteAdditional(data.id)} />
                                                 </td>
                                             </tr>
                                         )
