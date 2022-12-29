@@ -11,49 +11,30 @@ import axios from 'axios'
 const Dashboard = () => {
     const [status, setStatus] = useState()
     const [logs, setLogs] = useState(['register', 'waiting for verify', 'revision with note'])
-    const [listServices, setListServices] = useState('')
-    const [listAdditional, setListAdditional] = useState('')
-    const serviceHead = ['no', 'package name', 'package price', 'package category', 'action']
+    const [listServices, setListServices] = useState([])
+    const [listAdditional, setListAdditional] = useState([])
+    const serviceHead = ['no', 'package name', 'package price', 'package category','rating', 'action']
     const additionalHead = ['no', 'additional name', 'additional price']
     const [active, setActive] = useState('service')
     const [cookie, setCoookie] = useCookies()
-    const token = cookie.token
-
-    // const getDataPartner = async () => {
-    //     await axios.get(`https://irisminty.my.id/${cookie.id}`, {
-    //         headers: { Authorization: `Bearer ${cookie.token}` },
-    //     })
-    // }
+    const token = localStorage.getItem('userToken')
+    const partnerId = localStorage.getItem('partner_id')
 
     const navigate = useNavigate()
     const getListServices = () => {
-        const services = [
-            {
-                id: 1,
-                package_name: 'Wedding Package',
-                package_price: 12000000,
-                package_category: 'wedding',
-            },
-            {
-                id: 2,
-                package_name: 'Wedding Package',
-                package_price: 12000000,
-                package_category: 'wedding',
-            },
-            {
-                id: 3,
-                package_name: 'Wedding Package',
-                package_price: 12000000,
-                package_category: 'wedding',
-            },
-        ]
 
-        setListServices(services)
+        // Masih get All Services belum by ID
+        apiWithAuth(`services`, `GET`, null,"application/json", token)
+        .then(res => {
+            setListServices(res.data.filter(data => data.partner_id == partnerId))
+        })
+        .catch(err => console.log(err))
+
     }
     const getListAdditionals = async() => {
         // Masih get All Additional belum by ID
         apiWithAuth(`additionals`, `GET`, null,"application/json", token)
-        .then(res => setListAdditional(res.data))
+        .then(res => setListAdditional(res.data.filter(data => data.partner_id == partnerId)))
         .catch(err => console.log(err))
     }
     
@@ -68,18 +49,29 @@ const Dashboard = () => {
         })
     }
 
-    const deleteAdditional = (id) => {
-        apiWithAuth(`additionals/${parseInt(id)}`, `DELETE`,null, "application/json",token)
-        .then(res => {
-            Swal.fire({
-                title: "Success Delete additional.",
-                icon: "success",
-                confirmButtonColor: "#533e85",
-                confirmButtonText: "Oke",
-              })
-              getListAdditionals()
-              console.log(res.data)
-        })
+    const deleteService = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#17345f",
+            confirmButtonText: "Yes, sure",
+            cancelButtonColor: "#F47522",
+            cancelButtonText: "Not now",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                apiWithAuth(`services/${parseInt(id)}`, `DELETE`,null, "application/json",token)
+                .then(res => {
+                    Swal.fire({
+                        title: "Success Delete Service.",
+                        icon: "success",
+                        confirmButtonColor: "#533e85",
+                        confirmButtonText: "Oke",
+                      })
+                      getListServices()
+                      console.log(res.data)
+        
+                })
         .catch(err => {
             Swal.fire({
                 position : "center",
@@ -88,6 +80,42 @@ const Dashboard = () => {
                 showConfirmButton : true
             })
         })
+            }
+        });
+    }
+    const deleteAdditional = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#17345f",
+            confirmButtonText: "Yes, sure",
+            cancelButtonColor: "#F47522",
+            cancelButtonText: "Not now",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                apiWithAuth(`additionals/${parseInt(id)}`, `DELETE`,null, "application/json",token)
+                .then(res => {
+                    Swal.fire({
+                        title: "Success Delete Service.",
+                        icon: "success",
+                        confirmButtonColor: "#533e85",
+                        confirmButtonText: "Oke",
+                      })
+                      getListServices()
+                      console.log(res.data)
+        
+                })
+        .catch(err => {
+            Swal.fire({
+                position : "center",
+                icon : "error",
+                title : `${err.response.data.message}`,
+                showConfirmButton : true
+            })
+        })
+            }
+        });
     }
     useEffect(() => {
         // getDataPartner()
@@ -95,6 +123,8 @@ const Dashboard = () => {
         getListServices()
         getListAdditionals()
     }, [])
+
+    console.log(listServices)
     return (
         <LayoutAdmin>
             {status === 'not verify' &&
@@ -112,14 +142,14 @@ const Dashboard = () => {
                 </ul>
             </div>
         }
-        {status === 'verify' && listServices === '' ? 
+        {status === 'verify' && listServices === [] ? 
             <div className='flex flex-col mt-3'>
                 <button className='bg-bozz-two text-bozz-six h-8 py-0 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
                 <h1 className='text-xl font-bold text-bozz-one mb-5 border border-bozz-one p-5 rounded-xl'>List Services Not Add Yet</h1>
             </div> 
         : null
         }
-        {status === 'verify' && listServices !== '' ? 
+        {status === 'verify' && listServices.length >= 1 ? 
             <div className='flex flex-col mt-3'>
                 {active == 'service' ? 
                     <button className='bg-bozz-two text-bozz-six h-8 py-0 px-8 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
@@ -146,16 +176,17 @@ const Dashboard = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {listServices.map((data, index) => {
+                                    {listServices?.map((data, index) => {
                                         return (
                                             <tr className='text-bozz-three border-b-2 border-bozz-three h-12 text-center py-10' key={index}>
                                                 <td>{index + 1}</td>
-                                                <td>{data.package_name}</td>
-                                                <td>{formatCurrency(data.package_price)}</td>
-                                                <td>{data.package_category}</td>
+                                                <td>{data.service_name}</td>
+                                                <td>{formatCurrency(data.service_price)}</td>
+                                                <td>{data.service_category}</td>
+                                                <td>{data.average_rating}</td>
                                                 <td className='flex justify-evenly items-center py-3 text-lg'>
                                                     <FaEdit className='text-bozz-two' onClick={() => goEdit(data.id)} />
-                                                    <FaTrashAlt className='text-red-400' />
+                                                    <FaTrashAlt className='text-red-400' onClick={() => deleteService(data.id)}/>
                                                 </td>
                                             </tr>
                                         )
