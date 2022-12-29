@@ -66,6 +66,7 @@ const Home = () => {
                     {data_service ? (data_service.map((item) => {
                         return (
                             <CardProduct
+                                img={item.service_image_file}
                                 name={item.service_name}
                                 rating={item.average_rating}
                                 price={item.service_price}

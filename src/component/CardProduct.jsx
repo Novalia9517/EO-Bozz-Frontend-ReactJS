@@ -2,12 +2,12 @@ import React from 'react'
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
 import { formatCurrency } from '../utils/formatCurrency'
 
-const CardProduct = ({ name, rating, price, click, company, city }) => {
+const CardProduct = ({ name, rating, price, click, company, city, img }) => {
     return (
         <div>
             <div className="card w-96 bg-bozz-six shadow-xl text-bozz-one mx-3">
                 <figure className="px-10 pt-10">
-                    <img src="https://placeimg.com/400/225/arch" alt="Shoes" className="rounded-xl" />
+                    <img src={img} alt="Shoes" className="rounded-xl h-[202px] w-[302px]" />
                 </figure>
                 <p className='text-md text-center mt-2'>{name}</p>
                 <div className="card-body items-center text-left">
