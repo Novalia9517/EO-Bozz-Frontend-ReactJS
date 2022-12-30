@@ -27,14 +27,17 @@ const AddService = () => {
   const [additional3, setAdditional3] = useState('')
   const [count, setCount] = useState(1)
   const [allCity, setAllCity] = useState()
+  const [loading, setLoading] = useState()
   const token = localStorage.getItem('userToken')
   const partnerId = localStorage.getItem('partner_id')
   const [idAdditional, setIdAdditional] = useState()
   const navigate = useNavigate()
   
   const onSubmit = async() => {
+    setLoading(true)
     const body = new FormData()
     body.append('service_name', values.servicename) 
+    body.append('service_include', tags) 
     body.append('service_description', values.description) 
     body.append('service_category', values.category) 
     body.append('service_price', values.serviceprice)
@@ -43,10 +46,11 @@ const AddService = () => {
     body.append('city', city) 
     console.log([...body])
 
-    apiWithAuth(`services`, `POST`,body, "application/json",token)
+    apiWithAuth(`services`, `POST`, body, `multipart/form-data`, token)
         .then(res => {
+          setLoading(false)
             Swal.fire({
-                title: "Success Add Service, want to add another?",
+                title: "Success Add Service!",
                 icon: "success",
                 showCancelButton: false,
                 confirmButtonColor: "#533e85",
@@ -55,6 +59,7 @@ const AddService = () => {
                 navigate('/partner/')
               })
         .catch(err => {
+          setLoading(false)
             Swal.fire({
                 position : "center",
                 icon : "error",
@@ -103,7 +108,7 @@ const AddService = () => {
   useEffect(() => {
     getListAdditionals()
     getCity()
-  },[])
+  },[loading])
 
   return (
     <>
@@ -245,7 +250,7 @@ const AddService = () => {
                 <button className={`flex items-center bg-white ${step === 2 ? 'block' : 'invisible'}`} onClick={() => step >= 1 ? setStep(1) : ''}><BiLeftArrowCircle/>Back</button>
                 {step === 1 ? 
                   <button className={`flex items-center bg-white `} onClick={() => step == 1 ? setStep(2) : ''}>Next<BiRightArrowCircle/></button>
-                : <button className={`flex items-center justify-center h-8 w-24 text-center bg-bozz-one text-white rounded-lg text-xs`} onClick={() => onSubmit()}>Add Service</button>
+                : <button className={`flex items-center justify-center h-8 w-24 text-center bg-bozz-one text-white rounded-lg text-xs`} onClick={handleSubmit}>Add Service</button>
                 }
               </div>
             </div>

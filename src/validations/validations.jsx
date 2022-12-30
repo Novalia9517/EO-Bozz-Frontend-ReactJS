@@ -138,7 +138,7 @@ export const serviceSchema = yup.object().shape({
     servicename : yup
         .string()
         .min(8, "Service Name minimal 8 Character")
-        .max(35, "Service Name Maksimal 50 Character"),
+        .max(50, "Service Name Maksimal 50 Character"),
     serviceprice : yup
         .number(),
     category : yup

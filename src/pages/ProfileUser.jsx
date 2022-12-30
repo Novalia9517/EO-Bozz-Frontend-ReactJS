@@ -37,7 +37,7 @@ const ProfileUser = () => {
         data.append('email', email);
         data.append('phone', phone);
         data.append('address', address);
-        data.append('file', file);
+        data.append('client_image_file', file);
         await axios.put(`https://irisminty.my.id/clients`, data, {
             headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
             'content-type': 'multipart/form-data',

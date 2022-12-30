@@ -49,8 +49,8 @@ const Detail = () => {
         })
             .then(res => {
                 const dataDiscussion = res.data.data
-                console.log(dataDiscussion)
                 setDiscussion(dataDiscussion.filter(item => item.service_id === id))
+                console.log(discussions)
             })
             .catch(err => {
                 console.log(err)
