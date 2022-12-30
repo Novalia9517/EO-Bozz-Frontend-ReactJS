@@ -143,7 +143,7 @@ const Dashboard = () => {
         // console.log('this', currentUsers)
     }, [])
 
-    // console.log(listServices)
+    console.log(listServices)
     return (
         <LayoutAdmin>
             {status === 'not verify' &&
