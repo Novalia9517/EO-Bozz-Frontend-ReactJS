@@ -2,6 +2,9 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { useCookies } from 'react-cookie'
+import { FaUserAlt } from 'react-icons/fa'
+import { TbLogout } from 'react-icons/tb'
+import { BsFillCartCheckFill } from 'react-icons/bs'
 
 const Navbar = () => {
 
@@ -59,13 +62,18 @@ const Navbar = () => {
                                             <img src="https://placeimg.com/80/80/people" />
                                         </div>
                                     </label>
-                                <ul tabIndex={0} className="text-bozz-one mt-3 p-2 shadow menu menu-compact dropdown-content bg-bozz-six rounded-box w-52 cursor-pointer">
+                                <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-bozz-six text-bozz-one border border-bozz-one rounded-box w-32">
                                     <li>
-                                        <Link to={"/profile"} className="justify-between">
-                                            Profile
-                                        </Link>
+                                        <Link to={'/profile'}
+                                            className="justify-between"><FaUserAlt className='text-md'
+                                                 />Profile</Link>
                                     </li>
-                                    <li className='justify-between' onClick={onLogout}>Logout</li>
+                                    <li>
+                                        <Link to={'/transaction'}
+                                            className="justify-between flex text-sm"><BsFillCartCheckFill className='text-md'
+                                            />My order</Link>
+                                    </li>
+                                    <li onClick={onLogout}><a className="justify-between"><TbLogout className='text-lg' />Logout</a></li>
                                 </ul>
                                 </div>
                             ) : <div className='flex gap-5'>

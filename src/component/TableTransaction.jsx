@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const TableTransaction = () => {
     return (
@@ -10,7 +11,7 @@ const TableTransaction = () => {
                 <td>Event Date Start</td>
                 <td>Status</td>
                 <td>Action</td>
-                <td><a className='cursor-pointer'>Detail</a></td>
+                <td><Link to="/orderdetail" className='cursor-pointer'>Detail</Link></td>
             </tr>
         </tbody>
     )
