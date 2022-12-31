@@ -75,8 +75,8 @@ const ProfilePartner = () => {
                 title : 'Edit Profile Successfull, Let\'s Login...',
                 showConfirmButton : true
             })    
-            console.log(res.data)
             navigate('/partner/')
+            getUserData()
         })
         .catch(err => {
             Swal.fire({
@@ -85,6 +85,7 @@ const ProfilePartner = () => {
                 title : `${err.response.data.message}`,
                 showConfirmButton : true
             })
+            console.log(err)
         })
       }
 

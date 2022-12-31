@@ -49,7 +49,7 @@ const ListOrder = () => {
                       <td>{data.start_date.slice(0,10)}</td>
                       <td>{data.end_date.slice(0,10)}</td>
                       <td>{data.order_status}</td>
-                      <td>{data.order_status === 'waiting confirmation' ? 
+                      <td>{data.order_status === 'Waiting Confirmation' ? 
                         <button className='w-16 h-6 bg-bozz-three text-bozz-six rounded-lg text-[10px]'
                         onClick={() => navigate('/partner/confirm-order', {state : { id : data.id}})}
                         >Confirm</button> : '-'}</td>

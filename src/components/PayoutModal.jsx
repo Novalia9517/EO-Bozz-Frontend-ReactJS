@@ -4,7 +4,7 @@ import { formatCurrency } from '../utils/formatCurrency'
 
 // onChangeSelect, comment, setComment, status_feedback, onSubmitFeedback 
 
-const PayoutModal = ({change, payout, data}) => {
+const PayoutModal = ({change, payout, partner, total}) => {
     
     return (
         <>
@@ -16,19 +16,23 @@ const PayoutModal = ({change, payout, data}) => {
                     <div className='grid gap-5 grid-cols-2 grid-rows-2 text-left mt-5'>
                         <div className=''>
                             <p className='text-xs text-bozz-two'>Partner Name</p>
-                            <p className='text-md text-bozz-three'>Company A</p>
+                            <p className='text-md text-bozz-three'>{partner.company_name}</p>
+                        </div>
+                        <div className=''>
+                            <p className='text-xs text-bozz-two'>Bank Account Name</p>
+                            <p className='text-md text-bozz-three'>{partner.bank_account_name}</p>
                         </div>
                         <div className=''>
                             <p className=' text-xs text-bozz-two'>Bank Name</p>
-                            <p className='text-md text-bozz-three'>BCA</p>
+                            <p className='text-md text-bozz-three'>{partner.bank_name}</p>
                         </div>
                         <div className=''>
                             <p className=' text-xs text-bozz-two'>Bank Account</p>
-                            <p className='text-md text-bozz-three'>29909984345</p>
+                            <p className='text-md text-bozz-three'>{partner.bank_account_number}</p>
                         </div>
                         <div className=''>
                             <p className=' text-xs text-bozz-two'>Total</p>
-                            <p className='text-md text-bozz-three'>{formatCurrency(10000000)}</p>
+                            <p className='text-md text-bozz-three'>{formatCurrency(total)}</p>
                         </div>
                     </div>
                     <div className='mt-5 text-left'>
