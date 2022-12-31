@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NoteRevisi = () => {
+const NoteRevisi = ({note, revisi}) => {
   return (
     <>
             <input type="checkbox" id="my-modal-4" className="modal-toggle" />
@@ -10,9 +10,12 @@ const NoteRevisi = () => {
                     <h3 className="text-2xl font-bold text-bozz-one text-center">NOTES</h3>
                     <div className='mt-4'>
                         <p className='text-bozz-one font-semibold text-md '>Apa yang harus direvisi?</p>
-                        <textarea className='bg-bozz-five text-sm h-40 resize-none w-full border border-bozz-three p-3 caret:text-bozz-one text-bozz-one rounded-lg' placeholder='Tolong perbaiki SIUP'/>
+                        <textarea 
+                            className='bg-bozz-five text-sm h-40 resize-none w-full border border-bozz-three p-3 caret:text-bozz-one text-bozz-one rounded-lg' 
+                            placeholder='Tolong perbaiki SIUP' onChange={note}
+                        />
                     </div>
-                    <button className='w-full text-md bg-bozz-one text-white mt-8 rounded-md h-10'>Send</button>
+                    <button className='w-full text-md bg-bozz-one text-white mt-8 rounded-md h-10' onClick={revisi}>Send</button>
                 </label>
             </label>
         </>

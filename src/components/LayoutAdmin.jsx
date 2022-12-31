@@ -3,23 +3,19 @@ import NavbarAdmin from './NavbarAdmin'
 import SideBarAdmin from './SideBarAdmin'
 import { useCookies } from 'react-cookie';
 import { apiRequest, apiWithAuth } from '../services/api';
+import { useSelector } from 'react-redux';
 
 const LayoutAdmin = ({children}) => {
     const [cookie, setCookie] = useCookies()
-    const role = cookie.role
-    const token = cookie.token
+    const role = localStorage.getItem('role')
+    const token = localStorage.getItem('userToken')
     // const role = 'Admin'
-    const name = cookie.name
-    const getCity = async() => {
-      apiWithAuth(`city`, `GET`, null, "application/json", token)
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err))
-    }
+    const name = localStorage.getItem('name')
+    const data = useSelector(state => state.users.currentUser)
+    const img = data.company_image_file
 
-    useEffect(() => {
-        // getCity()
-    },[])
 
+    // console.log(data)
   return (
     <div className='min-h-screen w-screen flex bg-bozz-five'>
         <SideBarAdmin role={role} name={name}/>

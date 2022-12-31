@@ -61,7 +61,7 @@ const EditService = () => {
     body.append('city', city) 
     console.log([...body])
 
-    apiWithAuth(`services/${parseInt(id)}`, `PUT`,body, "application/json",token)
+    apiWithAuth(`services/${parseInt(id)}`, `PUT`,body, `multipart/form-data`,token)
         .then(res => {
             Swal.fire({
                 title: "Success Edit Service!",

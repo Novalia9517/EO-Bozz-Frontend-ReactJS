@@ -7,18 +7,21 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { BiLeftArrow } from 'react-icons/bi'
 import axios from 'axios'
+import { apiWithAuth } from '../../services/api'
 
 const VerifyPartner = () => {
   const [checkboxStatus, setCheckboxStatus] = useState(Array(12).fill(false));
   const [disable, setDisable] = useState(true)
+  const [notesRevisi, setNotesRevisi] = useState()
   const [partnerData, setPartnerData] = useState()
+  const token = localStorage.getItem('userToken')
   const navigate = useNavigate()
   const location = useLocation();
   const id = location?.state?.id;
 
   console.log(id)
   const getDataPartner = async () => {
-    await axios.get(`https://irisminty.my.id/partners/${id}`, {
+    await axios.get(`https://irisminty.my.id/partners/${id}/register`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
     })
       .then(res => {
@@ -45,16 +48,46 @@ const VerifyPartner = () => {
     setCheckboxStatus(status)
     editDisable()
   }
-  const onVerify = () => {
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: 'Verify Successfull',
-      showConfirmButton: true
+  const onVerify = async() => {
+    const body = {
+      verify_log: "Verified",
+      status: "Verified",
+      partner_id: parseInt(id)
+    }
+    apiWithAuth(`partners/verify`, `PUT`, body, "application/json", token )
+    .then(res => {
+      console.log(res.data)
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: 'Verify Successfull',
+        showConfirmButton: true
+      })
+      navigate('/admin/')
     })
-    navigate('/admin/')
+    .catch(err => console.log(err))
   }
 
+  const onRevisi = async() => {
+    const body = {
+      verify_log: notesRevisi,
+      status: "Revision",
+      partner_id: parseInt(id)
+    }
+    console.log([body])
+    apiWithAuth(`partners/verify`, `PUT`, body, "application/json", token )
+    .then(res => {
+      console.log(res.data)
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: 'Notes Revision Send.',
+        showConfirmButton: true
+      })
+      navigate('/admin/')
+    })
+    .catch(err => console.log(err))
+  }
   useEffect(() => {
     getDataPartner()
   }, [])
@@ -93,7 +126,7 @@ const VerifyPartner = () => {
           : <label htmlFor="my-modal-4" className='btn btn-sm text-xs bg-[#EF6D58] text-bozz-six w-24 hover:bg-[#EF6D70] rounded-lg hover:scale-110'>Revision</label>
         }
       </div>
-      <NoteRevisi />
+      <NoteRevisi note={(e) => setNotesRevisi(e.target.value)} revisi={onRevisi}/>
     </LayoutAdmin>
   )
 }

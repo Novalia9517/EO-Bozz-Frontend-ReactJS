@@ -41,17 +41,17 @@ const Dashboard = () => {
     const getListServices = () => {
 
         // Masih get All Services belum by ID
-        apiWithAuth(`services`, `GET`, null,"application/json", token)
+        apiWithAuth(`partners/services`, `GET`, null,"application/json", token)
         .then(res => {
-            setListServices(res.data.filter(data => data.partner_id == partnerId))
+            setListServices(res.data)
         })
         .catch(err => console.log(err))
 
     }
     const getListAdditionals = async () => {
         // Masih get All Additional belum by ID
-        apiWithAuth(`additionals`, `GET`, null,"application/json", token)
-        .then(res => setListAdditional(res.data.filter(data => data.partner_id == partnerId)))
+        apiWithAuth(`partners/additionals`, `GET`, null,"application/json", token)
+        .then(res => setListAdditional(res.data))
         .catch(err => console.log(err))
     }
 
@@ -143,7 +143,7 @@ const Dashboard = () => {
         // console.log('this', currentUsers)
     }, [])
 
-    // console.log(listServices)
+    console.log(listServices)
     return (
         <LayoutAdmin>
             {status === 'not verify' &&
