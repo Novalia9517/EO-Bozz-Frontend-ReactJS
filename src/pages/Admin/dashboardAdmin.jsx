@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LayoutAdmin from '../../components/LayoutAdmin'
+import Loading from '../../components/Loading'
 
 const DashboardAdmin = () => {
   const tableHead = ['No', 'Company Name', 'Register Date', 'PIC Name', 'Status', 'Action']
@@ -35,6 +36,9 @@ const DashboardAdmin = () => {
 
 
   return (
+    <>
+    {partnerData ? 
+    
     <LayoutAdmin>
       <div className='mt-5 w-full h-full'>
         <h1 className='text-xl font-bold text-bozz-one mb-8'>List Register Partner</h1>
@@ -49,7 +53,6 @@ const DashboardAdmin = () => {
             </thead>
             <tbody>
               {partnerData ? (
-                
                   partnerData.map((data, index) => {
                     return (
                       <tr className='text-bozz-two border-b-2 border-bozz-two h-10 text-center' key={index}>
@@ -74,6 +77,9 @@ const DashboardAdmin = () => {
         </div>
       </div>
     </LayoutAdmin>
+    : <Loading/>
+  }
+    </>
   )
 }
 

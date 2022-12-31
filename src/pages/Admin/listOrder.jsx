@@ -19,11 +19,14 @@ const ListOrderAdmin = () => {
 
     const onPayout = async(id) => {
       const data = new FormData()
-      data.append('', img)
+      data.append('payout_receipt_file', img)
       console.log([...data])
 
       apiWithAuth(`orders/${parseInt(id)}/payout`, `PUT`, data, "multipart/form-data", token)
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res)
+        window.location.reload()
+      })
       .catch(err => console.log(err))
     }
 
@@ -58,7 +61,7 @@ const ListOrderAdmin = () => {
                       <td>{formatCurrency(data.gross_ammount)}</td>
                       <td>{data.order_status}</td>
                       <td>{data.order_status === 'Complete Order' ? <label htmlFor="my-modal-4" className='btn btn-xs border border-white w-16 h-6 bg-bozz-three hover:bg-bozz-two text-bozz-six rounded-lg text-[10px]'>Pay</label> : '-'}</td>
-                      <PayoutModal change={(e) => setImg(e.target.files[0])} payout={() => onPayout(data.id)} partner={data.id}/>
+                      <PayoutModal change={(e) => setImg(e.target.files[0])} payout={() => onPayout(data.id)} partner={data.parnter} total={data.gross_ammount}/>
                     </tr>
                   )
                 })
