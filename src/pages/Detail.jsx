@@ -24,8 +24,9 @@ const Detail = () => {
     const [startDate, setStartDate] = useState()
     const [endDate, setEndDate] = useState()
     const [available, setAvailable] = useState(false)
-    const naviigate = useNavigate()
+    const navigate = useNavigate()
     const [cookie, setCookie] = useCookies()
+    const token = localStorage.getItem('userToken')
     const location = useLocation();
     const id = location?.state?.id;
     const [company, setCompany] = useState()
@@ -37,6 +38,7 @@ const Detail = () => {
             .then(res => {
                 const data = res.data.data
                 setServiceId(data)
+                getCompany()
             })
             .catch(err => {
                 console.log(err)
@@ -44,12 +46,12 @@ const Detail = () => {
     }
 
     const getDiscussion = async () => {
-        await axios.get(`https://irisminty.my.id/discussions`, {
+        await axios.get(`https://irisminty.my.id/services/${id}/discussions`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
         })
             .then(res => {
                 const dataDiscussion = res.data.data
-                setDiscussion(dataDiscussion.filter(item => item.service_id === id))
+                setDiscussion(dataDiscussion)
                 console.log(discussions)
             })
             .catch(err => {
@@ -58,7 +60,7 @@ const Detail = () => {
     }
 
     const getCompany = async() => {
-        apiWithAuth(`partners`, `GET`, null, "application/json", localStorage.getItem('userToken'))
+        apiWithAuth(`partners`, `GET`, null, "application/json", token)
         .then(res => {
             res.data.map((company,i) => {
                 if(company.id == serviceId?.partner_id) setCompany(company.company_name)
@@ -76,7 +78,7 @@ const Detail = () => {
                 client_id: parseInt(cookie.id),
                 service_id: parseInt(serviceId.id)
             }
-            apiWithAuth(`discussions`, `POST`, body, "application/json", cookie.token)
+            apiWithAuth(`discussions`, `POST`, body, "application/json", token)
                 .then(res => {
                     Swal.fire({
                         position: "center",
@@ -85,6 +87,8 @@ const Detail = () => {
                         showConfirmButton: true,
                         timer: 1500,
                     });
+                    getDiscussion()
+                    values.ask = ''
                 })
                 .catch(err => {
                     Swal.fire({
@@ -105,26 +109,39 @@ const Detail = () => {
         onSubmit
     })
 
-    const onCheck = () => {
-        Swal.fire({
-            position: "center",
-            icon: "success",
-            text: "Date Available",
-            showConfirmButton: true,
-            timer: 1500,
-        });
-        setAvailable(true)
+    const onCheck = async() => {
+        apiWithAuth(`services/${parseInt(id)}/availability?start_date=${startDate}&end_date=${endDate}`, `POST`, null, "application/json", token)
+        .then(res => {
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                text: "Date Available",
+                showConfirmButton: true,
+                timer: 1500,
+            });
+            setAvailable(true)
+        })
+        .catch(err => {
+            console.log(err)
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                text: "Date Not Available",
+                showConfirmButton: true,
+                timer: 1500,
+            });
+            setAvailable(false)
+        })
     }
 
     const onOrder = () => [
-        naviigate('/orderuser', {
+        navigate('/orderuser', {
             state: { startDate: startDate, endDate: endDate }
         })
     ]
     useEffect(() => {
         getDiscussion()
         getDataId()
-        getCompany()
     }, [])
     return (
         <>
