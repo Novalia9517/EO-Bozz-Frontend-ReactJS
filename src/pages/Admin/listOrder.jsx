@@ -1,49 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import LayoutAdmin from '../../components/LayoutAdmin'
 import PayoutModal from '../../components/PayoutModal'
+import { apiWithAuth } from '../../services/api'
 import { formatCurrency } from '../../utils/formatCurrency'
 
 const ListOrderAdmin = () => {
      // company name, clent name,start date, end date, gross ammount, status, paaction(pay)
-    const tableHead = ['no', 'company name', 'client name', 'start date', 'end date', 'total', 'status', 'action']
+    const tableHead = ['no', 'event name', 'event location', 'service name', 'start date', 'end date', 'total', 'status', 'action']
     const [orderList, setOrderList] = useState()
-    const [revisi, setRevisi] = useState()
-    const [revisiNote, setRevisiNote] = useState()
+    const [img, setImg] = useState()
+    const token = localStorage.getItem('userToken')
 
-    const getOrderList = () => {
-        const orders = [
-            {
-                company_name : 'Birthday Pak Garuda',
-                client_name : 'Birthday',
-                start_date : '23/12/2022',
-                end_date : '25/12/2022',
-                gross_amount : 36000000,
-                status : 'waiting for payout'
-            },
-            {
-                company_name : 'Wedding John Doe',
-                client_name : 'Birthday',
-                start_date : '30/12/2022',
-                end_date : '01/01/2023',
-                gross_amount : 32000000,
-                status : 'waiting for payout'
-            },
-            {
-                company_name : 'Graduation Party',
-                client_name : 'Prvate Party',
-                start_date : '27/12/2022',
-                end_date : '29/12/2022',
-                gross_amount : 42000000,
-                status : 'on going'
-            },
-        ]
-        setOrderList(orders)
+    const getOrderList = async() => {
+        apiWithAuth(`orders`, `GET`, null, "application/json", token)
+        .then(res => setOrderList(res.data))
+        .catch(console.log(err))
     }
 
-    const onSubmitRevisi = (e) => {
-      console.log('revisi')
-      e.preventDefault()
+    const onPayout = async(id) => {
+      const data = new FormData()
+      data.append('', img)
+      console.log([...data])
+
+      apiWithAuth(`orders/${parseInt(id)}/payout`, `PUT`, data, "multipart/form-data", token)
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
     }
+
 
     useEffect(() => {
         getOrderList()
@@ -67,13 +50,15 @@ const ListOrderAdmin = () => {
                   return (
                     <tr className='text-bozz-two border-b-2 border-bozz-three h-6 text-center text-xs font-semibold' key={index}>
                       <td>{index + 1}</td>
-                      <td>{data.company_name}</td>
-                      <td>{data.client_name}</td>
-                      <td>{formatCurrency(data.gross_amount)}</td>
-                      <td>{data.start_date}</td>
-                      <td>{data.end_date}</td>
-                      <td>{data.status}</td>
-                      <td>{data.status === 'waiting for payout' ? <label htmlFor="my-modal-4" className='btn btn-xs border border-white w-16 h-6 bg-bozz-three hover:bg-bozz-two text-bozz-six rounded-lg text-[10px]'>Pay</label> : '-'}</td>
+                      <td>{data.event_name}</td>
+                      <td>{data.event_location}</td>
+                      <td>{data.service_name.slice(0,15)}...</td>
+                      <td>{data.start_date.slice(0,10)}</td>
+                      <td>{data.end_date.slice(0,10)}</td>
+                      <td>{formatCurrency(data.gross_ammount)}</td>
+                      <td>{data.order_status}</td>
+                      <td>{data.order_status === 'Complete Order' ? <label htmlFor="my-modal-4" className='btn btn-xs border border-white w-16 h-6 bg-bozz-three hover:bg-bozz-two text-bozz-six rounded-lg text-[10px]'>Pay</label> : '-'}</td>
+                      <PayoutModal change={(e) => setImg(e.target.files[0])} payout={() => onPayout(data.id)} partner={data.id}/>
                     </tr>
                   )
                 })
@@ -84,7 +69,7 @@ const ListOrderAdmin = () => {
 
           </div>
         </div>
-        <PayoutModal/>
+        {/* <PayoutModal/> */}
     </LayoutAdmin>
   )
 }

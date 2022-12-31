@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import LayoutAdmin from '../../components/LayoutAdmin'
 
 const DashboardAdmin = () => {
-  const tableHead = ['No', 'Company Name', 'Register Date', 'City', 'Status', 'Action']
+  const tableHead = ['No', 'Company Name', 'Register Date', 'PIC Name', 'Status', 'Action']
   const [partnerData, setPartnerData] = useState()
   const navigate = useNavigate()
 
@@ -17,7 +17,7 @@ const DashboardAdmin = () => {
   }
 
   const getDataPartner = async () => {
-    await axios.get(`https://irisminty.my.id/partners`, {
+    await axios.get(`https://irisminty.my.id/partners/register`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
     })
       .then(res => {
@@ -33,30 +33,6 @@ const DashboardAdmin = () => {
     getDataPartner()
   }, [])
 
-
-  const datas = [
-    {
-      order_id: 1,
-      company_name: 'Company Aceh',
-      register_date: '12/12/2022',
-      company_location: 'Jakarta',
-      register_status: 'need verify'
-    },
-    {
-      order_id: 2,
-      company_name: 'Company Aceh',
-      register_date: '12/12/2022',
-      company_location: 'Jakarta',
-      register_status: 'verify'
-    },
-    {
-      order_id: 3,
-      company_name: 'Company Aceh',
-      register_date: '12/12/2022',
-      company_location: 'Jakarta',
-      register_status: 'verify'
-    },
-  ]
 
   return (
     <LayoutAdmin>
@@ -79,10 +55,10 @@ const DashboardAdmin = () => {
                       <tr className='text-bozz-two border-b-2 border-bozz-two h-10 text-center' key={index}>
                         <td>{index + 1}</td>
                         <td>{data.company_name}</td>
-                        <td>{data.company_phone}</td>
-                        <td>{data.company_city}</td>
+                        <td>{data.register_date.slice(0,10)}</td>
+                        <td>{data.pic_name}</td>
                         <td>{data.verification_status}</td>
-                        <td>{data.verification_status === "Not Verified" ?
+                        <td>{data.verification_status === "Not Verified" || data.verification_status === "Revision" ?
                           <button className='w-24 h-8 text-center py-0 bg-bozz-two text-bozz-six rounded-lg hover:bg-bozz-three hover:scale-110' onClick={()=> onVerify(data.id)}>Verify</button>
                           : '-'}
                         </td>
