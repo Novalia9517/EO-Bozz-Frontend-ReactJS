@@ -1,25 +1,35 @@
 import React from 'react'
 
 
-const CardHome = () => {
+const CardHome = ({ dataCity, dataCategory, searchCategory, searchCity }) => {
     return (
         <div className="card bg-[#F9F5F6] w-full max-h-max  shadow-xl">
             <form>
                 <div className="gap-12 p-8 md:flex flex-col-sm justify-center">
                     <div>
                         <p>Pilih Category</p>
-                        <select className="select select-bordered border-bozz-one w-full max-w-xs bg-bozz-six text-bozz-one">
-                            <option>Wedding</option>
-                            <option>EO</option>
-                            <option>EO Esport</option>
+                        <select onChange={searchCategory} className="select select-bordered border-bozz-one w-full max-w-xs bg-bozz-six text-bozz-one">
+                            {dataCategory ? (
+                                    dataCategory.map((item => {
+                                        return (
+                                            <option>{item.service_category}</option>
+                                        )
+                                    }))
+                            ): <></>}
+                            
                         </select>
                     </div>
                     <div>
                         <p>Pilih Domisili</p>
-                        <select className="select select-bordered border-bozz-one w-full max-w-xs bg-bozz-six text-bozz-one">
-                            <option>Jakarta</option>
-                            <option>Solo</option>
-                            <option>Bogor</option>
+                        <select onChange={searchCity} className="select select-bordered border-bozz-one w-full max-w-xs bg-bozz-six text-bozz-one">
+                            {dataCity ? (
+                                    dataCity.map((item => {
+                                        return (
+                                            <option>{item.city_name}</option>
+                                        )
+                                    }))
+                                
+                            ):<></>}
                         </select>
                     </div>
                     <div>

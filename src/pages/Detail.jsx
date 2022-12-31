@@ -36,6 +36,7 @@ const Detail = () => {
         })
             .then(res => {
                 const data = res.data.data
+                console.log(data)
                 setServiceId(data)
             })
             .catch(err => {
@@ -85,6 +86,7 @@ const Detail = () => {
                         showConfirmButton: true,
                         timer: 1500,
                     });
+                    naviigate(0)
                 })
                 .catch(err => {
                     Swal.fire({

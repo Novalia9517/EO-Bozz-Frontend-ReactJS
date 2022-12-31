@@ -7,10 +7,14 @@ import Footer from '../component/Footer'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { apiWithAuth } from '../services/api'
+import { data } from 'autoprefixer'
 
 const Home = () => {
 
     const [data_service, setDataService] = useState()
+    const [city,setCity] = useState()
+    const [searchCategory,setSearchCategory] = useState()
+    const [searchCity, setSearchCity] = useState()
     const [listCompany, setListCompany] = useState()
 
     const navigate = useNavigate()
@@ -23,6 +27,19 @@ const Home = () => {
                 const data = res.data.data
                 // console.log(data)
                 setDataService(data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const getCity = async () => {
+        await axios.get(`https://irisminty.my.id/city`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
+        })
+            .then(res => {
+                const data = res.data.data
+                setCity(data)
             })
             .catch(err => {
                 console.log(err)
@@ -49,6 +66,7 @@ const Home = () => {
     useEffect(() => {
         getDataService()
         getCompany()
+        getCity()
         // console.log('this', data_service)
     }, [])
 
@@ -68,7 +86,14 @@ const Home = () => {
                 </div>
             </div>
             <div className='container mx-auto flex justify-center px-10 py-10'>
-                <CardHome />
+                {data_service ? (
+                    <CardHome
+                        dataCategory={data_service}
+                        dataCity={city}
+                        searchCategory={(e) => setSearchCategory(e.target.value)}
+                        searchCity={(e) => setSearchCity(e.target.value)}
+                    />
+                ): <></>}
             </div>
             <div className='container mx-auto px-5 py-5 '>
                 <div className='grid gap-8 grid-cols-1 lg:grid-cols-3 md:grid-cols-'>
