@@ -12,7 +12,7 @@ import { updateUser } from '../../store/features/userSlice'
 
 const Dashboard = () => {
     const [status, setStatus] = useState()
-    const [logs, setLogs] = useState(['register', 'waiting for verify', 'revision with note'])
+    const [logs, setLogs] = useState()
     const [listServices, setListServices] = useState([])
     const [listAdditional, setListAdditional] = useState([])
     const serviceHead = ['no', 'package name', 'package price', 'package category','rating', 'action']
@@ -25,12 +25,14 @@ const Dashboard = () => {
     const currentUsers = useSelector((state) => state.users.currentUser)
 
     const getDataPartner = async () => {
-        await axios.get(`https://irisminty.my.id/partners/${localStorage.getItem('idpartner')}`, {
+        await axios.get(`https://irisminty.my.id/partners/${localStorage.getItem('partner_id')}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
         })
             .then(res => {
                 const data = res.data.data
                 dispatch(updateUser(data));
+                setStatus(data.verification_status)
+                setLogs(data.verification_log.split('\n'))
             })
             .catch(err => {
                 console.log(err)
@@ -87,7 +89,6 @@ const Dashboard = () => {
                       })
                       getListServices()
                       console.log(res.data)
-        
                 })
         .catch(err => {
             Swal.fire({
@@ -135,9 +136,7 @@ const Dashboard = () => {
         });
     }
     useEffect(() => {
-        // getDataPartner()
         getDataPartner()
-        setStatus('verify')
         getListServices()
         getListAdditionals()
         // console.log('this', currentUsers)
@@ -145,7 +144,7 @@ const Dashboard = () => {
 
     return (
         <LayoutAdmin>
-            {status === 'not verify' &&
+            {status == 'Not Verified' || status == 'Revision' ?
                 <div>
                     <h1 className='text-xl font-bold text-bozz-one mb-5 border border-bozz-one p-5 rounded-xl'>Account Not Verify Yet</h1>
                     <h1 className='text-xl font-bold text-bozz-one'>Verify Progress</h1>
@@ -153,21 +152,21 @@ const Dashboard = () => {
                         {logs?.map((log, index) => {
                             return <li className="step step-primary text-bozz-one capitalize">
                                 <span>{log}
-                                    {log === 'revision with note' ? <a className='text-bozz-two font-bold underline'> Link Revisi</a> : ''}
+                                    { status == 'Revision' ? <Link to='/partner/revisi-registrasi' className='text-bozz-two font-bold underline'> Link Revisi</Link> : ''}
                                 </span>
                             </li>
                     })}
                 </ul>
-            </div>
+            </div> : null
         }
-        {status === 'verify' && listServices === [] ? 
+        {status == 'Verify' && listServices == [] ? 
             <div className='flex flex-col mt-3'>
                 <button className='bg-bozz-two text-bozz-six h-8 py-0 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
                 <h1 className='text-xl font-bold text-bozz-one mb-5 border border-bozz-one p-5 rounded-xl'>List Services Not Add Yet</h1>
             </div> 
         : null
         }
-        {status === 'verify' && listServices.length >= 1 ? 
+        {status == 'Verify' && listServices?.length >= 1 ? 
             <div className='flex flex-col mt-3'>
                 {active == 'service' ? 
                     <button className='bg-bozz-two text-bozz-six h-8 py-0 px-8 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>

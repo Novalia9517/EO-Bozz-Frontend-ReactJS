@@ -34,7 +34,9 @@ const Navbar = () => {
                 localStorage.removeItem("name");
                 localStorage.removeItem("id");
                 localStorage.removeItem("role");
-
+                localStorage.removeItem("partner_id");
+                localStorage.removeItem("idclient");
+                // localStorage.setItem("idpartner", data.partner_id);
                 navigate('/login')
             }
         });

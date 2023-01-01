@@ -15,7 +15,9 @@ const RegisterUser = () => {
     const [seePwd, setSeePwd] = useState(false)
     const [seePwdConf, setSeePwdConf] = useState(false)
     const [loading, setLoading] = useState(false) 
-    const [image, setImage] = useState() 
+    const [image, setImage] = useState()
+    const allCity = JSON.parse(localStorage.getItem('city'))
+    const [city, setCity] = useState()
     const navigate = useNavigate()
 
     const onSubmit = async() => {
@@ -29,6 +31,7 @@ const RegisterUser = () => {
         body.append('city', values.city)
         body.append('phone', values.phone)
         body.append('client_image_file', image)
+        console.log([...body])
 
         apiRequest(`clients`, `POST`, body, `multipart/form-data`)
         .then(res => { 
@@ -69,20 +72,21 @@ const RegisterUser = () => {
         onSubmit
     })
 
+    console.log(allCity)
   return (
-    <div className={`h-screen w-screen relative`}>
-        <img src={Background} className='w-full h-full object-fill relative'/>         
-        <div className="absolute top-0 px-56 py-5 w-[100%] h-full flex justify-center">
-            <div className='card rounded-[50px] w-[80%] bg-bozz-five px-12 py-5 h-full flex flex-col shadow-[6px_6px_6px_rgba(83,62,133,0.5)]'>
+    <div className={`md:h-screen h-full w-screen relative`}>
+        <img src={Background} className='w-full md:h-full min-h-screen object-fill relative'/>         
+        <div className="absolute top-0 lg:px-56 md:px-24 px-12 py-5 w-full h-full flex justify-center">
+            <div className='card rounded-[50px] lg:w-[80%] w-full bg-bozz-five px-12 py-5 h-full flex flex-col shadow-[6px_6px_6px_rgba(83,62,133,0.5)]'>
                 <h1 className='text-center font-bold text-xl text-bozz-one'>REGISTER USER</h1>
                 {/* <div className='card rounded-[47px] w-[80%] h-[90%] border border-bozz-one flex flex-col justity- p-10 px-24 shadow-[6px_6px_6px_rgba(83,62,133,0.5)] bg-bozz-six'> */}
                     <form onSubmit={handleSubmit} className='w-full px-12'>
                         <InputReg title='username' id='username' placeholder='username123' value={values.username} check1={errors.username} check2={touched.username} change={handleChange} blur={handleBlur}/>
-                        <div className='flex gap-5'>
+                        <div className='flex justify-between flex-col md:flex-row md:gap-5 gap-1'>
                             <InputReg title='email'id='email' placeholder='username123@gmail.com' value={values.email} check1={errors.email} check2={touched.email} change={handleChange} blur={handleBlur}/>
                             <InputReg title='Phone' id='phone' placeholder='08912345678' value={values.phone} check1={errors.phone} check2={touched.phone} change={handleChange} blur={handleBlur}/>
                         </div>
-                        <div className='flex gap-5'>
+                        <div className='flex justify-between flex-col md:flex-row md:gap-5 gap-1'>
                             <div className="form-control mt-3 w-full" type='gender' id='gender' value={values.gender}>
                                 <p className='label-text text-bozz-one'>Gender</p>
                                 <div className='flex gap-5'>
@@ -96,7 +100,20 @@ const RegisterUser = () => {
                                     </label>
                                 </div>
                             </div>
-                            <InputReg title='city' id='city' placeholder='Jakarta' value={values.city} check1={errors.city} check2={touched.city} change={handleChange} blur={handleBlur}/>
+                            <div className="form-control mt-3 w-full">
+                                <p className='label-text text-bozz-one'>City</p>
+                                <select 
+                                    className="bg-bozz-five border border-bozz-one text-xs text-bozz-one h-10 rounded-lg w-full"
+                                    id='city' value={values.city} onChange={handleChange}
+                                    >
+                                    <option>Choose City</option>
+                                        {allCity && 
+                                            allCity?.map((item, index) => {
+                                            return <option key={index} value={item.city_name} className='text-xs'>{item.city_name}</option>
+                                        })
+                                        }
+                                </select>
+                            </div>
                         </div>
                         <InputReg title='address' id='address' placeholder='Jln. Cempaka no.223' value={values.address} check1={errors.address} check2={touched.address} change={handleChange} blur={handleBlur}/>
                         <div className="form-control w-full">
@@ -106,7 +123,7 @@ const RegisterUser = () => {
                             <input
                                 type='file' id='file'
                                 placeholder='Input image'
-                                className={`border rounded-lg h-10 focus:outline-none focus:ring-2 focus:ring-bozz-two text-xs px-3 w-full bg-bozz-five caret-text-bozz-one text-bozz-one file:bg-bozz-one file:h-full rounded-none px-0`}
+                                className={`border border-bozz-one rounded-lg h-10 focus:outline-none focus:ring-2 focus:ring-bozz-two text-xs px-3 w-full bg-bozz-five caret-text-bozz-one text-bozz-one file:bg-bozz-one file:h-full rounded-none px-0`}
                                 onChange={(e) => setImage(e.target.files[0])} required
                             />
                         </div>
