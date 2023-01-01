@@ -13,7 +13,7 @@ import { updateUser } from '../../store/features/userSlice'
 const Dashboard = () => {
     const [status, setStatus] = useState()
     const [logs, setLogs] = useState()
-    const [listServices, setListServices] = useState([])
+    const [listServices, setListServices] = useState()
     const [listAdditional, setListAdditional] = useState([])
     const serviceHead = ['no', 'package name', 'package price', 'package category','rating', 'action']
     const additionalHead = ['no', 'additional name', 'additional price']
@@ -32,6 +32,7 @@ const Dashboard = () => {
                 const data = res.data.data
                 dispatch(updateUser(data));
                 setStatus(data.verification_status)
+                // setStatus('Verify')
                 setLogs(data.verification_log.split('\n'))
             })
             .catch(err => {
@@ -142,6 +143,7 @@ const Dashboard = () => {
         // console.log('this', currentUsers)
     }, [])
 
+    console.log(status)
     return (
         <LayoutAdmin>
             {status == 'Not Verified' || status == 'Revision' ?
@@ -158,14 +160,14 @@ const Dashboard = () => {
                     })}
                 </ul>
             </div> : null
-        }
-        {status == 'Verify' && listServices == [] ? 
-            <div className='flex flex-col mt-3'>
-                <button className='bg-bozz-two text-bozz-six h-8 py-0 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
-                <h1 className='text-xl font-bold text-bozz-one mb-5 border border-bozz-one p-5 rounded-xl'>List Services Not Add Yet</h1>
-            </div> 
-        : null
-        }
+            }
+            {status == 'Verify' ? 
+                <div className='flex flex-col mt-3'>
+                    <button className='bg-bozz-two text-bozz-six h-8 py-0 px-8 rounded-lg mb-5 self-end' onClick={() => navigate('/partner/add-service')}> Add New Service</button>
+                    <h1 className='text-xl font-bold text-bozz-one mb-5 border border-bozz-one p-5 rounded-xl'>List Services Not Add Yet</h1>
+                </div> 
+            : null
+            }
         {status == 'Verify' && listServices?.length >= 1 ? 
             <div className='flex flex-col mt-3'>
                 {active == 'service' ? 
