@@ -5,12 +5,14 @@ import { TbLogout } from 'react-icons/tb'
 import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { useCookies } from 'react-cookie'
+import { useSelector } from 'react-redux'
 
 
 const NavbarAdmin = ({ role, name }) => {
-    const link = role === 'Partner' ? '/partner/profile' : '/admin/profile'
+    const link = role == 'Partner' ? '/partner/profile' : '/admin/profile'
     const [cookie, removeCookie] = useCookies(["userToken"])
     const navigate = useNavigate()
+    const data = useSelector(((state) => state.users.currentUser))
     const onLogout = () => {
         Swal.fire({
             title: "Are you sure?",
@@ -41,15 +43,15 @@ const NavbarAdmin = ({ role, name }) => {
     return (
         <div className='flex justify-between items-center w-full mb-2'>
             <div className='flex flex-col'>
-                <h1 className='text-4xl font-bold text-bozz-one capitalize'>Hello {name} !</h1>
+                <h1 className='text-4xl font-bold text-bozz-one capitalize'>Hello {data.pic_name} !</h1>
                 <p className='text-sm font-semibold text-bozz-one'>You're doing great</p>
             </div>
             <div className='flex items-center'>
-                <img src={Admin} className='rounded-full w-14 h-14 border border-bozz-one mx-5' />
+                <img src={data.company_image_file} className='rounded-full w-14 h-14 border border-bozz-one mx-5' />
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="flex flex-col">
-                      <p className='text-lg font-semibold text-bozz-one hover:scale-110 capitalize'>{name}</p>
-                      <p className='text-sm font-semibold text-bozz-one capitalize'>{role}</p>
+                      <p className='text-lg font-semibold text-bozz-one hover:scale-110 capitalize'>{data.pic_name}</p>
+                      <p className='text-sm font-semibold text-bozz-one capitalize'>{data.role}</p>
                     </label>
                     <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-bozz-six text-bozz-one border border-bozz-one rounded-box w-32">
                         <li>

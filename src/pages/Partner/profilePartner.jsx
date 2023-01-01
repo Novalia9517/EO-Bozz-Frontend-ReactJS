@@ -20,34 +20,46 @@ const ProfilePartner = () => {
     console.log(userToken)
     const role = cookie.role
     const [name, setName] = useState()
+    const [companyName, setCompanyName] = useState()
     const [email, setEmail] = useState()
     const [phone, setPhone] = useState()
     const [city, setCity] = useState()
     const [address, setAddress] = useState()
+    const [img, setImg] = useState()
     const [edit,setEdit] = useState(false)
     const currentUser = useSelector(state => state.users.currentUser)
 
-    const getUserData = async() => {
-        // const currentUser = useSelector(state => state.users.currentUser)
-        setUserData(currentUser)
-        setName(userData?.company_name)
-        setEmail(userData.email)
-        setPhone(userData.company_phone)
-        setCity(userData.company_city)
-        setAddress(userData.company_address)
+    const getUserData = () => {
+            setUserData(currentUser)
+            setName(currentUser.pic_name)
+            setCompanyName(currentUser.company_name)
+            setEmail(currentUser.email)
+            setPhone(currentUser.company_phone)
+            setCity(currentUser.company_city)
+            setAddress(currentUser.company_address)
+            setImg(currentUser.company_image_file)
+            console.log(currentUser)
+    }
+    const updateUser = async() => {
+        apiWithAuth(`partners/${localStorage.getItem('partner_id')}`, `GET`, null, "application/json", localStorage.getItem('userToken'))
+        .then(res => {
+            const data = res.data
+                dispatch(updateUser(data));
+        })
+        .catch(err => console.log(err))
     }
     const onEdit = async() => {
         const body = new FormData()
-        body.append('name', userData.name) 
+        body.append('name', name) 
         body.append('email', email)
         // body.append('password', userData.password)
         body.append('pic_position', userData.pic_position)
         body.append('pic_phone', userData.pic_phone)
         body.append('pic_address', userData.pic_address)
-        body.append('company_name', name)
+        body.append('company_name', companyName)
         body.append('company_phone', phone)
         body.append('company_city', city)
-        body.append('company_image_file', userData.company_image_file)
+        body.append('company_image_file', img)
         body.append('company_address', address)
         body.append('link_website', userData.link_website)
         body.append('nib_number', userData.nib_number)
@@ -59,7 +71,7 @@ const ProfilePartner = () => {
         body.append('event2_name', userData.event2_name)
         body.append('event2_image_file', userData.event2_image_file)
         body.append('event3_name', userData.event3_name)
-        body.append('event3_image_file', userData.event3_image_file)
+        body.append('event4_image_file', userData.event4_image_file)
         body.append('bank_name', userData.bank_name)
         body.append('bank_account_number', userData.bank_number)
         body.append('bank_account_name', userData.bank_account_name)
@@ -76,7 +88,7 @@ const ProfilePartner = () => {
                 showConfirmButton : true
             })    
             navigate('/partner/')
-            getUserData()
+            updateUser()
         })
         .catch(err => {
             Swal.fire({
@@ -93,7 +105,7 @@ const ProfilePartner = () => {
     useEffect(() => {
         getUserData()
     },[userData])
-    // console.log(currentUser)
+    console.log(currentUser)
   return (
     <>
         {userData ? 
@@ -103,7 +115,7 @@ const ProfilePartner = () => {
                 <div className='flex w-full px-14 py-5'>
                     <div className='w-[25%] h-full py-12 flex flex-col items-center'>
                         <div className='relative'>
-                            <img src={Admin} className='rounded-full h-48 w-48 border border-bozz-one'/>
+                            <img src={userData.company_image_file} className='rounded-full h-48 w-48 border border-bozz-one'/>
                             <div className="flex text-bozz-one absolute right-6 bottom-0"><FaEdit className='text-2xl'/>
                                 <input type={'file'} className='hidden'></input>
                             </div>
@@ -120,7 +132,7 @@ const ProfilePartner = () => {
                                 className='text-bozz-one cursor-pointer font-semibold flex' 
                                 onClick={() => setEdit(!edit)}><FaEdit className='text-xl'/>Edit</p>
                         </div>
-                        {edit === false ?
+                        {edit == false ?
                             <div className='mt-5'>
                                 <div className='mt-3'>
                                     <span className="label-text text-bozz-three capitalize">{userData.role} Email</span>
@@ -146,19 +158,29 @@ const ProfilePartner = () => {
                         : 
                         <div className='mt-5'>
                             <h1 className='text-center text-bozz-three font-semibold text-lg'>Edit Profile</h1>
-                            <EditInput label='Partner Name' id='name' value={name} change={(e) => setName(e.target.value)} placeholder='name'/>
+                            <EditInput label='Name' id='name' value={name} change={(e) => setName(e.target.value)} placeholder={name}/>
+                            <EditInput label='Company Name' id='name' value={companyName} change={(e) => setCompanyName(e.target.value)} placeholder='name'/>
                             <EditInput label='Email' id='email' value={email} change={(e) => setEmail(e.target.value)} placeholder='email'/>
                             <EditInput label='Partner Phone' id='Phone' value={phone} change={(e) => setPhone(e.target.value)} placeholder='08912345678'/>
                             <EditInput label='Partner City' id='Phone' value={city} change={(e) => setCity(e.target.value)} placeholder='Jakarta' />
                             <EditInput label='Partner Address' id='Address' value={address} change={(e) => setAddress(e.target.value)} placeholder='Jln. Kunang kunang No.1234'/>
+                            <div className="form-control w-full">
+                                <label className="label mb-[-10px]">
+                                    <span className="label-text text-bozz-three capitalize">Company Image</span>
+                                </label>
+                                <input
+                                    type='file' id={'image'} 
+                                    placeholder={'company image'} onChange={(e) => setImg(e.target.files[0])} 
+                                    className={`w-px-5 w-full border h-10 border-bozz-three bg-bozz-five caret-text-bozz-three text-bozz-three file:h-full file:bg-bozz-two file:border-none`}
+                                    required
+                                    />
+                            </div>
                             <div className='flex justify-end w-full mt-8 text-sm'>
-                                <button className='bg-[#EF6D58] px-3 w-20 rounded-lg text-bozz-six hover:scale-110'>Cancel</button>
-                                <button className='bg-bozz-three text-bozz-six w-28 mx-3 rounded-lg hover:scale-110' onClick={onEdit}>Submit Edit</button>
+                                <button className='bg-[#EF6D58] px-3 w-20 h-8 rounded-lg text-bozz-six hover:scale-110'>Cancel</button>
+                                <button className='bg-bozz-three text-bozz-six h-8  w-28 mx-3 rounded-lg hover:scale-110' onClick={onEdit}>Submit Edit</button>
                             </div>
                         </div>
                         }
-
-                        
                     </div>
                 </div>
                 
@@ -168,7 +190,7 @@ const ProfilePartner = () => {
                         <p className='text-2xl font-semibold text-bozz-one text-center mb-2'>Detail</p>
                         <table className='w-full'>
                         <tbody>
-                        <Row keyName='PIC Name' value={userData.name}/>
+                        <Row keyName='PIC Name' value={userData.pic_name}/>
                         <Row keyName='PIC Position' value={userData.pic_position}/>
                         <Row keyName='PIC phone' value={userData.pic_phone}/>
                         <Row keyName='PIC Address' value={userData.pic_address}/>

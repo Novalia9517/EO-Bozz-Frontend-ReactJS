@@ -9,11 +9,15 @@ const ListOrder = () => {
     const tableHead = ['no', 'event name', 'service name', 'city', 'total order', 'start date', 'end date', 'status', 'action', 'transfer file']
     const [orderList, setOrderList] = useState()
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(true)
 
     const getOrderList = async() => {
 
         apiWithAuth(`partners/orders`, `GET`, null, "application/json", localStorage.getItem('userToken'))
-        .then(res => setOrderList(res.data))
+        .then(res => {
+          setOrderList(res.data)
+          setLoading(false)
+        })
         .catch(err => console.log(err))
     }
 
@@ -23,7 +27,7 @@ const ListOrder = () => {
     console.log(orderList)
   return (
     <>
-    {orderList ? 
+    {!loading ? 
     <LayoutAdmin>
         <div className='mt-3 w-full h-full'>
           <h1 className='text-xl font-bold text-bozz-one mb-5'>List Order Partner</h1>
@@ -62,7 +66,7 @@ const ListOrder = () => {
                     </tr>
                   )
                 })
-                : <p className='text-lg font-semibold text-bozz-one mt-10'>Belum Ada Order Yang Masuk</p>
+                : <tr><td className='w-full text-md font-semibold text-bozz-one mt-5'>Belum Ada Order Yang Masuk</td></tr>
             }
               </tbody>
             </table>

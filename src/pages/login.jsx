@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +15,7 @@ const Login = () => {
     const [seePwd, setSeePwd] = useState(false)
     const [loading, setLoading] = useState(false)
     const [cookie, setCookie] = useCookies(["userToken"])
+    const [allCity, setAllCity] = useState()
     const navigate = useNavigate()
 
     const onSubmit = async () => {
@@ -35,7 +36,7 @@ const Login = () => {
                 localStorage.setItem("id", data.id);
                 localStorage.setItem("partner_id", data.partner_id);
                 localStorage.setItem("idclient", data.client_id);
-                localStorage.setItem("idpartner", data.partner_id);
+                // localStorage.setItem("idpartner", data.partner_id);
                 localStorage.setItem("role", data.role);
                 localStorage.setItem('userToken', data.token)
 
@@ -82,12 +83,24 @@ const Login = () => {
         }
     }
 
+    const getAllCity = async() => {
+        apiRequest(`city`, `GET`, null)
+        .then(res => {
+            setAllCity(res.data)
+            localStorage.setItem('city', JSON.stringify(res.data))
+        })
+        .catch(err => console.log(err))
+    }
+
+    useEffect(() => {
+        getAllCity()
+    },[])
     return (
         <div className='flex h-screen w-screen bg-white'>
-            <div className={`w-[55%]`} >
-                <img src='src/assets/shoes.jpg' className='w-full h-full object-fill' style={{ borderRadius: '0 110px 110px 0' }} />
+            <div className={`lg:w-[55%] w-full block`} >
+                <img src='src/assets/shoes.jpg' className='w-full h-full object-fill rounded-[1px] lg:rounded-[0_110px_110px_0]' />
             </div>
-            <div className='w-[45%] h-full grid place-items-center p-10'>
+            <div className='lg:w-[45%] w-full h-full grid place-items-center p-10 absolute lg:static'>
                 {role === '' ?
                     <div className='card rounded-[47px] w-[80%] h-[90%] border border-bozz-one flex flex-col justity- p-10 px-24 shadow-[6px_6px_6px_rgba(83,62,133,0.5)] bg-bozz-six'>
                         <h2 className='text-bozz-one font-bold text-center text-xl mb-10'>LOGIN AS</h2>
@@ -101,7 +114,7 @@ const Login = () => {
                     <div className='card rounded-[47px] w-[80%] h-[90%] border border-bozz-one flex flex-col justity- p-10 px-24 shadow-[6px_6px_6px_rgba(83,62,133,0.5)] bg-bozz-six'>
                         <h2 className='text-bozz-one font-bold text-center text-xl mb-10'>LOGIN AS {role.toUpperCase()}</h2>
                         <form onSubmit={handleSubmit}>
-                            <div className="form-control w-full max-w-xs">
+                            <div className="form-control w-full">
                                 <label className="label mb-[-10px]">
                                     <span className="label-text text-bozz-one">Email</span>
                                 </label>
@@ -114,7 +127,7 @@ const Login = () => {
                                 />
                                 {errors.email && touched.email ? <p className='text-xs text-red-700'>{errors.email}</p> : null}
                             </div>
-                            <div className="form-control w-full max-w-xs">
+                            <div className="form-control w-full">
                                 <label className="label mb-[-10px]">
                                     <span className="label-text text-bozz-one text-sm">Password</span>
                                 </label>
