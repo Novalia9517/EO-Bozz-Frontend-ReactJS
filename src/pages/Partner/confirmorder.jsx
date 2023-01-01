@@ -35,10 +35,10 @@ const ConfirmOrder = () => {
             title: "Are you sure to decline this order?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#17345f",
-            confirmButtonText: "Yes, Sure",
             cancelButtonColor: "#F47522",
             cancelButtonText: "No, Cancel Decline",
+            confirmButtonColor: "bozz-one",
+            confirmButtonText: "Yes, Sure",
           }).then((result) => {
             if (result.isConfirmed) {
               Swal.fire({
@@ -78,10 +78,8 @@ const ConfirmOrder = () => {
           });
         })
       }
-    });
-          
+    });        
   }
-  
   
   
   useEffect(() => {
@@ -100,7 +98,7 @@ const ConfirmOrder = () => {
         <div className='w-full border border-bozz-one px-8 py-5'>
             <h1 className='text-center text-xl font-bold text-bozz-one mb-3'>Order Information</h1>
             <table className='w-full'>
-                <tbody>
+                <tbody className='w-full'>
                 <Row keyName={'event name'} value={order.event_name}/>
                 {/* <Row keyName={'client name'} value={clientName}/>
                 <Row keyName={'client email'} value={email}/> */}
@@ -109,17 +107,31 @@ const ConfirmOrder = () => {
                 <Row keyName={'start date'} value={order.start_date.slice(0,10)}/>
                 <Row keyName={'end date'} value={order.end_date.slice(0,10)}/>
                 <Row keyName={'service name'} value={order.service_name}/>
-                <Row keyName={'service price'} value={formatCurrency(order.service_price)}/>
-                <tr className='h-8 w-full text-bozz-one text-sm font-semibold capitalize'>
-                    <td className='w-[20%]'>Additional Info</td>
-                    <td>:</td>
-                </tr>
                 </tbody>
             </table>
-            <p className='w-full pl-10 font-semibold text-bozz-one text-sm'>
-                {order.additional_name} : {formatCurrency(order.additional_price)} x {order.qty} = 
-                <span className='ml-12'>{formatCurrency(order.detail_order_total)}</span>
-            </p>
+                <div class="grid gap-5 grid-cols-4 grid-rows-1 w-full font-semibold text-bozz-one text-sm">
+                    <span className='colspan-1'>Service Price</span>
+                    <span className='colspan-1'>: </span>
+                    <span></span>
+                    <span className='text-right colspan-2'>{formatCurrency(order.service_price)}</span>
+                  </div>
+                <tr className='grid mb-3  gap-5 grid-cols-4 grid-rows-1 w-[100%] font-semibold text-bozz-one text-sm'>
+                    <td className='colspan-1'>Additional Info</td>
+                    <td>:</td>
+                </tr>
+            {
+              order.DetailOrders.map((item, i) => {
+                return (
+                  <div class="grid gap-5 grid-cols-4 grid-rows-1 w-full pl-10 font-semibold text-bozz-one text-sm">
+                    <span>{item.additional_name}</span>
+                    <span>: {formatCurrency(item.additional_price)} x {item.qty} = </span>
+                    <span>=</span>
+                    <span className='text-right'>{formatCurrency(item.detail_order_total)}</span>
+                  </div>
+                )
+ 
+              })
+            }
             {/* <p className='w-full pl-10 font-semibold text-bozz-one text-sm'>
                 Additional 1 x 4 = 
                 <span className='ml-12'>{formatCurrency(1400000)}</span>

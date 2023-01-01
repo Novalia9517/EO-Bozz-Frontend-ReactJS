@@ -22,6 +22,7 @@ const AddService = () => {
   const [img, setImg] = useState()
   const [city, setCity] = useState()
   const [listAdditional, setListAdditional] = useState('')
+  const [addArr, setAddArr] = useState([])
   const [additional, setAdditional] = useState('')
   const [additional2, setAdditional2] = useState('')
   const [additional3, setAdditional3] = useState('')
@@ -88,8 +89,11 @@ const AddService = () => {
     }
   }
   const chooseAdd = (choose,value) => {
-   choose(listAdditional.filter(item => item.id == value))
-    console.log(additional)
+    const filterAdd = listAdditional.filter(item => item.id == value)
+    choose(filterAdd)
+    setAddArr([...addArr, filterAdd])
+   
+    console.log(addArr)
   }
   const removeTags = (index) => {
     setTags(tags.filter((t,i) => i !== index))

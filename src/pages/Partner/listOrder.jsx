@@ -9,11 +9,15 @@ const ListOrder = () => {
     const tableHead = ['no', 'event name', 'service name', 'city', 'total order', 'start date', 'end date', 'status', 'action', 'transfer file']
     const [orderList, setOrderList] = useState()
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(true)
 
     const getOrderList = async() => {
 
         apiWithAuth(`partners/orders`, `GET`, null, "application/json", localStorage.getItem('userToken'))
-        .then(res => setOrderList(res.data))
+        .then(res => {
+          setOrderList(res.data)
+          setLoading(false)
+        })
         .catch(err => console.log(err))
     }
 
@@ -23,7 +27,7 @@ const ListOrder = () => {
     console.log(orderList)
   return (
     <>
-    {orderList ? 
+    {!loading ? 
     <LayoutAdmin>
         <div className='mt-3 w-full h-full'>
           <h1 className='text-xl font-bold text-bozz-one mb-5'>List Order Partner</h1>
@@ -49,7 +53,7 @@ const ListOrder = () => {
                       <td>{data.start_date.slice(0,10)}</td>
                       <td>{data.end_date.slice(0,10)}</td>
                       <td>{data.order_status}</td>
-                      <td>{data.order_status === 'waiting confirmation' ? 
+                      <td>{data.order_status === 'Waiting Confirmation' ? 
                         <button className='w-16 h-6 bg-bozz-three text-bozz-six rounded-lg text-[10px]'
                         onClick={() => navigate('/partner/confirm-order', {state : { id : data.id}})}
                         >Confirm</button> : '-'}</td>
@@ -62,7 +66,7 @@ const ListOrder = () => {
                     </tr>
                   )
                 })
-                : <p className='text-lg font-semibold text-bozz-one mt-10'>Belum Ada Order Yang Masuk</p>
+                : <tr><td className='w-full text-md font-semibold text-bozz-one mt-5'>Belum Ada Order Yang Masuk</td></tr>
             }
               </tbody>
             </table>

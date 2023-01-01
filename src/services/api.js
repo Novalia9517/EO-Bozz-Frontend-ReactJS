@@ -4,7 +4,6 @@ const apiRequest = async (url, method, body, content_type) => {
     var config = {
       method,
       url : `https://irisminty.my.id/${url}`,
-      // url : `https://virtserver.swaggerhub.com/YUSNARSETIYADI150403_1/EO-Bozz/1.0.0/${url}`,
       headers: {
         "Content-Type": content_type ? content_type : "application/json",
       },
@@ -19,7 +18,6 @@ const apiRequest = async (url, method, body, content_type) => {
     var config = {
       method,
       url : `https://irisminty.my.id/${url}`,
-      // url : `https://virtserver.swaggerhub.com/YUSNARSETIYADI150403_1/EO-Bozz/1.0.0/${url}`,
       headers: {
         "Content-Type": content_type ? content_type : "application/json",
         Authorization : `Bearer ${token}`
