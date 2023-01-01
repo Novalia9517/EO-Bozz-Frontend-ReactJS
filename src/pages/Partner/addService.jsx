@@ -178,7 +178,6 @@ const AddService = () => {
                       </select>
                     </div>
                   </div>
-                  
                   <div className=''>
                     <p className='text-bozz-one text-xs '>Included Services</p>
                     <div className='bg-bozz-six border border-bozz-one w-full h-10 pl-5 mt-3 rounded-lg flex gap-2 text-xs items-center'>
