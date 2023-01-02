@@ -76,7 +76,7 @@ const ProfileUser = () => {
                     <p className='text-sm text-bozz-one font-semibold text-center capitalize'></p>
                     <button className='underline text-bozz-one font-semibold ' >Edit Password</button>
                 </div>
-                <div className='py-10 lg:w-[500px]'>
+                <div className='py-10 lg:w-[500px] text-black'>
                     <h1 className='text-4xl'>Profile</h1>
                     {dataClient ? (
                         <div>

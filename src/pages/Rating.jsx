@@ -6,9 +6,9 @@ import { AiOutlineStar } from 'react-icons/ai'
 
 const Rating = () => {
   return (
-    <div>
+    <div className='bg-white'>
       <Navbar />
-      <div className='container mx-auto px-10 py-10 justify-center'>
+      <div className='container mx-auto px-10 py-10 justify-center text-black '>
         
         <div className='grid grid-cols-2 lg:grid-cols-2 my-3'>
           <div className='border mx-5 px-10 rounded-lg bg-bozz-five'>

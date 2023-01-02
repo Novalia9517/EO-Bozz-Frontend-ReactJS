@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Footer from '../component/Footer'
 import Navbar from '../component/Navbar'
 import { useLocation } from 'react-router-dom'
@@ -7,8 +7,36 @@ import { formatCurrency } from '../utils/formatCurrency'
 
 const OrderUser = () => {
     const location = useLocation()
+    const [clientName,setClientName] = useState()
+    const [eventName, setEventName] = useState()
+    const [eventLocation, setEventLocation] = useState()
+    const [eventAddress, setEventAddress] = useState()
+    const [note, setNote] = useState()
     const startDate = location?.state?.startDate
     const endDate = location?.state?.endDate
+    const additional = location?.state?.additional
+    const serviceId = location?.state?.serviceId
+
+    console.log('a',additional)
+    console.log('b', serviceId)
+
+    const [num, setNum] = useState(0);
+    const incNum = (e) => {
+        e.preventDefault();
+        if (num < 10000) {
+            setNum(Number(num) + 1);
+        }
+    };
+    const decNum = (e) => {
+        e.preventDefault();
+        if (num > 0) {
+            setNum(num - 1);
+        }
+    }
+    const handleChange = (e) => {
+        setNum(e.target.value);
+    }
+
     return (
         <div className='bg-bozz-six text-bozz-one'>
             <Navbar />
@@ -70,33 +98,40 @@ const OrderUser = () => {
                         <div className='py-10 border rounded-md w-full border-bozz-one px-10'>
                             <div className='grid grid-cols-3 lg:grid-cols-3 px-2'>
                                 <div>
-                                    <p className='text-lg'>Service Name</p>
-                                    <p className='text-lg'>Service Price</p>
-                                    <p className='text-lg'>Additionals</p>
-                                    <p className='text-md my-3'>1. Souvenir @100pcs</p>
-                                    <p className='text-md my-3'>1. Souvenir @100pcs</p>
+                                    <p className='text-lg font-bold'>Service Name</p>
+                                    <p className='text-lg font-bold'>Service Price</p>
+                                    <p className='text-lg font-bold'>Additionals</p>
+                                    {additional? (
+                                        additional.map((item)=> {
+                                            return (
+                                                <p className='text-md my-7'>{item.additional_name}</p>
+                                            )
+                                        })
+                                    ):<></>}
                                 </div>
                                 <div>
                                     <p className='font-extrabold'>:</p>
                                     <p className='font-extrabold'>:</p>
                                     <p className='font-extrabold'>:</p>
-                                    <div className='my-3 flex'>
-                                        <button className='h-8 w-5 flex justify-center items-center bg-bozz-six border border-bozz-one hover:bg-bozz-one hover:text-white'>-</button>
-                                        <p className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center'>1</p>
-                                        <button className='h-8 w-5 flex justify-center items-center bg-bozz-six border border-bozz-one hover:bg-bozz-one hover:text-white'>+</button>
-                                        <p className='text-md px-2'>x {formatCurrency(1200000)}</p>
-                                    </div>
-                                    <div className='my-3 flex'>
-                                    <button className='h-8 w-5 flex justify-center items-center bg-bozz-six border border-bozz-one hover:bg-bozz-one hover:text-white'>-</button>
-                                        <p className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center'>1</p>
-                                        <button className='h-8 w-5 flex justify-center items-center bg-bozz-six border border-bozz-one hover:bg-bozz-one hover:text-white'>+</button>
-                                        <p className='text-md px-2'>x {formatCurrency(1200000)}</p>
-                                    </div>
+                                    <p className='font-extrabold'>:</p>
+                                    {additional? (
+                                        additional.map((item) => {
+                                            return (
+                                                <div className='my-3 flex'>
+                                                    <p className='text-md px-2'>{item.additional_price} x</p>
+                                                    <button onClick={decNum} className='h-8 w-5 flex justify-center items-center  hover:bg-bozz-one hover:text-white'>-</button>
+                                                    <input value={num} className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center' />
+                                                    <button onClick={incNum} className='h-8 w-5 flex justify-center items-center  hover:bg-bozz-one hover:text-white'>+</button>
+                                                    <p className='text-lg font-bold my-6'>{}</p>
+                                                </div>
+                                            )
+                                        })
+                                    ):<></>}
                                 </div>
                                 <div>
-                                    <p className='text-lg font-bold'>Package Name</p>
-                                    <p className='text-lg font-bold'>{formatCurrency(1200000)}</p>
-                                    <p className='text-lg font-bold my-6'>{formatCurrency(1200000)}</p>
+                                    <p className='text-lg font-bold'>{serviceId.service_name}</p>
+                                    <p className='text-lg font-bold'>{serviceId.service_price}</p>
+                                    
                                     <p className='text-lg font-bold my-6'>{formatCurrency(1200000)}</p>
                                 </div>
                             </div>
