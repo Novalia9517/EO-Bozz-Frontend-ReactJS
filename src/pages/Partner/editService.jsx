@@ -43,7 +43,8 @@ const EditService = () => {
       values.servicename = data.service_name
       values.serviceprice = data.service_price
       values.category = data.service_category
-      // values.description = data.service_description
+      values.description = data.service_description
+      setTags(data.service_include.split(','))
       setCity(data.city)
       setImg(data.service_image_file)
     })
@@ -181,7 +182,7 @@ const EditService = () => {
                   <label className="label mb-[-10px]">
                     <span className="label-text text-bozz-one">City</span>
                     </label>
-                    <select className="bg-bozz-five border border-bozz-one text-xs text-bozz-one h-10 rounded-lg w-full" onChange={(e) => setCity(e.target.value)}>
+                    <select className="bg-bozz-five border border-bozz-one text-xs text-bozz-one h-10 rounded-lg w-full" value={city} onChange={(e) => setCity(e.target.value)}>
                     <option>Choose City</option>
                       {allCity && 
                         allCity.map((item, index) => {

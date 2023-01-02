@@ -47,7 +47,7 @@ const Dashboard = () => {
 
     const navigate = useNavigate()
     const getListServices = () => {
-        apiWithAuth(`partners/services`, `GET`, null,"application/json", token)
+        apiWithAuth(`partners/${parseInt(partnerId)}/services`, `GET`, null,"application/json", token)
         .then(res => {
             setListServices(res.data)
         })
