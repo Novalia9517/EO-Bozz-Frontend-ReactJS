@@ -35,6 +35,8 @@ const ListOrderAdmin = () => {
         getOrderList()
     },[])
   return (
+    <>
+    {orderList && 
     <LayoutAdmin>
         <div className='mt-3 w-full h-full'>
           <h1 className='text-xl font-bold text-bozz-one mb-5'>List Order</h1>
@@ -61,7 +63,7 @@ const ListOrderAdmin = () => {
                       <td>{formatCurrency(data.gross_ammount)}</td>
                       <td>{data.order_status}</td>
                       <td>{data.order_status === 'Complete Order' ? <label htmlFor="my-modal-4" className='btn btn-xs border border-white w-16 h-6 bg-bozz-three hover:bg-bozz-two text-bozz-six rounded-lg text-[10px]'>Pay</label> : '-'}</td>
-                      <PayoutModal change={(e) => setImg(e.target.files[0])} payout={() => onPayout(data.id)} partner={data.parnter} total={data.gross_ammount}/>
+                      <PayoutModal change={(e) => setImg(e.target.files[0])} payout={() => onPayout(data.id)} partner={data.partner} total={data.gross_ammount}/>
                     </tr>
                   )
                 })
@@ -74,6 +76,9 @@ const ListOrderAdmin = () => {
         </div>
         {/* <PayoutModal/> */}
     </LayoutAdmin>
+    
+  }
+    </>
   )
 }
 

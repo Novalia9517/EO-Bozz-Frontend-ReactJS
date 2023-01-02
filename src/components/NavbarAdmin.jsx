@@ -13,6 +13,7 @@ const NavbarAdmin = ({ role, name }) => {
     const [cookie, removeCookie] = useCookies(["userToken"])
     const navigate = useNavigate()
     const data = useSelector(((state) => state.users.currentUser))
+    // const role = localStorage.getItem('role')
     const onLogout = () => {
         Swal.fire({
             title: "Are you sure?",
@@ -51,7 +52,7 @@ const NavbarAdmin = ({ role, name }) => {
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="flex flex-col">
                       <p className='text-lg font-semibold text-bozz-one hover:scale-110 capitalize'>{data.pic_name}</p>
-                      <p className='text-sm font-semibold text-bozz-one capitalize'>{data.role}</p>
+                      <p className='text-sm font-semibold text-bozz-one capitalize'>{role}</p>
                     </label>
                     <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-bozz-six text-bozz-one border border-bozz-one rounded-box w-32">
                         <li>

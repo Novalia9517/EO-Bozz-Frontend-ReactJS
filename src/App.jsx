@@ -30,6 +30,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import store from './store/store'
 import DetailTransaction from './pages/DetailTransaction'
+import ServiceAdditional from './pages/Partner/ServiceAdditional'
 
 let persistor = persistStore(store);
 
@@ -57,6 +58,7 @@ function App() {
             <Route path='/admin/verify-partner' element={<VerifyPartner />} />
             <Route path='/partner/' element={<Dashboard />} />
             <Route path='/partner/add-service' element={<AddService />} />
+            <Route path='/partner/add-service-additional' element={<ServiceAdditional/>} />
             <Route path='/partner/add-additional' element={<AddAdditional />} />
             <Route path='/partner/edit-service' element={<EditService />} />
             <Route path='/partner/edit-additional' element={<EditAdditional />} />
