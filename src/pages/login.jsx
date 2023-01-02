@@ -61,7 +61,7 @@ const Login = () => {
                 Swal.fire({
                     position: "center",
                     icon: "error",
-                    title: `${err.response.data.message}`,
+                    title: `${err}`,
                     showConfirmButton: true
                 })
             })

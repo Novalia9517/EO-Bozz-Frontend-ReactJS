@@ -29,6 +29,7 @@ import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import store from './store/store'
+import DetailTransaction from './pages/DetailTransaction'
 
 let persistor = persistStore(store);
 
@@ -42,6 +43,7 @@ function App() {
             <Route path="/detail" element={<Detail />} />
             <Route path="/orderuser" element={<OrderUser />} />
             <Route path="/transaction" element={<TransactionList />} />
+            <Route path='/detail-transaction' element={<DetailTransaction/>}/>
             <Route path="/orderdetail" element={<Rating />} />
             <Route path="/payment" element={<Payment />} />
             <Route path="/profile" element={<ProfileUser />} />
