@@ -12,15 +12,13 @@ const OrderUser = () => {
     const [eventLocation, setEventLocation] = useState()
     const [eventAddress, setEventAddress] = useState()
     const [note, setNote] = useState()
+    const [num, setNum] = useState(0);
     const startDate = location?.state?.startDate
     const endDate = location?.state?.endDate
     const additional = location?.state?.additional
     const serviceId = location?.state?.serviceId
 
-    console.log('a',additional)
-    console.log('b', serviceId)
 
-    const [num, setNum] = useState(0);
     const incNum = (e) => {
         e.preventDefault();
         if (num < 10000) {
@@ -33,9 +31,6 @@ const OrderUser = () => {
             setNum(num - 1);
         }
     }
-    const handleChange = (e) => {
-        setNum(e.target.value);
-    }
 
     const navigate = useNavigate()
 
@@ -43,7 +38,12 @@ const OrderUser = () => {
         navigate('/payment', {
             state: {
                 startDate: startDate,
-                endDate : endDate
+                endDate : endDate,
+                clientName: clientName,
+                eventName: eventName,
+                eventLocation: eventLocation,
+                eventAddress: eventAddress,
+                note: note
             }
         })
     }
@@ -66,19 +66,19 @@ const OrderUser = () => {
                                 <label className=''>
                                     Client Name
                                 </label>
-                                <input type="text" className="input border border-bozz-one bg-bozz-six w-full max-w-md" />
+                                <input onChange={(e) => setClientName(e.target.value)} type="text" className="input border border-bozz-one bg-bozz-six w-full max-w-md" />
                             </div>
                             <div className='flex flex-col py-1'>
                                 <label>
                                     Event Name
                                 </label>
-                                <input type="text" className="input border border-bozz-one  bg-bozz-six w-full max-w-md" />
+                            <input onChange={(e) => setEventName(e.target.value)} type="text" className="input border border-bozz-one  bg-bozz-six w-full max-w-md" />
                             </div>
                             <div className='flex flex-col py-1'>
                                 <label className=''>
                                     Note For EO
                                 </label>
-                                <textarea className="textarea border border-bozz-one h-24 resize-none bg-bozz-six w-full max-w-md" placeholder="Bio"></textarea>
+                            <textarea onChange={(e) => setNote(e.target.value)} className="textarea border border-bozz-one h-24 resize-none bg-bozz-six w-full max-w-md" placeholder="Bio"></textarea>
                             </div>
                         </div>
                         <div>
@@ -92,13 +92,13 @@ const OrderUser = () => {
                                 <label className=''>
                                     Event Location
                                 </label>
-                                <input type="text" className="input border border-bozz-one  bg-bozz-six w-full max-w-md" />
+                            <input onChange={(e) => setEventLocation(e.target.value)} type="text" className="input border border-bozz-one  bg-bozz-six w-full max-w-md" />
                             </div>
                             <div className='flex flex-col py-1'>
                                 <label className=''>
                                     Event Address
                                 </label>
-                                <input type="text" className="input border border-bozz-one  bg-bozz-six w-full max-w-md" />
+                            <input onChange={(e) => setEventAddress(e.target.value)} type="text" className="input border border-bozz-one  bg-bozz-six w-full max-w-md" />
                             </div>
                         </div>
                     </div>
