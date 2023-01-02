@@ -59,7 +59,7 @@ const ListOrder = () => {
                         >Confirm</button> : '-'}</td>
                       {/* <td>{data.payout_status}</td> */}
                       {/* <td>{data.transfer_file && data.payout_status === 'pay' ?  */}
-                      <td>{data.payout_receipt_url !== '' && data.order_status == 'Complete Order'? 
+                      <td>{data.payout_receipt_url !== '' && data.order_status == 'Paid Off'? 
                         <button className='w-20 h-6 bg-bozz-three text-bozz-six rounded-lg text-[8px]'
                         src={data.payout_receipt_url}
                         >Download File</button> : '-'}</td>

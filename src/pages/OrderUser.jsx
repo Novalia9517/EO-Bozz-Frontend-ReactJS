@@ -1,7 +1,7 @@
 import React from 'react'
 import Footer from '../component/Footer'
 import Navbar from '../component/Navbar'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Row from '../components/Row'
 import { formatCurrency } from '../utils/formatCurrency'
 
@@ -9,12 +9,22 @@ const OrderUser = () => {
     const location = useLocation()
     const startDate = location?.state?.startDate
     const endDate = location?.state?.endDate
+    const navigate = useNavigate()
+
+    const onPayment = () => {
+        navigate('/payment', {
+            state: {
+                startDate: startDate,
+                endDate : endDate
+            }
+        })
+    }
     return (
         <div className='bg-bozz-six text-bozz-one'>
             <Navbar />
             <div className='container mx-auto px-10 py-10'>
                 <h1 className='text-4xl text-center'>Your Order</h1>
-                <form>
+                {/* <form> */}
                     <p className='underline text-bozz-one'>Fill the form for your order !</p>
                     <div className='grid grid-cols-2 lg:grid-cols-2'>
                         <div>
@@ -109,10 +119,10 @@ const OrderUser = () => {
                         </div>
                             <div className='flex justify-end  mt-4'>
                                 <button className='btn hover:btn-warning bg-orange-400 mx-2 text-white'>Cancel</button>
-                                <button className='btn bg-bozz-one hover:bg-bozz-two text-white'>Order</button>
+                                <button className='btn bg-bozz-one hover:bg-bozz-two text-white' onClick={() => onPayment()}>Order</button>
                             </div>
                     </div>
-                </form>
+                {/* </form> */}
             </div>
             <Footer />
         </div>
