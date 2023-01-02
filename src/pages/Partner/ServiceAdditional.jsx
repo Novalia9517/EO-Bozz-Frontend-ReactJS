@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { formatCurrency } from '../../utils/formatCurrency'
 import { apiWithAuth } from '../../services/api'
 import Swal from 'sweetalert2'
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation, Link, useNavigate } from 'react-router-dom'
 import LayoutAdmin from '../../components/LayoutAdmin'
 import { BiLeftArrow} from 'react-icons/bi'
 
@@ -17,6 +17,7 @@ const ServiceAdditional = () => {
     const [addArr, setAddArr] = useState([])
     const [descArr, setDescArr] = useState([])
     const token = localStorage.getItem('userToken')
+    const navigate = useNavigate()
 
     const addServiceAdditional = () => {
         const body = {
@@ -33,12 +34,14 @@ const ServiceAdditional = () => {
                 confirmButtonText: "Oke",
               })
               setAddArr([])
-              descArr([])
+              setDescArr([])
+              navigate('/partner/')
         })
         .catch(err => {
             console.log(err)
             Swal.fire({
-                title: "Add service Additional Failed, try again!",
+                // title: "Add service Additional Failed, try again!",
+                title: `${err}`,
                 icon: "error",
                 confirmButtonColor: "#533e85",
                 confirmButtonText: "Oke",
