@@ -1,78 +1,135 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { useNavigate } from 'react-router-dom'
+import Navbar from '../component/Navbar'
+import { formatCurrency } from '../utils/formatCurrency'
 
 const Payment = () => {
+    const banks = ['bni', 'mandiri', 'cimb', 'bca', 'bri', 'maybank', 'permata', 'mega']
+    const [chosen, setChosen] = useState()
+    const navigate = useNavigate()
+
+    const onPay = () => {
+        navigate('/detail-transaction')
+    }
+    console.log(chosen)
     return (
-        <div className="flex items-center justify-center w-screen min-h-screen bg-gray-100 text-gray-800 p-8">
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8 w-full max-w-screen-lg">
-                <div className="lg:col-span-2">
-                    <h2 className="text-sm font-medium">Payment Method</h2>
-                    <div className="bg-white rounded mt-4 shadow-lg">
-                        <div className="flex items-center px-8 py-5">
-                            <input className="checkbox" type="checkbox" />
-                            <label className="text-sm font-medium ml-4">BCA</label>
+        <div className='bg-bozz-six text-bozz-one'>
+            <Navbar />
+            <div className="flex justify-center w-screen min-h-screen bg-gray-100 text-gray-800 p-8">
+                <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8 w-full max-w-screen-lg">
+                    <div className="lg:col-span-2">
+                        <h3 className="text-2xl font-bold text-bozz-three text-center">Payment</h3>
+                        <div className='grid gap-5 grid-cols-2 grid-rows-2 text-left mt-5'>
+                            <div className=''>
+                                <p className='text-xs text-bozz-two'>Start Date</p>
+                                <p className='text-md text-bozz-three'>2023/02/03</p>
+                            </div>
+                            <div className=''>
+                                <p className='text-xs text-bozz-two'>End Date</p>
+                                <p className='text-md text-bozz-three'>2023/02/03</p>
+                            </div>
+                            <div className=''>
+                                <p className='text-xs text-bozz-two'>Client Name</p>
+                                <p className='text-md text-bozz-three'>Client Name</p>
+                            </div>
+                            <div className=''>
+                                <p className='text-xs text-bozz-two'>Client Email</p>
+                                <p className='text-md text-bozz-three'>youremail@gmail.com</p>
+                            </div>
+                            <div className=''>
+                                <p className='text-xs text-bozz-two'>Client Address</p>
+                                <p className='text-md text-bozz-three'>Jln. Kunang kunang 223</p>
+                            </div>
+                            <div className=''>
+                                <p className='text-xs text-bozz-two'>Notes for partner </p>
+                                <p className='text-md text-bozz-three'>Kue nya pengen warna coklat aja yang kemarin kita bahas</p>
+                            </div>
+                            
                         </div>
-                        <div className="border-t">
+                        {/* <h2 className="text-sm font-medium">Payment Method</h2>
+                        <div className="bg-white rounded mt-4 shadow-lg px-8">
                             <div className="flex items-center px-8 py-5">
                                 <input className="checkbox" type="checkbox" />
-                                <label className="text-sm font-medium ml-4">BNI</label>
+                                <label className="text-sm font-medium ml-4">BCA</label>
                             </div>
-                            <div className="grid grid-cols-2 gap-4 px-8 pb-8">
-                                <div className="col-span-2">
-                                    <label className="text-xs font-semibold" for="cardNumber">Card number</label>
-                                    <input className="flex items-center h-10 border mt-1 rounded px-4 w-full text-sm" type="text" placeholder="0000 0000 0000 0000" />
+                            <div className="border-t">
+                                <div className="flex items-center px-8 py-5">
+                                    <input className="checkbox" type="checkbox" />
+                                    <label className="text-sm font-medium ml-4">BNI</label>
                                 </div>
-                                <div className="">
-                                    <label className="text-xs font-semibold" for="cardNumber">Expiry Date</label>
-                                    <input className="flex items-center h-10 border mt-1 rounded px-4 w-full text-sm" type="text" placeholder="MM/YY" />
-                                </div>
-                                <div className="">
-                                    <label className="text-xs font-semibold" for="cardNumber">CVC/CVV</label>
-                                    <input className="flex items-center h-10 border mt-1 rounded px-4 w-full text-sm" type="password" placeholder="..." />
+                                <div className="grid grid-cols-2 gap-4 px-8 pb-8">
+                                    <div className="col-span-2">
+                                        <label className="text-xs font-semibold" for="cardNumber">Card number</label>
+                                        <input className="flex items-center h-10 border mt-1 rounded px-4 w-full text-sm" type="text" placeholder="0000 0000 0000 0000" />
+                                    </div>
+                                    <div className="">
+                                        <label className="text-xs font-semibold" for="cardNumber">Expiry Date</label>
+                                        <input className="flex items-center h-10 border mt-1 rounded px-4 w-full text-sm" type="text" placeholder="MM/YY" />
+                                    </div>
+                                    <div className="">
+                                        <label className="text-xs font-semibold" for="cardNumber">CVC/CVV</label>
+                                        <input className="flex items-center h-10 border mt-1 rounded px-4 w-full text-sm" type="password" placeholder="..." />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
-                </div>
-                <div>
-                    <h2 className="text-sm font-medium">Purchase Summary</h2>
-                    <div className="bg-white rounded mt-4 shadow-lg py-6">
-                        <div className="px-8">
-                            <div className="flex items-end">
-                                <select className="text-sm font-medium focus:outline-none -ml-1" name="" id="">
-                                    <option value="">Product (Billed Monthly)</option>
-                                    <option value="">Product (Billed Annually)</option>
-                                </select>
-                                <span className="text-sm ml-auto font-semibold">$20</span>
-                                <span className="text-xs text-gray-500 mb-px">/mo</span>
-                            </div>
-                            <span className="text-xs text-gray-500 mt-2">Save 20% with annual billing</span>
-                        </div>
-                        <div className="px-8 mt-4">
-                            <div className="flex items-end justify-between">
-                                <span className="text-sm font-semibold">Tax</span>
-                                <span className="text-sm text-gray-500 mb-px">10%</span>
+                    <div>
+                    {/* <h2 className="text-sm font-medium">Purchase Summary</h2> */}
+                    <h2 className="text-sm font-semibold text-bozz-two">Your Order</h2>
+                    <div className="bg-white rounded mt-4 w-96 shadow-lg py-6 border border-bozz-two px-8">
+                        <div className="">
+                            <div className="flex items-end border-b border-gray-400 py-3">
+                                <span className="text-sm font-semibold">Service Name</span>
+                                <span className="text-sm ml-auto">{formatCurrency(12000000)}</span>
                             </div>
                         </div>
-                        <div className="px-8 mt-4 border-t pt-4">
-                            <div className="flex items-end justify-between">
-                                <span className="font-semibold">Today you pay (AUD)</span>
-                                <span className="font-semibold">$0</span>
+                        <div className="mt-4">
+                            <div className="flex items-end justify-between border-b border-gray-400 py-3">
+                                <span className="text-sm font-semibold">Additional Name</span>
+                                <span className="text-sm text-gray-500 mb-px">{formatCurrency(12000000)}</span>
                             </div>
-                            <span className="text-xs text-gray-500 mt-2">After 1 month free: $22/mo.</span>
                         </div>
-                        <div className="flex items-center px-8 mt-8">
+                        <div className="mt-4">
+                            <div className="flex items-end justify-between border-b border-gray-400 py-3">
+                                <span className="text-sm font-semibold">Additional Name</span>
+                                <span className="text-sm text-gray-500 mb-px">{formatCurrency(12000000)}</span>
+                            </div>
+                        </div>
+                        {/* <div className='divider'></div> */}
+                        <div className="mt-3">
+                            <div className="flex items-end justify-between border-b border-gray-400 py-3">
+                                <span className="text-sm">Total</span>
+                                <span className="text-sm  font-semibold text-gray-800 mb-px">{formatCurrency(12000000)}</span>
+                            </div>
+                        </div>
+                        {/* <div className="flex items-center px-8 mt-8">
                             <input id="termsConditions" type="checkbox" />
                             <label className="text-xs text-gray-500 ml-2" for="termsConditions">I agree to the terms and conditions.</label>
-                        </div>
-                        <div className="flex flex-col px-8 pt-4">
+                        </div> */}
+                        {/* <div className="flex flex-col px-8 pt-4">
                             <button className="flex items-center justify-center bg-blue-600 text-sm font-medium w-full h-10 rounded text-blue-50 hover:bg-blue-700">Start Subscription</button>
                             <button className="text-xs text-blue-500 mt-3 underline">Have a coupon code?</button>
+                        </div> */}
+                         <div className="mt-4">
+                            <div className="flex flex-col justify-between">
+                                <span className="text-md font-semibold text-bozz-three">Pilih Metode Pembayaran</span>
+                                <select 
+                                className="bg-white px-3 border border-bozz-two text-md text-bozz-two h-10 rounded-lg w-full capitalize"
+                                id='companycity'  onChange={(e) => setChosen(e.target.value)}
+                                >
+                                {banks.map((bank, i) => {
+                                    return <option className='capitalize'>{bank} Bank</option>
+                                })}
+                                </select>
+                                {chosen && <span className='text-xs font-semibold mt-1 text-bozz-two'>You Choose {chosen} for payment method</span>}
+                            </div>
                         </div>
+                        <button className='w-full h-10 bg-bozz-two mt-5 text-white font-semibold rounded-lg' onClick={onPay}>Pay Now</button>
                     </div>
                 </div>
             </div>
-
-
+        </div>
         </div>
     )
 }
