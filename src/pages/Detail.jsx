@@ -13,8 +13,9 @@ import Art from '../assets/art.png'
 import { askSchema } from '../validations/validations'
 import { useFormik } from 'formik'
 import { useCookies } from 'react-cookie'
-import { apiWithAuth } from '../services/api'
+import { apiRequest, apiWithAuth } from '../services/api'
 import axios from 'axios'
+import { AiTwotoneStar} from 'react-icons/ai'
 
 
 const Detail = () => {
@@ -31,8 +32,10 @@ const Detail = () => {
     const location = useLocation();
     const id = location?.state?.id;
     const [company, setCompany] = useState()
+    const [reviews, setReviews] = useState()
+    const [listClients, setListClients] = useState()
     
-    console.log('id',serviceId)
+    // console.log('id',serviceId)
 
     const getDataId = async () => {
         await axios.get(`https://irisminty.my.id/services/${id}`, {
@@ -42,7 +45,7 @@ const Detail = () => {
                 const data = res.data.data
                 console.log(data)
                 setServiceId(data)
-                getCompany()
+                // getCompany()
             })
             .catch(err => {
                 console.log(err)
@@ -87,6 +90,16 @@ const Detail = () => {
         .catch(err => console.log(err))
     }
 
+    const getReview = async() => {
+        apiRequest(`reviews`, `GET`, null)
+        .then(res => setReviews(res.data.filter(item => item.service_id == id)))
+        .catch(err => console.log(err))
+    }
+    const getClient = async() => {
+        apiWithAuth(`clients`, `GET`, null, "application/json", token)
+        .then(res => setListClients(res.data))
+        .catch(err => console.log(err))
+    }
     const onSubmit = () => {
         if (values.ask.length >= 10) {
             const body = {
@@ -161,7 +174,12 @@ const Detail = () => {
         getDiscussion()
         getDataId()
         getAdditional()
+        getCompany()
+        getReview()
+        getClient()
     }, [])
+
+    // console.log(listClients)
     return (
         <>
             {serviceId ?
@@ -172,7 +190,7 @@ const Detail = () => {
                             <img className='mx-auto h-[320px]' src={serviceId.service_image_file} alt="home" width={500} />
                             <div className='mx-auto text-bozz-one'>
                                 <p className='py-3 px-3 font-bold text-xl'>{serviceId.service_name}</p>
-                                <p className='px-3 font-bold text-xl'>{company}</p>
+                                <p className='px-3 font-bold text-xl hover:underline' onClick={() => navigate('/profilepartner', {state : { id : serviceId.partner_id }})}>{company}</p>
                                 <p className='py-3 px-3 font-bold text-xl text-bozz-two'>{formatCurrency(serviceId.service_price)}</p>
                                 <p className=' px-3 text-lg text-[#726F6F]'>Category {serviceId.service_category}</p>
                                 <p className=' px-3 text-lg text-[#726F6F] flex'><AiFillStar className='text-2xl text-orange-300' /> {serviceId.average_rating} Ratings</p>
@@ -193,7 +211,7 @@ const Detail = () => {
 
                             </div>
                         </div>
-                        <div className='px-20 py-20 grid gap-10 grid-cols1 lg:grid-cols-2'>
+                        <div className='lg:px-20 px-8 py-20 grid gap-10 grid-cols-1 lg:grid-cols-2'>
                             <div className=''>
                                 <h1 className='text-center text-4xl'>Additional</h1>
                                 <div className='mt-5'>
@@ -210,8 +228,8 @@ const Detail = () => {
                                     ):<></>}
                                 </div>
                             </div>
-                            <div className='flex flex-col items-end mx-10 py-5'>
-                                <div className='card w-96 h-full p-5 border-2 border-bozz-one flex flex-col'>
+                            <div className='flex flex-col items-end md:mx-10 mx-6 py-5'>
+                                <div className='card md:w-96 w-48 h-full p-5 border-2 border-bozz-one flex flex-col'>
                                     <h1 className='text-center text-2xl font-semibold'>Check Availability Date</h1>
                                     <div className='flex justify-betweenw-full my-3 h-12 mb-10'>
                                         <div className='w-[50%]'>
@@ -228,6 +246,39 @@ const Detail = () => {
                                     <p className={`text-center mt-5 text-bozz-one h-11 rounded-lg ${available ? `block` : `hidden`}`} onClick={() => setAvailable(true)}> Check Other Date</p>
                                 </div>
                             </div>
+                        </div>
+                        <div>
+                            {reviews?.map((item, i) => {
+                                let clientName = ''
+                                let image = ''
+                                let clientCity = ''
+                                listClients?.map(data => {
+                                    if(data.id == item.client_id){
+                                        clientName = data.name
+                                        image = data.client_image_file
+                                        clientCity = data.city
+                                    }
+                                })                         
+                                return (
+                                    <div className='px-10 py-10 border rounded-lg my-5' key={i}>
+                                        <div className='grid grid-cols-1 lg:grid-cols-2'>
+                                            <div className='px-2'>
+                                                <div className='flex'>
+                                                    <img src={image || Art} className='w-12 h-12 rounded-full border border-bozz-one mr-5' />
+                                                    <div className='flex flex-col'>
+                                                        <p className='text-xl font-semibold'>{clientName}</p>
+                                                        <p className='px-4 text-lg font-semibold capitalize'>{clientCity}</p>
+                                                    </div>
+                                                </div>
+                                                <p className='flex text-lg font-semibold items-center'> <AiTwotoneStar className='text-orange-500 mr-1'/>{item.rating} Rating</p>
+                                                <p>{item.review}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+
+                            }
                         </div>
                         <hr />
                         <div className='py-10 px-10 w-full'>
