@@ -19,6 +19,7 @@ import axios from 'axios'
 
 const Detail = () => {
     const [serviceId, setServiceId] = useState()
+    const [additional, setAdditional] = useState()
     const [discussions, setDiscussion] = useState()
     const [detail, setDetail] = useState()
     const [startDate, setStartDate] = useState()
@@ -30,6 +31,8 @@ const Detail = () => {
     const location = useLocation();
     const id = location?.state?.id;
     const [company, setCompany] = useState()
+    
+    console.log('id',serviceId)
 
     const getDataId = async () => {
         await axios.get(`https://irisminty.my.id/services/${id}`, {
@@ -37,8 +40,22 @@ const Detail = () => {
         })
             .then(res => {
                 const data = res.data.data
+                console.log(data)
                 setServiceId(data)
                 getCompany()
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const getAdditional = async() => {
+        await axios.get(`https://irisminty.my.id/services/${id}/additionals`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
+        })
+            .then(res => {
+                const dataAdditional = res.data.data
+                setAdditional(dataAdditional)
             })
             .catch(err => {
                 console.log(err)
@@ -87,6 +104,7 @@ const Detail = () => {
                         showConfirmButton: true,
                         timer: 1500,
                     });
+                    navigate(0)
                     getDiscussion()
                     values.ask = ''
                 })
@@ -136,12 +154,13 @@ const Detail = () => {
 
     const onOrder = () => [
         navigate('/orderuser', {
-            state: { startDate: startDate, endDate: endDate }
+            state: { startDate: startDate, endDate: endDate, additional: additional, serviceId: serviceId }
         })
     ]
     useEffect(() => {
         getDiscussion()
         getDataId()
+        getAdditional()
     }, [])
     return (
         <>
@@ -150,29 +169,19 @@ const Detail = () => {
                     <Navbar />
                     <div className='container px-20 py-20 mx-auto'>
                         <div className='grid gap-10 grid-cols-1 md:grid-cols-1 lg:grid-cols-2'>
-                            <img className='mx-auto h-[320px]' src={imgHome} alt="home" width={500} />
+                            <img className='mx-auto h-[320px]' src={serviceId.service_image_file} alt="home" width={500} />
                             <div className='mx-auto text-bozz-one'>
                                 <p className='py-3 px-3 font-bold text-xl'>{serviceId.service_name}</p>
                                 <p className='px-3 font-bold text-xl'>{company}</p>
                                 <p className='py-3 px-3 font-bold text-xl text-bozz-two'>{formatCurrency(serviceId.service_price)}</p>
                                 <p className=' px-3 text-lg text-[#726F6F]'>Category {serviceId.service_category}</p>
                                 <p className=' px-3 text-lg text-[#726F6F] flex'><AiFillStar className='text-2xl text-orange-300' /> {serviceId.average_rating} Ratings</p>
-                                <div>
-                                    <p className='py-3 px-3 text-xl text-[#726F6F]'>Address</p>
-                                    <p className='px-3 text-lg'>Jl. Cipto Mangunkusumo<br />
-                                        Gg. H. Mencong<br /> No. 3,
-                                        Sudimara Timur, Tangerang</p>
-                                </div>
                             </div>
                         </div>
                         <div className='px-20 py-20 grid gap-10 grid-cols1 lg:grid-cols-2'>
                             <div className=''>
                                 <h1 className='text-center text-4xl'>Description</h1>
-                                <p className='py-10'>Lorem Ipsum is simply dummy text of the printing
-                                    and typesetting industry.Lorem Ipsum has been the
-                                    industry's standard dummy text ever since the 1500s,
-                                    when an unknown printer took a galley of type and
-                                    scrambled it to make a type specimen book.</p>
+                                <p className='py-10'>{serviceId.service_description}</p>
                             </div>
                             <div className='mx-auto'>
                                 <h1 className='text-center text-4xl'>Included Service</h1>
@@ -188,9 +197,17 @@ const Detail = () => {
                             <div className=''>
                                 <h1 className='text-center text-4xl'>Additional</h1>
                                 <div className='mt-5'>
-                                    <p className='py-3 flex'><img src={Plus} width={20} /><span className='ml-5'>Catering 100 person - Rp 2.000.000 </span></p>
-                                    <p className='py-3 flex'><img src={Plus} width={20} /><span className='ml-5'>Catering 100 person - Rp 2.000.000 </span></p>
-                                    <p className='py-3 flex'><img src={Plus} width={20} /><span className='ml-5'>Catering 100 person - Rp 2.000.000 </span></p>
+                                    {additional ? (
+                                        additional.map((item =>{
+                                            return (
+                                     <p className='py-3 flex'>
+                                        <img src={Plus} width={20} />
+                                        <span className='ml-5'>
+                                                        {item.additional_name} - RP.{item.additional_price}
+                                        </span></p>
+                                            )
+                                        }))
+                                    ):<></>}
                                 </div>
                             </div>
                             <div className='flex flex-col items-end mx-10 py-5'>
@@ -208,7 +225,7 @@ const Detail = () => {
                                     </div>
                                     <button className={`bg-bozz-one text-white h-11 rounded-lg ${available ? `hidden` : `block`}`} onClick={() => onCheck()}>Check Validate</button>
                                     <button className={`bg-bozz-one text-white h-11 rounded-lg ${available ? `block` : `hidden`}`} onClick={() => onOrder()}>Order Now</button>
-                                    <p className={`text-center mt-5 text-bozz-one h-11 rounded-lg ${available ? `block` : `hidden`}`} onClick={() => setAvailable(false)}> Check Other Date</p>
+                                    <p className={`text-center mt-5 text-bozz-one h-11 rounded-lg ${available ? `block` : `hidden`}`} onClick={() => setAvailable(true)}> Check Other Date</p>
                                 </div>
                             </div>
                         </div>

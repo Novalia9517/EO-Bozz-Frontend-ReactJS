@@ -6,7 +6,7 @@ const TransactionList = () => {
     return (
         <div>
             <Navbar />
-            <div className='container mx-auto px-10 py-10'>
+            <div className='container mx-auto px-10 py-10 text-black'>
                 <div className="overflow-x-auto">
                     <table className="table w-full">
                         <thead>

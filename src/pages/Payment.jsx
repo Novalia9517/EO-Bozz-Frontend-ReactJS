@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import Navbar from '../component/Navbar'
 import { formatCurrency } from '../utils/formatCurrency'
 
@@ -7,6 +7,18 @@ const Payment = () => {
     const banks = ['bni', 'mandiri', 'cimb', 'bca', 'bri', 'maybank', 'permata', 'mega']
     const [chosen, setChosen] = useState()
     const navigate = useNavigate()
+    const location = useLocation()
+
+    const startDate = location?.state?.startDate
+    const endDate = location?.state?.endDate
+    const clientName = location?.state?.clientName
+    const eventName = location?.state?.eventName
+    const eventLocation = location?.state?.eventLocation
+    const eventAddress = location?.state?.eventAddress
+    const note = location?.state?.note
+    
+    console.log('ab', clientName)
+    
 
     const onPay = () => {
         navigate('/detail-transaction')
@@ -22,27 +34,31 @@ const Payment = () => {
                         <div className='grid gap-5 grid-cols-2 grid-rows-2 text-left mt-5'>
                             <div className=''>
                                 <p className='text-xs text-bozz-two'>Start Date</p>
-                                <p className='text-md text-bozz-three'>2023/02/03</p>
+                                <p className='text-md text-bozz-three'>{startDate}</p>
                             </div>
                             <div className=''>
                                 <p className='text-xs text-bozz-two'>End Date</p>
-                                <p className='text-md text-bozz-three'>2023/02/03</p>
+                                <p className='text-md text-bozz-three'>{endDate}</p>
                             </div>
                             <div className=''>
                                 <p className='text-xs text-bozz-two'>Client Name</p>
-                                <p className='text-md text-bozz-three'>Client Name</p>
+                                <p className='text-md text-bozz-three'>{clientName}</p>
                             </div>
                             <div className=''>
-                                <p className='text-xs text-bozz-two'>Client Email</p>
-                                <p className='text-md text-bozz-three'>youremail@gmail.com</p>
+                                <p className='text-xs text-bozz-two'>Event Name</p>
+                                <p className='text-md text-bozz-three'>{eventName}</p>
+                            </div>
+                            <div className=''>
+                                <p className='text-xs text-bozz-two'>Event Location</p>
+                                <p className='text-md text-bozz-three'>{eventLocation}</p>
                             </div>
                             <div className=''>
                                 <p className='text-xs text-bozz-two'>Client Address</p>
-                                <p className='text-md text-bozz-three'>Jln. Kunang kunang 223</p>
+                                <p className='text-md text-bozz-three'>{eventAddress}</p>
                             </div>
                             <div className=''>
                                 <p className='text-xs text-bozz-two'>Notes for partner </p>
-                                <p className='text-md text-bozz-three'>Kue nya pengen warna coklat aja yang kemarin kita bahas</p>
+                                <p className='text-md text-bozz-three'>{note}</p>
                             </div>
                             
                         </div>

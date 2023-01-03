@@ -15,6 +15,7 @@ const ListOrder = () => {
 
         apiWithAuth(`partners/orders`, `GET`, null, "application/json", localStorage.getItem('userToken'))
         .then(res => {
+          console.log(res.data)
           setOrderList(res.data)
           setLoading(false)
         })
