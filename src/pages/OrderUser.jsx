@@ -26,6 +26,7 @@ const OrderUser = () => {
     // const [qtyAdd, setQtyAdd] = useState([])
    
 
+    console.log('qty', qty)
 
     const incNum = (i) => {
         arr = additionalArr
@@ -189,7 +190,7 @@ const OrderUser = () => {
                                                 <div className='my-3 flex'>
                                                     <p className='text-md px-2'>{item.additional_price} x</p>
                                                     <button onClick={decNum} className='h-8 w-5 flex justify-center items-center  hover:bg-bozz-one hover:text-white'>-</button>
-                                                    <input value={num} className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center' />
+                                                    <input onChange={(e) => setQty(e.target.value) } value={num} className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center' />
                                                     <button onClick={incNum} className='h-8 w-5 flex justify-center items-center  hover:bg-bozz-one hover:text-white'>+</button>
                                                     <p className='text-lg font-bold my-6'>{item.additional_price * num}</p>
                                                 </div>

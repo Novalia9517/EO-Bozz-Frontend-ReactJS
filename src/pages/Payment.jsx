@@ -29,6 +29,11 @@ const Payment = () => {
     const eventLocation = location?.state?.eventLocation
     const eventAddress = location?.state?.eventAddress
     const note = location?.state?.note
+    const qty = location?.state?.qty
+
+    console.log('q',qty)
+    
+    console.log('ab', additional)
     
 
     // console.log('ab', clientName)

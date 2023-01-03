@@ -1,26 +1,75 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Navbar from '../component/Navbar'
 import TableTransaction from '../component/TableTransaction'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const TransactionList = () => {
+
+    const [order,setOrder] = useState()
+    const navigate = useNavigate()
+
+    const getOrder = async() => {
+        await axios.get(`https://irisminty.my.id/clients/orders`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}`}
+        })
+            .then(res => {
+                const data = res.data.data
+                setOrder(data)
+                console.log('cek',data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const onDetail = (id) => {
+        navigate('/detail-transaction', {
+            state: {
+                id: id
+            }
+        })
+    }
+
+    useEffect(() => {
+      getOrder()
+    }, [])
+    
+
     return (
-        <div>
+        <div className='bg-white h-screen'>
             <Navbar />
             <div className='container mx-auto px-10 py-10 text-black'>
                 <div className="overflow-x-auto">
                     <table className="table w-full">
                         <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Purchase Date</th>
-                                <th>Package Name</th>
-                                <th>Package Price</th>
-                                <th>Event Date Start</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                            <tr >
+                                    <th className='text-base'>Event Name</th>
+                                    <th className='text-base'>Package Name</th>
+                                <th className='text-base'>Event Date Start</th>
+                                    <th className='text-base'>Event Date End</th>
+                                    <th className='text-base'>Price</th>
+                                    <th className='text-base'>Status</th>
+                                    <th className='text-base'>Action</th>
                             </tr>
                         </thead>
-                        <TableTransaction />
+                            {order? (
+                                order.map((item) => {
+                                    return (
+                                        <TableTransaction
+                                            eventName={item.EventName}
+                                            serviceName={item.ServiceName}
+                                            startDate={item.StartDate}
+                                            endDate={item.EndDate}
+                                            eventLocation={item.EventLocation}
+                                            price={`Rp ${item.GrossAmmount}`}
+                                            orderStatus={item.OrderStatus}
+                                            onDetail={() => onDetail(item.ID)}
+                                        />
+                                    )
+                                })
+                            ):<></>}
+                        
                     </table>
                 </div>
             </div>
