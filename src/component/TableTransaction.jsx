@@ -1,17 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
-const TableTransaction = () => {
+const TableTransaction = ({ serviceName, eventName, startDate, endDate, eventLocation, price, orderStatus, onDetail }) => {
     return (
         <tbody>
             <tr>
-                <th>1</th>
-                <td>Purchase Date</td>
-                <td>Package Name</td>
-                <td>Event Date Start</td>
-                <td>Status</td>
-                <td>Action</td>
-                <td><Link to="/orderdetail" className='cursor-pointer'>Detail</Link></td>
+                <td>{serviceName}</td>
+                <td>{eventName}</td>
+                <td>{startDate}</td>
+                <td>{endDate}</td>
+                <td>{price}</td>
+                <td>{orderStatus}</td>
+                <td onClick={onDetail} className='cursor-pointer'>Detail</td>
             </tr>
         </tbody>
     )

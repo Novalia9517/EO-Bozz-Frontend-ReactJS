@@ -16,8 +16,12 @@ const Payment = () => {
     const eventLocation = location?.state?.eventLocation
     const eventAddress = location?.state?.eventAddress
     const note = location?.state?.note
+    const qty = location?.state?.qty
+    const additional = location?.state?.additional
+
+    console.log('q',qty)
     
-    console.log('ab', clientName)
+    console.log('ab', additional)
     
 
     const onPay = () => {

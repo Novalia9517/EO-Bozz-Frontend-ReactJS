@@ -13,11 +13,13 @@ const OrderUser = () => {
     const [eventAddress, setEventAddress] = useState()
     const [note, setNote] = useState()
     const [num, setNum] = useState(0);
+    const [qty,setQty] = useState()
     const startDate = location?.state?.startDate
     const endDate = location?.state?.endDate
     const additional = location?.state?.additional
     const serviceId = location?.state?.serviceId
 
+    console.log('qty', qty)
 
     const incNum = (e) => {
         e.preventDefault();
@@ -25,6 +27,7 @@ const OrderUser = () => {
             setNum(Number(num) + 1);
         }
     };
+
     const decNum = (e) => {
         e.preventDefault();
         if (num > 0) {
@@ -43,7 +46,9 @@ const OrderUser = () => {
                 eventName: eventName,
                 eventLocation: eventLocation,
                 eventAddress: eventAddress,
-                note: note
+                note: note,
+                qty: qty,
+                additional: additional.additional_name
             }
         })
     }
@@ -130,7 +135,7 @@ const OrderUser = () => {
                                                 <div className='my-3 flex'>
                                                     <p className='text-md px-2'>{item.additional_price} x</p>
                                                     <button onClick={decNum} className='h-8 w-5 flex justify-center items-center  hover:bg-bozz-one hover:text-white'>-</button>
-                                                    <input value={num} className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center' />
+                                                    <input onChange={(e) => setQty(e.target.value) } value={num} className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center' />
                                                     <button onClick={incNum} className='h-8 w-5 flex justify-center items-center  hover:bg-bozz-one hover:text-white'>+</button>
                                                     <p className='text-lg font-bold my-6'>{}</p>
                                                 </div>
