@@ -8,6 +8,9 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { apiWithAuth } from '../services/api'
 import { data } from 'autoprefixer'
+import cake from '../assets/cake-bunga.jpg'
+import Wed from '../assets/wed2.jpg'
+import Wed2 from '../assets/wed4.jfif'
 
 const Home = () => {
 
@@ -77,12 +80,17 @@ const Home = () => {
             <hr className='text-black' />
             <div className='bg-bozz-one'>
                 <div className='container mx-auto py-20 px-20 text-white flex'>
-                    <div className='px-10 py-10'>
-                        <h1 className=''>Event Organizer<br />Platform</h1>
-                        <p>Agency provides a full service range including technical<br /> skills, design, business understanding.</p>
+                    <div className='px-10'>
+                        <h1 className='text-4xl font-bold drop-shadow-[0_4px_4px_#352360] hover:animate-bounce my-5'>EO-BOZZ</h1>
+                        <h1 className='text-bozz-two font-semibold my-2'>Event Organizer Platform</h1>
+                        <p>A platform that help Clients and Event Organizer to connect easily</p>
                         <button className='btn bg-[#EF6D58] my-10'>About Us</button>
                     </div>
-                    <img className='mx-auto h-[320px]' src={imgHome} alt="home" width={500} />
+                    <div className='grid grid-cols-3 h-96 gap-3'>
+                        <img className='mx-auto h-96 rounded col-span-2 row-span-2 bg-clip-padding border-4 border-bozz-two border-dashed' src={Wed} alt="home"/>
+                        <img className='mx-auto h-48 rounded col-span-1 row-span-1 bg-clip-padding border-4 border-bozz-two border-dashed w-48 h-44' src={Wed2} alt="home"/>
+                        <img className='mx-auto h-48 rounded col-span-1 row-span-1 bg-clip-padding border-4 border-bozz-two border-dashed w-48' src={cake} alt="home"/>
+                    </div>
                 </div>
             </div>
             <div className='container mx-auto flex justify-center px-10 py-10'>
@@ -104,12 +112,12 @@ const Home = () => {
                         })
                         return (
                             <CardProduct
-                                img={item.service_image_file}
+                                img={item.service_image_file} keyId={item.id}
                                 name={item.service_name}
                                 rating={item.average_rating}
                                 price={item.service_price}
                                 click={() => onDetail(item.id)}
-                                company={compName} 
+                                company={compName} companyDetail={() => navigate('/profilepartner', {state : { id : item.id }})}
                                 city={item.city} />
                         )
                     })
