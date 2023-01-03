@@ -1,9 +1,10 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import Footer from '../component/Footer'
 import Navbar from '../component/Navbar'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Row from '../components/Row'
 import { formatCurrency } from '../utils/formatCurrency'
+import Loading from '../components/Loading'
 
 const OrderUser = () => {
     const location = useLocation()
@@ -13,46 +14,89 @@ const OrderUser = () => {
     const [eventAddress, setEventAddress] = useState()
     const [note, setNote] = useState()
     const [num, setNum] = useState(0);
-    const [qty,setQty] = useState()
+    const allCity = JSON.parse(localStorage.getItem('city'))
     const startDate = location?.state?.startDate
     const endDate = location?.state?.endDate
     const additional = location?.state?.additional
     const serviceId = location?.state?.serviceId
+    const [additionalArr, setAdditionalArr] = useState([])
+    const [qty, setQty] = useState(0)
+    // const [arr, setArr] = useState([])
+    let arr = [], qtyAdd = []
+    // const [qtyAdd, setQtyAdd] = useState([])
+   
 
     console.log('qty', qty)
 
-    const incNum = (e) => {
-        e.preventDefault();
-        if (num < 10000) {
-            setNum(Number(num) + 1);
-        }
+    const incNum = (i) => {
+        arr = additionalArr
+        arr[i].qty = arr[i].qty+1
+        // qtyAdd[i] = arr[i].qty
+       return setAdditionalArr(arr)
+        console.log(additionalArr)
+        // console.log(qtyAdd)
     };
-
-    const decNum = (e) => {
-        e.preventDefault();
-        if (num > 0) {
-            setNum(num - 1);
+    const decNum = (i) => {
+        arr = additionalArr
+        if (arr[i].qty > 0) {
+            return arr[i].qty = arr[i].qty-1
+            // qtyAdd[i] = arr[i].qty
         }
+       return setAdditionalArr(arr)
+        console.log(additionalArr)
+        // console.log(qtyAdd)
     }
 
+    const getAdditionalArr = () => {
+        additional.map((item, i) => {
+            arr[i] = {
+                service_additional_id : item.service_additional_id,
+                qty : 0
+               },
+              qtyAdd[i] = arr[i].qty
+        })
+        return setAdditionalArr(arr)
+    }
     const navigate = useNavigate()
 
     const onPayment = () => {
+        const data = {
+            startDate: startDate,
+            endDate : endDate,
+            clientName: clientName,
+            eventName: eventName,
+            eventLocation: eventLocation,
+            eventAddress: eventAddress,
+            note: note,
+            serviceId : serviceId,
+            additional : additional,
+            additionalArr : additionalArr
+        }
         navigate('/payment', {
-            state: {
-                startDate: startDate,
-                endDate : endDate,
-                clientName: clientName,
-                eventName: eventName,
-                eventLocation: eventLocation,
-                eventAddress: eventAddress,
-                note: note,
-                qty: qty,
-                additional: additional.additional_name
-            }
+            state: {data: data}
+            // {
+                // startDate: startDate,
+                // endDate : endDate,
+                // clientName: clientName,
+                // eventName: eventName,
+                // eventLocation: eventLocation,
+                // eventAddress: eventAddress,
+                // note: note
+            // }
         })
     }
+
+    useEffect(() => {
+        getAdditionalArr()
+    },[])
+
+    // console.log(arr)
+    console.log(additionalArr)
+    // console.log(arr)
+    // console.log(qtyAdd)
     return (
+        <>
+        {arr != [] ?
         <div className='bg-bozz-six text-bozz-one'>
             <Navbar />
             <div className='container mx-auto px-10 py-10'>
@@ -71,13 +115,13 @@ const OrderUser = () => {
                                 <label className=''>
                                     Client Name
                                 </label>
-                                <input onChange={(e) => setClientName(e.target.value)} type="text" className="input border border-bozz-one bg-bozz-six w-full max-w-md" />
+                                <input onChange={(e) => setClientName(e.target.value)} required type="text" className="input border border-bozz-one bg-bozz-six w-full max-w-md" />
                             </div>
                             <div className='flex flex-col py-1'>
                                 <label>
                                     Event Name
                                 </label>
-                            <input onChange={(e) => setEventName(e.target.value)} type="text" className="input border border-bozz-one  bg-bozz-six w-full max-w-md" />
+                            <input onChange={(e) => setEventName(e.target.value)} required type="text" className="input border border-bozz-one  bg-bozz-six w-full max-w-md" />
                             </div>
                             <div className='flex flex-col py-1'>
                                 <label className=''>
@@ -97,7 +141,18 @@ const OrderUser = () => {
                                 <label className=''>
                                     Event Location
                                 </label>
-                            <input onChange={(e) => setEventLocation(e.target.value)} type="text" className="input border border-bozz-one  bg-bozz-six w-full max-w-md" />
+                                <select 
+                                className="bg-bozz-five border border-bozz-one text-xs text-bozz-one h-10 rounded-lg w-full max-w-md"
+                                id='companycity' onChange={(e) => setEventLocation(e.target.value) }
+                                >
+                                <option>Choose City</option>
+                                    {allCity && 
+                                        allCity?.map((item, index) => {
+                                        return <option key={index} value={item.city_name} className='text-xs'>{item.city_name}</option>
+                                    })
+                                    }
+                            </select>
+                            {/* <input onChange={(e) => setEventLocation(e.target.value)} type="text" className="input border border-bozz-one  bg-bozz-six w-full max-w-md" /> */}
                             </div>
                             <div className='flex flex-col py-1'>
                                 <label className=''>
@@ -111,7 +166,7 @@ const OrderUser = () => {
                     <div className='py-10'>
                         <h1 className='text-3xl'>Service Detail</h1>
                         <div className='py-10 border rounded-md w-full border-bozz-one px-10'>
-                            <div className='grid grid-cols-3 lg:grid-cols-3 px-2'>
+                            {/* <div className='grid grid-cols-3 lg:grid-cols-3 px-2'>
                                 <div>
                                     <p className='text-lg font-bold'>Service Name</p>
                                     <p className='text-lg font-bold'>Service Price</p>
@@ -130,14 +185,14 @@ const OrderUser = () => {
                                     <p className='font-extrabold'>:</p>
                                     <p className='font-extrabold'>:</p>
                                     {additional? (
-                                        additional.map((item) => {
+                                        additional.map((item, index) => {
                                             return (
                                                 <div className='my-3 flex'>
                                                     <p className='text-md px-2'>{item.additional_price} x</p>
                                                     <button onClick={decNum} className='h-8 w-5 flex justify-center items-center  hover:bg-bozz-one hover:text-white'>-</button>
                                                     <input onChange={(e) => setQty(e.target.value) } value={num} className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center' />
                                                     <button onClick={incNum} className='h-8 w-5 flex justify-center items-center  hover:bg-bozz-one hover:text-white'>+</button>
-                                                    <p className='text-lg font-bold my-6'>{}</p>
+                                                    <p className='text-lg font-bold my-6'>{item.additional_price * num}</p>
                                                 </div>
                                             )
                                         })
@@ -155,7 +210,57 @@ const OrderUser = () => {
                                 <p className='text-lg font-bold ml-2'>TOTAL</p>
                                 <p className='text-lg font-bold' >:</p>
                                 <p className='text-lg font-bold'>{formatCurrency(15000000)}</p>
+                            </div> */}
+                            <div className='flex juastify-between'>
+                                <p className='text-lg font-bold w-[30%]'>Service Name</p>
+                                <p className='w-8'>:</p>
+                                <p className='text-lg font-bold'>{serviceId.service_name}</p>
                             </div>
+                            <div className='flex juastify-between my-3'>
+                                <p className='text-lg font-bold w-[30%]'>Service Price</p>
+                                <p className='w-8'>:</p>
+                                <p className='text-lg font-bold'>{formatCurrency(serviceId.service_price)}</p>
+                            </div>
+                            <div className='flex juastify-between'>
+                                <p className='text-lg font-bold w-[30%]'>Additionals</p>
+                                <p className='w-8'>:</p>
+                                <p className='text-lg font-bold'></p>
+                            </div>
+                            <div className='pl-10'>
+                                {/* {additional?.map((item,i) => {
+                                    return (
+                                        <div className='flex my-3'>
+                                        <p className='text-lg font-bold w-[30%]'>{item.additional_name}</p>
+                                        <p className='w-8'>:</p>
+                                        <p className='text-lg font-bold w-40'>{formatCurrency(item.additional_price)}</p>
+                                        <div className='flex w-40'>
+                                            <button onClick={decNum} className='h-8 w-8 flex justify-center items-center rounded border border-bozz-one hover:bg-bozz-one hover:text-white'>-</button>
+                                            <input value={num} className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center bg-white' />
+                                            <button onClick={incNum} className='h-8 w-8 flex justify-center items-center rounded border border-bozz-one hover:bg-bozz-one hover:text-white'>+</button>
+                                        </div>
+                                        <p className='text-lg font-bold text-right'>{formatCurrency(item.additional_price * num)}</p>
+                                    </div>
+                                    )
+                                })} */}
+                                {additional?.map((item,i) => {
+                                    // let qty = arr[i].qty
+                                    return (
+                                        <div className='flex my-3'>
+                                        <p className='text-lg font-bold w-[30%]'>{item.additional_name}</p>
+                                        <p className='w-8'>:</p>
+                                        <p className='text-lg font-bold w-40'>{formatCurrency(item.additional_price)}</p>
+                                        <div className='flex w-40'>
+                                            <button onClick={() => decNum(i)} className='h-8 w-8 flex justify-center items-center rounded border border-bozz-one hover:bg-bozz-one hover:text-white'>-</button>
+                                            <input value={num} className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center bg-white' />
+                                            <button onClick={() => incNum(i)} className='h-8 w-8 flex justify-center items-center rounded border border-bozz-one hover:bg-bozz-one hover:text-white'>+</button>
+                                        </div>
+                                        <p>{qtyAdd[i]}</p>
+                                        <p className='text-lg font-bold text-right'>{formatCurrency(item.additional_price * qtyAdd[i])}</p>
+                                    </div>
+                                    )
+                                })}
+                            </div>
+
                         </div>
                             <div className='flex justify-end  mt-4'>
                                 <button className='btn hover:btn-warning bg-orange-400 mx-2 text-white'>Cancel</button>
@@ -166,6 +271,9 @@ const OrderUser = () => {
             </div>
             <Footer />
         </div>
+        : <Loading/>
+        }
+        </>
     )
 }
 

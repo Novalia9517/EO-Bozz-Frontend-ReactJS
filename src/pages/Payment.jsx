@@ -1,14 +1,27 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import Navbar from '../component/Navbar'
+import { apiWithAuth } from '../services/api'
 import { formatCurrency } from '../utils/formatCurrency'
+import Swal from 'sweetalert2'
 
 const Payment = () => {
-    const banks = ['bni', 'mandiri', 'cimb', 'bca', 'bri', 'maybank', 'permata', 'mega']
+    const banks = ['va bni', 'va mandiri', 'va cimb', 'va bca', 'va bri', 'va maybank', 'va permata', 'va mega']
     const [chosen, setChosen] = useState()
     const navigate = useNavigate()
     const location = useLocation()
+    const data = location?.state?.data
+    const token = localStorage.getItem('userToken')
+    // const [total, setTotal] = useState()
+    // let total = 0
+    // console.log(data)
 
+    const additional = data.additional
+    const additionalArr = data.additionalArr
+    let total = data.serviceId.service_price
+    additionalArr.map((item, i) => {
+        return total += (item.qty * additional[i].additional_price)
+    })
     const startDate = location?.state?.startDate
     const endDate = location?.state?.endDate
     const clientName = location?.state?.clientName
@@ -17,15 +30,55 @@ const Payment = () => {
     const eventAddress = location?.state?.eventAddress
     const note = location?.state?.note
     const qty = location?.state?.qty
-    const additional = location?.state?.additional
 
     console.log('q',qty)
     
     console.log('ab', additional)
     
 
-    const onPay = () => {
-        navigate('/detail-transaction')
+    // console.log('ab', clientName)
+    const getTotal = () => {
+        additionalArr.map((item,i) => {
+            const jumlah = item.qty * additional[i].additional_price
+            total += jumlah
+        })
+        console.log(total)
+    }
+    useEffect(() => {
+        // getTotal()
+    },[])
+    const onPay = async() => {
+        const body = {
+                event_name: data.eventName,
+                start_date : data.startDate,
+                end_date : data.endDate,
+                event_location : data.eventLocation,
+                event_address : data.eventAddress,
+                notes_for_partner : data.note,
+                payment_method : chosen,
+                service_id : parseInt(data.serviceId.id),
+                order_details : additionalArr
+        }
+        console.log(body)
+        apiWithAuth(`orders`, `POST`, body, "application/json", token)
+        .then(res => {
+            Swal.fire({
+                position : "center",
+                icon : "success",
+                title : 'Register Successfull, Let\'s Login...',
+                showConfirmButton : true
+            })   
+            navigate('/detail-transaction')
+        })
+        .catch(err => {
+            Swal.fire({
+                position : "center",
+                icon : "error",
+                title : `${err}`,
+                showConfirmButton : true
+            }) 
+            console.log(err)
+        })
     }
     console.log(chosen)
     return (
@@ -38,61 +91,34 @@ const Payment = () => {
                         <div className='grid gap-5 grid-cols-2 grid-rows-2 text-left mt-5'>
                             <div className=''>
                                 <p className='text-xs text-bozz-two'>Start Date</p>
-                                <p className='text-md text-bozz-three'>{startDate}</p>
+                                <p className='text-md text-bozz-three'>{data.startDate}</p>
                             </div>
                             <div className=''>
                                 <p className='text-xs text-bozz-two'>End Date</p>
-                                <p className='text-md text-bozz-three'>{endDate}</p>
+                                <p className='text-md text-bozz-three'>{data.endDate}</p>
                             </div>
                             <div className=''>
                                 <p className='text-xs text-bozz-two'>Client Name</p>
-                                <p className='text-md text-bozz-three'>{clientName}</p>
+                                <p className='text-md text-bozz-three'>{data.clientName}</p>
                             </div>
                             <div className=''>
                                 <p className='text-xs text-bozz-two'>Event Name</p>
-                                <p className='text-md text-bozz-three'>{eventName}</p>
+                                <p className='text-md text-bozz-three'>{data.eventName}</p>
                             </div>
                             <div className=''>
                                 <p className='text-xs text-bozz-two'>Event Location</p>
-                                <p className='text-md text-bozz-three'>{eventLocation}</p>
+                                <p className='text-md text-bozz-three'>{data.eventLocation}</p>
                             </div>
                             <div className=''>
                                 <p className='text-xs text-bozz-two'>Client Address</p>
-                                <p className='text-md text-bozz-three'>{eventAddress}</p>
+                                <p className='text-md text-bozz-three'>{data.eventAddress}</p>
                             </div>
                             <div className=''>
                                 <p className='text-xs text-bozz-two'>Notes for partner </p>
-                                <p className='text-md text-bozz-three'>{note}</p>
+                                <p className='text-md text-bozz-three'>{data.note}</p>
                             </div>
                             
                         </div>
-                        {/* <h2 className="text-sm font-medium">Payment Method</h2>
-                        <div className="bg-white rounded mt-4 shadow-lg px-8">
-                            <div className="flex items-center px-8 py-5">
-                                <input className="checkbox" type="checkbox" />
-                                <label className="text-sm font-medium ml-4">BCA</label>
-                            </div>
-                            <div className="border-t">
-                                <div className="flex items-center px-8 py-5">
-                                    <input className="checkbox" type="checkbox" />
-                                    <label className="text-sm font-medium ml-4">BNI</label>
-                                </div>
-                                <div className="grid grid-cols-2 gap-4 px-8 pb-8">
-                                    <div className="col-span-2">
-                                        <label className="text-xs font-semibold" for="cardNumber">Card number</label>
-                                        <input className="flex items-center h-10 border mt-1 rounded px-4 w-full text-sm" type="text" placeholder="0000 0000 0000 0000" />
-                                    </div>
-                                    <div className="">
-                                        <label className="text-xs font-semibold" for="cardNumber">Expiry Date</label>
-                                        <input className="flex items-center h-10 border mt-1 rounded px-4 w-full text-sm" type="text" placeholder="MM/YY" />
-                                    </div>
-                                    <div className="">
-                                        <label className="text-xs font-semibold" for="cardNumber">CVC/CVV</label>
-                                        <input className="flex items-center h-10 border mt-1 rounded px-4 w-full text-sm" type="password" placeholder="..." />
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
                     </div>
                     <div>
                     {/* <h2 className="text-sm font-medium">Purchase Summary</h2> */}
@@ -100,27 +126,34 @@ const Payment = () => {
                     <div className="bg-white rounded mt-4 w-96 shadow-lg py-6 border border-bozz-two px-8">
                         <div className="">
                             <div className="flex items-end border-b border-gray-400 py-3">
-                                <span className="text-sm font-semibold">Service Name</span>
-                                <span className="text-sm ml-auto">{formatCurrency(12000000)}</span>
+                                <span className="text-sm font-semibold">{data.serviceId.service_name}</span>
+                                <span className="text-sm ml-auto">{formatCurrency(data.serviceId.service_price)}</span>
                             </div>
                         </div>
-                        <div className="mt-4">
-                            <div className="flex items-end justify-between border-b border-gray-400 py-3">
-                                <span className="text-sm font-semibold">Additional Name</span>
-                                <span className="text-sm text-gray-500 mb-px">{formatCurrency(12000000)}</span>
-                            </div>
-                        </div>
-                        <div className="mt-4">
-                            <div className="flex items-end justify-between border-b border-gray-400 py-3">
-                                <span className="text-sm font-semibold">Additional Name</span>
-                                <span className="text-sm text-gray-500 mb-px">{formatCurrency(12000000)}</span>
-                            </div>
-                        </div>
+                        {additionalArr?.map((item, i) =>{
+                            let total = data.serviceId.service_price
+                            additionalArr.map((add,i) => {
+                                let jumlah = add.qty * additional[i].additional_price
+                                total += jumlah
+                            })
+                            if(item.qty > 0){
+                                return (
+                                    <div className="mt-4" key={i}>
+                                        <div className="flex items-end justify-between border-b border-gray-400 py-3">
+                                            <span className="text-sm font-semibold">{additional[i].additional_name}</span>
+                                            <span className="text-sm text-gray-500 mb-px">{formatCurrency(additional[i].additional_price * item.qty)}</span>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        })
+
+                        }
                         {/* <div className='divider'></div> */}
                         <div className="mt-3">
                             <div className="flex items-end justify-between border-b border-gray-400 py-3">
                                 <span className="text-sm">Total</span>
-                                <span className="text-sm  font-semibold text-gray-800 mb-px">{formatCurrency(12000000)}</span>
+                                <span className="text-sm  font-semibold text-gray-800 mb-px">{formatCurrency(total)}</span>
                             </div>
                         </div>
                         {/* <div className="flex items-center px-8 mt-8">
@@ -139,7 +172,7 @@ const Payment = () => {
                                 id='companycity'  onChange={(e) => setChosen(e.target.value)}
                                 >
                                 {banks.map((bank, i) => {
-                                    return <option className='capitalize'>{bank} Bank</option>
+                                    return <option key={i} className='capitalize' value={bank}>{bank.slice(3)} Bank Virtual Account</option>
                                 })}
                                 </select>
                                 {chosen && <span className='text-xs font-semibold mt-1 text-bozz-two'>You Choose {chosen} for payment method</span>}
