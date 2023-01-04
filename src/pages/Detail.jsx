@@ -189,6 +189,7 @@ const Detail = () => {
                         <div className='grid gap-10 grid-cols-1 md:grid-cols-1 lg:grid-cols-2'>
                             <img className='mx-auto h-[320px]' src={serviceId.service_image_file} alt="home" width={500} />
                             <div className='mx-auto text-bozz-one'>
+                                <p className='py-3 px-3 font-bold text-2xl'>{serviceId.partner.company_name}</p>
                                 <p className='py-3 px-3 font-bold text-xl'>{serviceId.service_name}</p>
                                 <p className='px-3 font-bold text-xl hover:underline' onClick={() => navigate('/profilepartner', {state : { id : serviceId.partner_id }})}>{company}</p>
                                 <p className='py-3 px-3 font-bold text-xl text-bozz-two'>{formatCurrency(serviceId.service_price)}</p>

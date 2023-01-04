@@ -19,7 +19,7 @@ const CardProduct = ({ name, rating, price, click, company, companyDetail, city,
                             <p className='mx-5 text-md text-bozz-two font-bold'>{formatCurrency(price)}</p>
                         </div>
                         <div className='mx-2 my-2'>
-                            <p className='text-md hover:underline' onClick={companyDetail}>{companyName}</p>
+                            <p className='text-md hover:underline cursor-pointer font-bold' onClick={companyDetail}>{companyName}</p>
                             <p className='text-sm uppercase flex'><IoLocationSharp className='text-red-500 text-md'/> {city}</p>
                         </div>
                     </div>

@@ -13,16 +13,10 @@ const Footer = () => {
                 <a className="link link-hover text-white">Start Booking a Room</a>
             </div>
             <div>
-                <span className="footer-title">Explore Us</span>
-                <a className="link link-hover text-white">Our Careers</a>
-                <a className="link link-hover text-white">Privacy</a>
-                <a className="link link-hover text-white">Terms & Conditions</a>
-            </div>
-            <div>
                 <span className="footer-title">Connect Us</span>
-                <a className="link link-hover text-white">support@stay.id</a>
+                <a className="link link-hover text-white">EO Bozz</a>
                 <a className="link link-hover text-white">021 - 2208 - 1996</a>
-                <a className="link link-hover text-white">Stay, Ahmad Yani, Surabaya</a>
+                <a className="link link-hover text-white">EO Bozz, Jakarta</a>
             </div>
         </footer>
 

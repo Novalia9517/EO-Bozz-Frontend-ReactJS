@@ -6,28 +6,56 @@ import Picprofile from '../assets/profile.png'
 import Dummy from '../assets/HomeImage.png'
 import CardProduct from '../component/CardProduct'
 import Art from '../assets/art.png'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { apiWithAuth } from '../services/api'
 import Loading from '../components/Loading'
+import axios from 'axios'
+
 
 const ProfilePartnerUser = () => {
     const navigate = useNavigate()
     const [partnerData ,setPartnerData] = useState()
-    const id = 11
-    const onClick = () => {
-        navigate('/detail')
+    const [listCompany,setListCompany] = useState()
+    const location = useLocation()
+    const id = location?.state.id
+    console.log('id',id)
+
+    const onClick = (id) => {
+        navigate('/detail', {
+            state: {
+                id: id
+            }
+        })
     }
+
+    const getList = async () => {
+        await axios.get(`https://irisminty.my.id/partners/${id}/services`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
+        })
+            .then(res => {
+                const data = res.data.data
+                console.log(data)
+                setPartnerData(data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
     const getPartner = async(id) => {
         apiWithAuth(`partners/${parseInt(id)}`, `GET`, null, "application/json", localStorage.getItem('userToken'))
-        .then(res => setPartnerData(res.data))
+        .then(res => setListCompany(res.data))
         .catch(err => console.log(err))
     }
 
-    useEffect(() => {
-        getPartner(id)
-    })
+    
 
-    console.log(partnerData)
+    useEffect(() => {
+        getList()
+        getPartner(id)
+        console.log('data',partnerData)
+    },[])
+
     return (
         <>
         {partnerData ? 
@@ -36,11 +64,11 @@ const ProfilePartnerUser = () => {
             <Navbar />
             <div className='container mx-auto px-10 py-10'>
                 <div className='flex justify-center'>
-                    <img src={partnerData.company_image_file} className='h-32 w-32 rounded-full border border-bozz-one'/>
+                    <img src={listCompany.company_image_file} className='h-32 w-32 rounded-full border border-bozz-one'/>
                     <div className='ml-10'>
-                        <h1 className='text-3xl my-3 font-bold'>{partnerData.company_name}</h1>
-                        <p className='text-xl flex'>{partnerData.company_address}</p>
-                        <p className='text-md flex'>{partnerData.link_website}</p>
+                        <h1 className='text-3xl my-3 font-bold'>{listCompany.company_name}</h1>
+                        <p className='text-xl flex'>{listCompany.company_address}</p>
+                        <p className='text-md flex'>{listCompany.link_website}</p>
                     </div>
                 </div>
                 <div className='flex justify-center my-8'>
@@ -61,12 +89,12 @@ const ProfilePartnerUser = () => {
                 <div className='text-center my-5'>
                     <div className="carousel w-full">
                             <div id="slide1" className="carousel-item relative w-full">
-                                <div className="hero h-96" style={{ backgroundImage: `url(${partnerData.event1_image_file})`, backgroundSize: 'cover'}}>
+                                <div className="hero h-96" style={{ backgroundImage: `url(${listCompany.event1_image_file})`, backgroundSize: 'cover'}}>
                                 <div className="hero-overlay bg-opacity-50"></div>
-                                <div className="hero-content text-center text-neutral-content text-bozz-two">
+                                <div className="hero-content text-center text-bozz-two">
                                     <div className="max-w-md text-bozz-six">
                                     <h1 className='text-xl font-bold mb-16'>EVENT YANG PERNAH KAMI TANGANI </h1>
-                                    <h1 className='text-xl font-bold mb-3'>{partnerData.event1_name}</h1>
+                                    <h1 className='text-xl font-bold mb-3'>{listCompany.event1_name}</h1>
                                     <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                                     </div>
                                 </div>
@@ -77,12 +105,12 @@ const ProfilePartnerUser = () => {
                             </div>
                         </div> 
                         <div id="slide2" className="carousel-item relative w-full">
-                        <div className="hero h-96" style={{ backgroundImage: `url(${partnerData.event2_image_file})` }}>
+                        <div className="hero h-96" style={{ backgroundImage: `url(${listCompany.event2_image_file})` }}>
                                 <div className="hero-overlay bg-opacity-50"></div>
                                 <div className="hero-content text-center text-neutral-content text-bozz-two">
                                     <div className="max-w-md text-bozz-six">
                                     <h1 className='text-xl font-bold mb-16'>EVENT YANG PERNAH KAMI TANGANI </h1>
-                                    <h1 className='text-xl font-bold mb-3'>{partnerData.event2_name} </h1>
+                                    <h1 className='text-xl font-bold mb-3'>{listCompany.event2_name} </h1>
                                     <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                                     </div>
                                 </div>
@@ -93,12 +121,12 @@ const ProfilePartnerUser = () => {
                             </div>
                         </div> 
                         <div id="slide3" className="carousel-item relative w-full">
-                        <div className="hero h-96" style={{ backgroundImage: `url(${partnerData.event4_image_file})` }}>
+                        <div className="hero h-96" style={{ backgroundImage: `url(${listCompany.event4_image_file})` }}>
                                 <div className="hero-overlay bg-opacity-50"></div>
                                 <div className="hero-content text-center text-neutral-content text-bozz-two">
                                     <div className="max-w-md text-bozz-six">
                                     <h1 className='text-xl font-bold mb-16'>EVENT YANG PERNAH KAMI TANGANI </h1>
-                                    <h1 className='text-xl font-bold mb-3'>{partnerData.event3_name}</h1>
+                                    <h1 className='text-xl font-bold mb-3'>{listCompany.event3_name}</h1>
                                     <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                                     </div>
                                 </div>
@@ -114,9 +142,20 @@ const ProfilePartnerUser = () => {
                 <div className>
                     <h1 className='text-2xl font-bold text-center'>LIST SERVICE</h1>
                     <div className='grid gird-cols-2 lg:grid-cols-3 mt-5'>
-                        <CardProduct img={Art} name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
-                        <CardProduct img={Art} name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
-                        <CardProduct img={Art} name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
+                        {partnerData? (
+                                    partnerData.map((item) => {
+                                        return(
+                                            <CardProduct
+                                                img={item.service_image_file}
+                                                name={item.service_name}
+                                                rating={item.average_rating}
+                                                price={item.service_price}
+                                                company={listCompany.company_name}
+                                                click={() => onClick(item.id)}
+                                                city={item.city} />
+                                        )
+                                    })
+                        ):<></>}
                     </div>
                 </div>
             </div>

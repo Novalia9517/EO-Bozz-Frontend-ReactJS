@@ -37,7 +37,7 @@ const TransactionList = () => {
     
 
     return (
-        <div className='bg-white h-screen'>
+        <div className='bg-white h-screen h-full'>
             <Navbar />
             <div className='container mx-auto px-10 py-10 text-black'>
                 <div className="overflow-x-auto">
