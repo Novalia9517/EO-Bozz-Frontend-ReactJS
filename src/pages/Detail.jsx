@@ -16,6 +16,7 @@ import { useCookies } from 'react-cookie'
 import { apiRequest, apiWithAuth } from '../services/api'
 import axios from 'axios'
 import { AiTwotoneStar} from 'react-icons/ai'
+import { IoLocationSharp} from 'react-icons/io5'
 
 
 const Detail = () => {
@@ -46,6 +47,7 @@ const Detail = () => {
                 console.log(data)
                 setServiceId(data)
                 // getCompany()
+                setCompany(data.partner)
             })
             .catch(err => {
                 console.log(err)
@@ -79,16 +81,16 @@ const Detail = () => {
             })
     }
 
-    const getCompany = async() => {
-        apiWithAuth(`partners`, `GET`, null, "application/json", token)
-        .then(res => {
-            res.data.map((company,i) => {
-                if(company.id == serviceId?.partner_id) setCompany(company.company_name)
-            })
-            console.log(company)
-        })
-        .catch(err => console.log(err))
-    }
+    // const getCompany = async() => {
+    //     apiWithAuth(`partners`, `GET`, null, "application/json", token)
+    //     .then(res => {
+    //         res.data.map((company,i) => {
+    //             if(company.id == serviceId?.partner_id) setCompany(company.company_name)
+    //         })
+    //         console.log(company)
+    //     })
+    //     .catch(err => console.log(err))
+    // }
 
     const getReview = async() => {
         apiRequest(`reviews`, `GET`, null)
@@ -174,7 +176,7 @@ const Detail = () => {
         getDiscussion()
         getDataId()
         getAdditional()
-        getCompany()
+        // getCompany()
         getReview()
         getClient()
     }, [])
@@ -187,10 +189,11 @@ const Detail = () => {
                     <Navbar />
                     <div className='container px-20 py-20 mx-auto'>
                         <div className='grid gap-10 grid-cols-1 md:grid-cols-1 lg:grid-cols-2'>
-                            <img className='mx-auto h-[320px]' src={serviceId.service_image_file} alt="home" width={500} />
+                            <img className='mx-auto h-[320px] rounded-md' src={serviceId.service_image_file} alt="home" width={500} />
                             <div className='mx-auto text-bozz-one'>
                                 <p className='py-3 px-3 font-bold text-xl'>{serviceId.service_name}</p>
-                                <p className='px-3 font-bold text-xl hover:underline' onClick={() => navigate('/profilepartner', {state : { id : serviceId.partner_id }})}>{company}</p>
+                                <p className='px-3 font-bold text-lg hover:underline' onClick={() => navigate('/profilepartner', {state : { id : serviceId.partner_id }})}>{company.company_name.slice(0,20)}</p>
+                                <p className='px-3 font-bold text-lg flex gap-2 my-2'><IoLocationSharp className='text-red-500'/>{company.company_city}</p>
                                 <p className='py-3 px-3 font-bold text-xl text-bozz-two'>{formatCurrency(serviceId.service_price)}</p>
                                 <p className=' px-3 text-lg text-[#726F6F]'>Category {serviceId.service_category}</p>
                                 <p className=' px-3 text-lg text-[#726F6F] flex'><AiFillStar className='text-2xl text-orange-300' /> {serviceId.average_rating} Ratings</p>
@@ -246,7 +249,9 @@ const Detail = () => {
                             </div>
                         </div>
                         <div>
-                            {reviews?.map((item, i) => {
+                            <p className='text-lg font-semibold text-bozz-one mb-3'>Review Dan Rating</p>
+                            {reviews && reviews.length >= 1 ? 
+                            reviews?.map((item, i) => {
                                 let clientName = ''
                                 let image = ''
                                 let clientCity = ''
@@ -275,7 +280,7 @@ const Detail = () => {
                                     </div>
                                 )
                             })
-
+                            : <p>Belum Ada review</p>
                             }
                         </div>
                         <hr />

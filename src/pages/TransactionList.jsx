@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react'
 import Navbar from '../component/Navbar'
 import TableTransaction from '../component/TableTransaction'
@@ -5,7 +6,6 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 const TransactionList = () => {
-
     const [order,setOrder] = useState()
     const navigate = useNavigate()
 
@@ -39,37 +39,41 @@ const TransactionList = () => {
     return (
         <div className='bg-white h-screen'>
             <Navbar />
-            <div className='container mx-auto px-10 py-10 text-black'>
-                <div className="overflow-x-auto">
-                    <table className="table w-full">
+            <div className='container mx-auto px-10 py-10 text-black bg-white'>
+                <div className="overflow-x-auto border border-bozz-one rounded p-5 shadow-lg text-gray.700">
+                    <table className=" w-full bg-white ">
                         <thead>
-                            <tr >
+                            <tr className='text-left px-3 border-b border-bozz-one'>
+                                    <th>No</th>
                                     <th className='text-base'>Event Name</th>
-                                    <th className='text-base'>Package Name</th>
-                                <th className='text-base'>Event Date Start</th>
-                                    <th className='text-base'>Event Date End</th>
+                                    <th className='text-base'>Service Name</th>
+                                    <th className='text-base'>Start Date</th>
+                                    <th className='text-base'>End Date</th>
                                     <th className='text-base'>Price</th>
                                     <th className='text-base'>Status</th>
                                     <th className='text-base'>Action</th>
                             </tr>
                         </thead>
+                        <tbody className=''>
                             {order? (
-                                order.map((item) => {
+                                order.map((item,i) => {
                                     return (
                                         <TableTransaction
+                                            no={i + 1}
                                             eventName={item.EventName}
                                             serviceName={item.ServiceName}
                                             startDate={item.StartDate}
                                             endDate={item.EndDate}
                                             eventLocation={item.EventLocation}
-                                            price={`Rp ${item.GrossAmmount}`}
+                                            price={item.GrossAmmount}
                                             orderStatus={item.OrderStatus}
                                             onDetail={() => onDetail(item.ID)}
                                         />
                                     )
                                 })
-                            ):<></>}
-                        
+                            ):<p> Anda belum memiliki transaksi</p>
+                            }
+                            </tbody>
                     </table>
                 </div>
             </div>

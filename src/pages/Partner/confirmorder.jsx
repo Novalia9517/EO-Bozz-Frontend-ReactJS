@@ -120,7 +120,7 @@ const ConfirmOrder = () => {
                     <td>:</td>
                 </tr>
             {
-              order.DetailOrders.map((item, i) => {
+              order.detail_orders.map((item, i) => {
                 return (
                   <div class="grid gap-5 grid-cols-4 grid-rows-1 w-full pl-10 font-semibold text-bozz-one text-sm">
                     <span>{item.additional_name}</span>

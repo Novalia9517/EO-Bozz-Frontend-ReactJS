@@ -6,28 +6,46 @@ import Picprofile from '../assets/profile.png'
 import Dummy from '../assets/HomeImage.png'
 import CardProduct from '../component/CardProduct'
 import Art from '../assets/art.png'
-import { useNavigate } from 'react-router-dom'
-import { apiWithAuth } from '../services/api'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { apiRequest, apiWithAuth } from '../services/api'
 import Loading from '../components/Loading'
 
 const ProfilePartnerUser = () => {
     const navigate = useNavigate()
+    const location = useLocation()
     const [partnerData ,setPartnerData] = useState()
-    const id = 11
+    const [lisServices, setLisServices] = useState()
+    const id = location?.state?.id
+    const token = localStorage.getItem('userToken')
+
     const onClick = () => {
         navigate('/detail')
     }
     const getPartner = async(id) => {
-        apiWithAuth(`partners/${parseInt(id)}`, `GET`, null, "application/json", localStorage.getItem('userToken'))
+        apiWithAuth(`partners/${parseInt(id)}`, `GET`, null, "application/json", token)
         .then(res => setPartnerData(res.data))
         .catch(err => console.log(err))
+    }
+    const getServices = async(id) => {
+        apiRequest(`partners/${parseInt(id)}/services`, `GET`, null, "application/json", token )
+        .then(res => setLisServices(res.data))
+        .catch(err => console.log(err))
+    }
+    const onDetail = (id) => {
+        navigate('/detail', {
+            state: {
+                id: id
+            }
+        })
     }
 
     useEffect(() => {
         getPartner(id)
-    })
+        getServices(id)
+    },[])
 
     console.log(partnerData)
+    console.log(lisServices)
     return (
         <>
         {partnerData ? 
@@ -39,12 +57,12 @@ const ProfilePartnerUser = () => {
                     <img src={partnerData.company_image_file} className='h-32 w-32 rounded-full border border-bozz-one'/>
                     <div className='ml-10'>
                         <h1 className='text-3xl my-3 font-bold'>{partnerData.company_name}</h1>
-                        <p className='text-xl flex'>{partnerData.company_address}</p>
+                        <p className='text-xs flex'>{partnerData.company_address}</p>
                         <p className='text-md flex'>{partnerData.link_website}</p>
                     </div>
                 </div>
                 <div className='flex justify-center my-8'>
-                    <div className='px-10 mx-5 border border-bozz-one rounded-md '>
+                    {/* <div className='px-10 mx-5 border border-bozz-one rounded-md '>
                         <p className='text-xl text-center'>
                             <span className='font-semibold'>4.8</span><br />
                             <span className='text-sm'>Average Rating</span>
@@ -54,6 +72,12 @@ const ProfilePartnerUser = () => {
                         <p className='text-xl text-center'>
                             <span className='font-semibold'>120</span><br />
                             <span className='text-sm'>Total Event</span>
+                        </p>
+                    </div> */}
+                    <div className='px-10 mx-5 border border-bozz-one rounded-md '>
+                        <p className='text-xl text-center'>
+                            <span className='font-semibold'>{partnerData.verification_status}</span><br />
+                            <span className='text-sm'>Status</span>
                         </p>
                     </div>
                 </div>
@@ -67,7 +91,7 @@ const ProfilePartnerUser = () => {
                                     <div className="max-w-md text-bozz-six">
                                     <h1 className='text-xl font-bold mb-16'>EVENT YANG PERNAH KAMI TANGANI </h1>
                                     <h1 className='text-xl font-bold mb-3'>{partnerData.event1_name}</h1>
-                                    <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                                    {/* <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p> */}
                                     </div>
                                 </div>
                                 </div>
@@ -83,7 +107,7 @@ const ProfilePartnerUser = () => {
                                     <div className="max-w-md text-bozz-six">
                                     <h1 className='text-xl font-bold mb-16'>EVENT YANG PERNAH KAMI TANGANI </h1>
                                     <h1 className='text-xl font-bold mb-3'>{partnerData.event2_name} </h1>
-                                    <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                                    {/* <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p> */}
                                     </div>
                                 </div>
                                 </div>
@@ -99,7 +123,7 @@ const ProfilePartnerUser = () => {
                                     <div className="max-w-md text-bozz-six">
                                     <h1 className='text-xl font-bold mb-16'>EVENT YANG PERNAH KAMI TANGANI </h1>
                                     <h1 className='text-xl font-bold mb-3'>{partnerData.event3_name}</h1>
-                                    <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                                    {/* <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p> */}
                                     </div>
                                 </div>
                                 </div>
@@ -114,9 +138,26 @@ const ProfilePartnerUser = () => {
                 <div className>
                     <h1 className='text-2xl font-bold text-center'>LIST SERVICE</h1>
                     <div className='grid gird-cols-2 lg:grid-cols-3 mt-5'>
+                    {lisServices ? (lisServices.map((item) => {
+                        let compName = ''
+                        // listCompany?.map((company,i) => {
+                        //     if(company.id == item.partner_id) compName = company.company_name
+                        // })
+                        return (
+                            <CardProduct
+                                img={item.service_image_file} keyId={item.id}
+                                name={item.service_name}
+                                rating={item.average_rating}
+                                price={item.service_price}
+                                click={() => onDetail(item.id)}
+                                company={compName} companyDetail={() => navigate('/profilepartner', {state : { id : item.partner_id }})}
+                                city={item.city} />
+                        )
+                    })
+                    ) : <></>}
+                        {/* <CardProduct img={Art} name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
                         <CardProduct img={Art} name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
-                        <CardProduct img={Art} name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
-                        <CardProduct img={Art} name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
+                        <CardProduct img={Art} name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/> */}
                     </div>
                 </div>
             </div>
