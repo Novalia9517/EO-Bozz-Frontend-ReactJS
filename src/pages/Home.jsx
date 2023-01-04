@@ -112,15 +112,16 @@ const Home = () => {
                             )
                         })
                         return (
-                            <CardProduct
-                                img={item.service_image_file} keyId={item.id}
-                                name={item.service_name}
-                                rating={item.average_rating}
-                                price={item.service_price}
-                                click={() => onDetail(item.id)}
-                                company={compName}
-                                companyDetail={() => navigate('/profilepartner', { state: { id: item.partner_id }})}
-                                city={item.city} />
+                            <div key={i}>
+                                <CardProduct
+                                    img={item.service_image_file} keyId={item.id}
+                                    name={item.service_name}
+                                    rating={item.average_rating}
+                                    price={item.service_price}
+                                    click={() => onDetail(item.id)}
+                                    company={compName} companyDetail={() => navigate('/profilepartner', { state: { id: item.partner_id } })}
+                                    city={item.city} />
+                            </div>
                         )
                     })
                     ) : <></>}
