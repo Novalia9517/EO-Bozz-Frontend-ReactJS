@@ -207,9 +207,7 @@ const Detail = () => {
                             <div className='mx-auto'>
                                 <h1 className='text-center text-4xl'>Included Service</h1>
                                 <div className='mt-5'>
-                                    <p className='py-3 flex'><img src={Ceklist} width={20} /><span className='ml-5'>Wedding</span></p>
-                                    <p className='py-3 flex'><img src={Ceklist} width={20} /><span className='ml-5'>Wedding</span></p>
-                                    <p className='py-3 flex'><img src={Ceklist} width={20} /><span className='ml-5'>Wedding</span></p>
+                                    <p className='py-3 flex'><img src={Ceklist} width={20} /><span className='ml-5'>{serviceId.service_include}</span></p>
                                 </div>
 
                             </div>

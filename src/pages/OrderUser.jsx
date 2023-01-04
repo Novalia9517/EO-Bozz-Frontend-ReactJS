@@ -26,6 +26,7 @@ const OrderUser = () => {
     // const [qtyAdd, setQtyAdd] = useState([])
    
 
+    console.log('qty', qty)
 
     const incNum = (i) => {
         arr = additionalArr

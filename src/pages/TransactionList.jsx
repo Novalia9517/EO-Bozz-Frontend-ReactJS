@@ -1,56 +1,79 @@
-import React, {useEffect, useState} from 'react'
-import { useNavigate } from 'react-router-dom'
+
+import React, { useState, useEffect } from 'react'
 import Navbar from '../component/Navbar'
 import TableTransaction from '../component/TableTransaction'
-import { apiWithAuth } from '../services/api'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const TransactionList = () => {
-    const id = localStorage.getItem('idclient')
-    const token = localStorage.getItem('userToken')
+    const [order,setOrder] = useState()
     const navigate = useNavigate()
-    const [transactionList, setTransactionList] = useState()
-    const getTransactionList = () => {
-        apiWithAuth(`orders`, `GET`, null, "application/json", token)
-        .then(res => {
-            setTransactionList(res.data.filter(item => item.client_id == id))
+
+    const getOrder = async() => {
+        await axios.get(`https://irisminty.my.id/clients/orders`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}`}
         })
-        .catch(err => console.log(err))
+            .then(res => {
+                const data = res.data.data
+                setOrder(data)
+                console.log('cek',data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const onDetail = (id) => {
+        navigate('/detail-transaction', {
+            state: {
+                id: id
+            }
+        })
     }
 
     useEffect(() => {
-        getTransactionList()
-    },[])
+      getOrder()
+    }, [])
+    
+
     return (
-        <div className='bg-white min-h-screen'>
+        <div className='bg-white h-screen'>
             <Navbar />
             <div className='container mx-auto px-10 py-10 text-black bg-white'>
                 <div className="overflow-x-auto border border-bozz-one rounded p-5 shadow-lg text-gray.700">
                     <table className=" w-full bg-white ">
                         <thead>
                             <tr className='text-left px-3 border-b border-bozz-one'>
-                                <th>No</th>
-                                <th>Event Name</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Total Transaction</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                    <th>No</th>
+                                    <th className='text-base'>Event Name</th>
+                                    <th className='text-base'>Service Name</th>
+                                    <th className='text-base'>Start Date</th>
+                                    <th className='text-base'>End Date</th>
+                                    <th className='text-base'>Price</th>
+                                    <th className='text-base'>Status</th>
+                                    <th className='text-base'>Action</th>
                             </tr>
                         </thead>
                         <tbody className=''>
-                            {transactionList && transactionList.length >= 1 ? 
-                                transactionList?.map((item, i) => {
-                                    return <TableTransaction   
-                                            no={i + 1} eventName={item.event_name} startDate={item.start_date}
-                                            endDate={item.end_date} total={item.gross_ammount} status={item.order_status}
-                                            onDetail={() => navigate('/detail-transaction', { state : {id : item.id}})}
-                                            />
+                            {order? (
+                                order.map((item,i) => {
+                                    return (
+                                        <TableTransaction
+                                            no={i + 1}
+                                            eventName={item.EventName}
+                                            serviceName={item.ServiceName}
+                                            startDate={item.StartDate}
+                                            endDate={item.EndDate}
+                                            eventLocation={item.EventLocation}
+                                            price={item.GrossAmmount}
+                                            orderStatus={item.OrderStatus}
+                                            onDetail={() => onDetail(item.ID)}
+                                        />
+                                    )
                                 })
-                            : <p> Anda belum memiliki transaksi</p>
+                            ):<p> Anda belum memiliki transaksi</p>
                             }
-
-                        </tbody>
-                        
+                            </tbody>
                     </table>
                 </div>
             </div>
