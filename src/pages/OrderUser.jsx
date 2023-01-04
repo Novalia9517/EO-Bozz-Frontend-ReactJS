@@ -31,7 +31,7 @@ const OrderUser = () => {
         arr = additionalArr
         arr[i].qty = arr[i].qty+1
         // qtyAdd[i] = arr[i].qty
-       return setAdditionalArr(arr)
+        setAdditionalArr(arr)
         console.log(additionalArr)
         // console.log(qtyAdd)
     };
@@ -41,13 +41,13 @@ const OrderUser = () => {
             return arr[i].qty = arr[i].qty-1
             // qtyAdd[i] = arr[i].qty
         }
-       return setAdditionalArr(arr)
+        setAdditionalArr(arr)
         console.log(additionalArr)
         // console.log(qtyAdd)
     }
 
     const getAdditionalArr = () => {
-        additional.map((item, i) => {
+        additional?.map((item, i) => {
             arr[i] = {
                 service_additional_id : item.service_additional_id,
                 qty : 0
@@ -91,11 +91,12 @@ const OrderUser = () => {
 
     // console.log(arr)
     console.log(additionalArr)
+    console.log(additional)
     // console.log(arr)
     // console.log(qtyAdd)
     return (
         <>
-        {arr != [] ?
+        {additional && additionalArr ?
         <div className='bg-bozz-six text-bozz-one'>
             <Navbar />
             <div className='container mx-auto px-10 py-10'>
@@ -165,51 +166,6 @@ const OrderUser = () => {
                     <div className='py-10'>
                         <h1 className='text-3xl'>Service Detail</h1>
                         <div className='py-10 border rounded-md w-full border-bozz-one px-10'>
-                            {/* <div className='grid grid-cols-3 lg:grid-cols-3 px-2'>
-                                <div>
-                                    <p className='text-lg font-bold'>Service Name</p>
-                                    <p className='text-lg font-bold'>Service Price</p>
-                                    <p className='text-lg font-bold'>Additionals</p>
-                                    {additional? (
-                                        additional.map((item)=> {
-                                            return (
-                                                <p className='text-md my-7'>{item.additional_name}</p>
-                                            )
-                                        })
-                                    ):<></>}
-                                </div>
-                                <div>
-                                    <p className='font-extrabold'>:</p>
-                                    <p className='font-extrabold'>:</p>
-                                    <p className='font-extrabold'>:</p>
-                                    <p className='font-extrabold'>:</p>
-                                    {additional? (
-                                        additional.map((item, index) => {
-                                            return (
-                                                <div className='my-3 flex'>
-                                                    <p className='text-md px-2'>{item.additional_price} x</p>
-                                                    <button onClick={decNum} className='h-8 w-5 flex justify-center items-center  hover:bg-bozz-one hover:text-white'>-</button>
-                                                    <input value={num} className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center' />
-                                                    <button onClick={incNum} className='h-8 w-5 flex justify-center items-center  hover:bg-bozz-one hover:text-white'>+</button>
-                                                    <p className='text-lg font-bold my-6'>{item.additional_price * num}</p>
-                                                </div>
-                                            )
-                                        })
-                                    ):<></>}
-                                </div>
-                                <div>
-                                    <p className='text-lg font-bold'>{serviceId.service_name}</p>
-                                    <p className='text-lg font-bold'>{serviceId.service_price}</p>
-                                    
-                                    <p className='text-lg font-bold my-6'>{formatCurrency(1200000)}</p>
-                                </div>
-                            </div>
-                            <div className="divider bg-bozz-one h-0.5"></div> 
-                            <div className='grid grid-cols-3 lg:grid-cols-3 my-5'>
-                                <p className='text-lg font-bold ml-2'>TOTAL</p>
-                                <p className='text-lg font-bold' >:</p>
-                                <p className='text-lg font-bold'>{formatCurrency(15000000)}</p>
-                            </div> */}
                             <div className='flex juastify-between'>
                                 <p className='text-lg font-bold w-[30%]'>Service Name</p>
                                 <p className='w-8'>:</p>
@@ -241,8 +197,10 @@ const OrderUser = () => {
                                     </div>
                                     )
                                 })} */}
-                                {additional?.map((item,i) => {
+                                {additional && additionalArr ?
+                                    additional.map((item,i) => {
                                     // let qty = arr[i].qty
+                                    console.log(`Quantity ke ${i}`,additionalArr[i]?.qty)
                                     return (
                                         <div className='flex my-3'>
                                         <p className='text-lg font-bold w-[30%]'>{item.additional_name}</p>
@@ -250,14 +208,15 @@ const OrderUser = () => {
                                         <p className='text-lg font-bold w-40'>{formatCurrency(item.additional_price)}</p>
                                         <div className='flex w-40'>
                                             <button onClick={() => decNum(i)} className='h-8 w-8 flex justify-center items-center rounded border border-bozz-one hover:bg-bozz-one hover:text-white'>-</button>
-                                            <input value={num} className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center bg-white' />
+                                            <input value={additionalArr[i]?.qty} className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center bg-white' />
                                             <button onClick={() => incNum(i)} className='h-8 w-8 flex justify-center items-center rounded border border-bozz-one hover:bg-bozz-one hover:text-white'>+</button>
                                         </div>
-                                        <p>{qtyAdd[i]}</p>
-                                        <p className='text-lg font-bold text-right'>{formatCurrency(item.additional_price * qtyAdd[i])}</p>
+                                        {/* <p>{qtyAdd[i]}</p> */}
+                                        <p className='text-lg font-bold text-right'>{formatCurrency(item.additional_price * additionalArr[i]?.qty)}</p>
                                     </div>
                                     )
-                                })}
+                                }) : <p>Tidak Ada Additional Untuk Service Ini</p>
+                            }
                             </div>
 
                         </div>

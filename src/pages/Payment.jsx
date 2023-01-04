@@ -6,7 +6,7 @@ import { formatCurrency } from '../utils/formatCurrency'
 import Swal from 'sweetalert2'
 
 const Payment = () => {
-    const banks = ['va bni', 'va mandiri', 'va cimb', 'va bca', 'va bri', 'va maybank', 'va permata', 'va mega']
+    const banks = ['va bni', 'va bca', 'va mandiri','va permata']
     const [chosen, setChosen] = useState()
     const navigate = useNavigate()
     const location = useLocation()
@@ -57,13 +57,14 @@ const Payment = () => {
         console.log(body)
         apiWithAuth(`orders`, `POST`, body, "application/json", token)
         .then(res => {
+            const vaNumber = res.data.va_number
             Swal.fire({
                 position : "center",
                 icon : "success",
-                title : 'Register Successfull, Let\'s Login...',
+                title : `Your Virtual Account ${vaNumber}`,
                 showConfirmButton : true
             })   
-            navigate('/detail-transaction')
+            navigate('/detail-transaction', { state : {id : res.data.id}})
         })
         .catch(err => {
             Swal.fire({
@@ -76,6 +77,7 @@ const Payment = () => {
         })
     }
     console.log(chosen)
+    console.log(additionalArr)
     return (
         <div className='bg-bozz-six text-bozz-one'>
             <Navbar />

@@ -117,7 +117,7 @@ const Home = () => {
                                 rating={item.average_rating}
                                 price={item.service_price}
                                 click={() => onDetail(item.id)}
-                                company={compName} companyDetail={() => navigate('/profilepartner', {state : { id : item.id }})}
+                                company={compName} companyDetail={() => navigate('/profilepartner', {state : { id : item.partner_id }})}
                                 city={item.city} />
                         )
                     })
