@@ -20,7 +20,7 @@ const Login = () => {
 
     const onSubmit = async () => {
         setLoading(true)
-        console.log(values.email, values.password)
+        // console.log(values.email, values.password)
         const body = { email: values.email, password: values.password }
         apiRequest(`login`, `POST`, body)
             .then(res => {

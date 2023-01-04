@@ -6,7 +6,7 @@ import { formatCurrency } from '../utils/formatCurrency'
 import Swal from 'sweetalert2'
 
 const Payment = () => {
-    const banks = ['va bni', 'va mandiri', 'va cimb', 'va bca', 'va bri', 'va maybank', 'va permata', 'va mega']
+    const banks = ['va bni', 'va bca', 'va bri','va permata']
     const [chosen, setChosen] = useState()
     const navigate = useNavigate()
     const location = useLocation()
@@ -30,10 +30,6 @@ const Payment = () => {
     const eventAddress = location?.state?.eventAddress
     const note = location?.state?.note
     const qty = location?.state?.qty
-
-    console.log('q',qty)
-    
-    console.log('ab', additional)
     
 
     // console.log('ab', clientName)
@@ -42,7 +38,7 @@ const Payment = () => {
             const jumlah = item.qty * additional[i].additional_price
             total += jumlah
         })
-        console.log(total)
+        // console.log(total)
     }
     useEffect(() => {
         // getTotal()
@@ -59,28 +55,29 @@ const Payment = () => {
                 service_id : parseInt(data.serviceId.id),
                 order_details : additionalArr
         }
-        console.log(body)
+        // console.log(body)
         apiWithAuth(`orders`, `POST`, body, "application/json", token)
         .then(res => {
+            const vaNumber = res.data.va_number
             Swal.fire({
                 position : "center",
                 icon : "success",
-                title : 'Register Successfull, Let\'s Login...',
+                title : `Your Virtual Account ${vaNumber}`,
                 showConfirmButton : true
             })   
-            navigate('/detail-transaction')
+            navigate('/detail-transaction', { state : {id : res.data.id}})
         })
         .catch(err => {
+            const message = err.message == 'Incorrect input. payment_method: cannot be blank.' ? err.message : 'Failed to make order! Try again letter'
             Swal.fire({
                 position : "center",
                 icon : "error",
-                title : `${err}`,
+                title : `${message}`,
                 showConfirmButton : true
             }) 
-            console.log(err)
+            // console.log(err)
         })
     }
-    console.log(chosen)
     return (
         <div className='bg-bozz-six text-bozz-one'>
             <Navbar />
@@ -171,6 +168,7 @@ const Payment = () => {
                                 className="bg-white px-3 border border-bozz-two text-md text-bozz-two h-10 rounded-lg w-full capitalize"
                                 id='companycity'  onChange={(e) => setChosen(e.target.value)}
                                 >
+                                    <option className='capitalize'>Choose Bank</option>
                                 {banks.map((bank, i) => {
                                     return <option key={i} className='capitalize' value={bank}>{bank.slice(3)} Bank Virtual Account</option>
                                 })}

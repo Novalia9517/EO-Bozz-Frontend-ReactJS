@@ -10,35 +10,34 @@ const CardHome = ({ dataCity, dataCategory, searchCategory, searchCity }) => {
                         <p>Pilih Category</p>
                         <select onChange={searchCategory} className="select select-bordered border-bozz-one w-full max-w-xs bg-bozz-six text-bozz-one">
                             {dataCategory ? (
-                                    dataCategory.map((item => {
+                                    dataCategory.map((item,i) => {
                                         return (
-                                            <option>{item.service_category}</option>
+                                            <option key={i}>{item.service_category}</option>
                                         )
-                                    }))
+                                    })
                             ): <></>}
-                            
                         </select>
                     </div>
                     <div>
                         <p>Pilih Domisili</p>
                         <select onChange={searchCity} className="select select-bordered border-bozz-one w-full max-w-xs bg-bozz-six text-bozz-one">
                             {dataCity ? (
-                                    dataCity.map((item => {
+                                    dataCity.map((item,i) => {
                                         return (
-                                            <option>{item.city_name}</option>
+                                            <option key={i}>{item.city_name}</option>
                                         )
-                                    }))
+                                    })
                                 
                             ):<></>}
                         </select>
                     </div>
                     <div>
                         <p>Min Price</p>
-                        <input type="number" placeholder="RP" className="input w-full max-w-xs border border-bozz-one w-full max-w-xs bg-bozz-six text-bozz-one" />
+                        <input type="number" placeholder="IDR" className="input w-full max-w-xs border border-bozz-one w-full max-w-xs bg-bozz-six text-bozz-one" />
                     </div>
                     <div>
                         <p>Max Price</p>
-                        <input type="number" placeholder="RP" className="input w-full max-w-xs border border-bozz-one w-full max-w-xs bg-bozz-six text-bozz-one" />
+                        <input type="number" placeholder="IDR" className="input w-full max-w-xs border border-bozz-one w-full max-w-xs bg-bozz-six text-bozz-one" />
                     </div>
                 </div>
                 <div className='text-center flex justify-center py-5'>

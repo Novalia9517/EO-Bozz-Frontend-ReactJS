@@ -85,7 +85,7 @@ const ProfileUser = () => {
                                     <label className=''>
                                         Name
                                     </label>
-                                    <input value={dataClient.name} type="text" disabled className="input input-bordered w-full" />
+                                    <input value={dataClient.name} type="text" disabled className="input input-bordered w-full bg-white border border-bozz-one" />
                                 </div>
                                 <div className='flex flex-col py-3'>
                                     <label>

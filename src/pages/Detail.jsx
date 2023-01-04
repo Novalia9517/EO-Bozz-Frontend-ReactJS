@@ -10,12 +10,14 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { AiFillStar } from 'react-icons/ai'
 import { formatCurrency } from '../utils/formatCurrency'
 import Art from '../assets/art.png'
+import Profile from '../assets/profile.png'
 import { askSchema } from '../validations/validations'
 import { useFormik } from 'formik'
 import { useCookies } from 'react-cookie'
 import { apiRequest, apiWithAuth } from '../services/api'
 import axios from 'axios'
 import { AiTwotoneStar} from 'react-icons/ai'
+import { IoLocationSharp} from 'react-icons/io5'
 
 
 const Detail = () => {
@@ -26,6 +28,7 @@ const Detail = () => {
     const [startDate, setStartDate] = useState()
     const [endDate, setEndDate] = useState()
     const [available, setAvailable] = useState(false)
+    const [included, setIncluded] = useState()
     const navigate = useNavigate()
     const [cookie, setCookie] = useCookies()
     const token = localStorage.getItem('userToken')
@@ -34,8 +37,6 @@ const Detail = () => {
     const [company, setCompany] = useState()
     const [reviews, setReviews] = useState()
     const [listClients, setListClients] = useState()
-    
-    // console.log('id',serviceId)
 
     const getDataId = async () => {
         await axios.get(`https://irisminty.my.id/services/${id}`, {
@@ -43,9 +44,9 @@ const Detail = () => {
         })
             .then(res => {
                 const data = res.data.data
-                console.log(data)
                 setServiceId(data)
-                // getCompany()
+                setCompany(data.partner)
+                setIncluded(data.service_included.split(','))
             })
             .catch(err => {
                 console.log(err)
@@ -72,22 +73,10 @@ const Detail = () => {
             .then(res => {
                 const dataDiscussion = res.data.data
                 setDiscussion(dataDiscussion)
-                console.log(discussions)
             })
             .catch(err => {
                 console.log(err)
             })
-    }
-
-    const getCompany = async() => {
-        apiWithAuth(`partners`, `GET`, null, "application/json", token)
-        .then(res => {
-            res.data.map((company,i) => {
-                if(company.id == serviceId?.partner_id) setCompany(company.company_name)
-            })
-            console.log(company)
-        })
-        .catch(err => console.log(err))
     }
 
     const getReview = async() => {
@@ -174,12 +163,10 @@ const Detail = () => {
         getDiscussion()
         getDataId()
         getAdditional()
-        getCompany()
         getReview()
         getClient()
     }, [])
 
-    // console.log(listClients)
     return (
         <>
             {serviceId ?
@@ -187,11 +174,12 @@ const Detail = () => {
                     <Navbar />
                     <div className='container px-20 py-20 mx-auto'>
                         <div className='grid gap-10 grid-cols-1 md:grid-cols-1 lg:grid-cols-2'>
-                            <img className='mx-auto h-[320px]' src={serviceId.service_image_file} alt="home" width={500} />
+                            <img className='mx-auto h-[320px] rounded-md' src={serviceId.service_image_file} alt="home" width={500} />
                             <div className='mx-auto text-bozz-one'>
                                 <p className='py-3 px-3 font-bold text-2xl'>{serviceId.partner.company_name}</p>
                                 <p className='py-3 px-3 font-bold text-xl'>{serviceId.service_name}</p>
-                                <p className='px-3 font-bold text-xl hover:underline' onClick={() => navigate('/profilepartner', {state : { id : serviceId.partner_id }})}>{company}</p>
+                                <p className='px-3 font-bold text-lg hover:underline' onClick={() => navigate('/profilepartner', {state : { id : company.id }})}>{company.company_name.slice(0,20)}</p>
+                                <p className='px-3 font-bold text-lg flex gap-2 my-2'><IoLocationSharp className='text-red-500'/>{company.company_city}</p>
                                 <p className='py-3 px-3 font-bold text-xl text-bozz-two'>{formatCurrency(serviceId.service_price)}</p>
                                 <p className=' px-3 text-lg text-[#726F6F]'>Category {serviceId.service_category}</p>
                                 <p className=' px-3 text-lg text-[#726F6F] flex'><AiFillStar className='text-2xl text-orange-300' /> {serviceId.average_rating} Ratings</p>
@@ -205,7 +193,12 @@ const Detail = () => {
                             <div className='mx-auto'>
                                 <h1 className='text-center text-4xl'>Included Service</h1>
                                 <div className='mt-5'>
-                                    <p className='py-3 flex'><img src={Ceklist} width={20} /><span className='ml-5'>{serviceId.service_include}</span></p>
+                                    {included && included.length > 1 ?
+                                        included?.map((item,i) => {
+                                            return <div key={i} className='py-3 flex'><img src={Ceklist} width={20} /><span className='ml-5'>{item}</span></div>
+                                        })
+                                        : <p className='font-semibold'>Not Included, ask Partner for detail included</p>
+                                    }
                                 </div>
 
                             </div>
@@ -215,15 +208,15 @@ const Detail = () => {
                                 <h1 className='text-center text-4xl'>Additional</h1>
                                 <div className='mt-5'>
                                     {additional ? (
-                                        additional.map((item =>{
+                                        additional.map((item,i) =>{
                                             return (
-                                     <p className='py-3 flex'>
+                                     <div className='py-3 flex' key={i}>
                                         <img src={Plus} width={20} />
                                         <span className='ml-5'>
                                                         {item.additional_name} - RP.{item.additional_price}
-                                        </span></p>
+                                        </span></div>
                                             )
-                                        }))
+                                        })
                                     ):<></>}
                                 </div>
                             </div>
@@ -247,7 +240,9 @@ const Detail = () => {
                             </div>
                         </div>
                         <div>
-                            {reviews?.map((item, i) => {
+                            <p className='text-lg font-semibold text-bozz-one mb-3'>Review Dan Rating</p>
+                            {reviews && reviews.length >= 1 ? 
+                            reviews?.map((item, i) => {
                                 let clientName = ''
                                 let image = ''
                                 let clientCity = ''
@@ -263,10 +258,10 @@ const Detail = () => {
                                         <div className='grid grid-cols-1 lg:grid-cols-2'>
                                             <div className='px-2'>
                                                 <div className='flex'>
-                                                    <img src={image || Art} className='w-12 h-12 rounded-full border border-bozz-one mr-5' />
+                                                    <img src={image || Profile} className='w-12 h-12 rounded-full border border-bozz-one mr-5' />
                                                     <div className='flex flex-col'>
                                                         <p className='text-xl font-semibold'>{clientName}</p>
-                                                        <p className='px-4 text-lg font-semibold capitalize'>{clientCity}</p>
+                                                        <p className='text-lg font-semibold capitalize'>{clientCity}</p>
                                                     </div>
                                                 </div>
                                                 <p className='flex text-lg font-semibold items-center'> <AiTwotoneStar className='text-orange-500 mr-1'/>{item.rating} Rating</p>
@@ -276,7 +271,7 @@ const Detail = () => {
                                     </div>
                                 )
                             })
-
+                            : <p>Belum Ada review</p>
                             }
                         </div>
                         <hr />

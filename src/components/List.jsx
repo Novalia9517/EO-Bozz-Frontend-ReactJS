@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import ImageModal from './ImageModal'
 
 const List = ({title, value, link, checked, onChange}) => {
   return (
@@ -7,7 +9,14 @@ const List = ({title, value, link, checked, onChange}) => {
             <div>
                 <p className='text-bozz-two text-sm'>{title}</p>
                 <p className='text-bozz-one font-semibold'>{value}</p>
-                {link ? <button className='w-32 h-8 text-white text-xs bg-bozz-one rounded-lg mt-2'>Download File</button> : null}
+                {link ?
+                <>
+                    <label htmlFor="my-modal-4" 
+                      className='btn text-xs border border-white px-3 h-6 bg-bozz-three hover:bg-bozz-two text-bozz-six rounded-lg text-[10px]'
+                      >See Image</label>
+                      <ImageModal link={link} title={title}/>
+                </>
+                  : null}
             </div>
             <input 
                 type="checkbox" onChange={onChange} checked={checked}

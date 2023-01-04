@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import Row from '../components/Row'
 import { formatCurrency } from '../utils/formatCurrency'
 import Loading from '../components/Loading'
+import Swal from 'sweetalert2'
 
 const OrderUser = () => {
     const location = useLocation()
@@ -13,7 +14,6 @@ const OrderUser = () => {
     const [eventLocation, setEventLocation] = useState()
     const [eventAddress, setEventAddress] = useState()
     const [note, setNote] = useState()
-    const [num, setNum] = useState(0);
     const allCity = JSON.parse(localStorage.getItem('city'))
     const startDate = location?.state?.startDate
     const endDate = location?.state?.endDate
@@ -21,34 +21,24 @@ const OrderUser = () => {
     const serviceId = location?.state?.serviceId
     const [additionalArr, setAdditionalArr] = useState([])
     const [qty, setQty] = useState(0)
-    // const [arr, setArr] = useState([])
     let arr = [], qtyAdd = []
-    // const [qtyAdd, setQtyAdd] = useState([])
-   
-
-    console.log('qty', qty)
 
     const incNum = (i) => {
-        arr = additionalArr
+        arr = additionalArr.slice()
         arr[i].qty = arr[i].qty+1
-        // qtyAdd[i] = arr[i].qty
-       return setAdditionalArr(arr)
-        console.log(additionalArr)
-        // console.log(qtyAdd)
+        setAdditionalArr(arr)
     };
     const decNum = (i) => {
-        arr = additionalArr
+        arr = additionalArr.slice()
         if (arr[i].qty > 0) {
             return arr[i].qty = arr[i].qty-1
-            // qtyAdd[i] = arr[i].qty
         }
-       return setAdditionalArr(arr)
-        console.log(additionalArr)
-        // console.log(qtyAdd)
+        setAdditionalArr(arr)
+        // console.log(additionalArr)
     }
 
     const getAdditionalArr = () => {
-        additional.map((item, i) => {
+        additional?.map((item, i) => {
             arr[i] = {
                 service_additional_id : item.service_additional_id,
                 qty : 0
@@ -60,49 +50,47 @@ const OrderUser = () => {
     const navigate = useNavigate()
 
     const onPayment = () => {
-        const data = {
-            startDate: startDate,
-            endDate : endDate,
-            clientName: clientName,
-            eventName: eventName,
-            eventLocation: eventLocation,
-            eventAddress: eventAddress,
-            note: note,
-            serviceId : serviceId,
-            additional : additional,
-            additionalArr : additionalArr
+        if(clientName  && eventLocation  && eventName  && eventAddress ){
+            const data = {
+                startDate: startDate,
+                endDate : endDate,
+                clientName: clientName,
+                eventName: eventName,
+                eventLocation: eventLocation,
+                eventAddress: eventAddress,
+                note: note,
+                serviceId : serviceId,
+                additional : additional,
+                additionalArr : additionalArr
+            }
+            navigate('/payment', {
+                state: {data: data}
+            })
+        }else{
+            Swal.fire({
+                position : "center",
+                icon : "error",
+                title : `Data can't be empty, Check again and 
+                make sure all data is filled in`,
+                showConfirmButton : true
+            })   
         }
-        navigate('/payment', {
-            state: {data: data}
-            // {
-                // startDate: startDate,
-                // endDate : endDate,
-                // clientName: clientName,
-                // eventName: eventName,
-                // eventLocation: eventLocation,
-                // eventAddress: eventAddress,
-                // note: note
-            // }
-        })
     }
 
     useEffect(() => {
         getAdditionalArr()
     },[])
 
-    // console.log(arr)
-    console.log(additionalArr)
-    // console.log(arr)
-    // console.log(qtyAdd)
+    // console.log(additionalArr)
+    // console.log(additional)
     return (
         <>
-        {arr != [] ?
+        {additional && additionalArr ?
         <div className='bg-bozz-six text-bozz-one'>
             <Navbar />
             <div className='container mx-auto px-10 py-10'>
                 <h1 className='text-4xl text-center'>Your Order</h1>
-                {/* <form> */}
-                    <p className='underline text-bozz-one'>Fill the form for your order !</p>
+                    <p className='underline text-bozz-one text-lg fot-semibold'>Fill the form for your order !</p>
                     <div className='grid grid-cols-2 lg:grid-cols-2'>
                         <div>
                             <div className='flex flex-col py-1'>
@@ -127,7 +115,7 @@ const OrderUser = () => {
                                 <label className=''>
                                     Note For EO
                                 </label>
-                            <textarea onChange={(e) => setNote(e.target.value)} className="textarea border border-bozz-one h-24 resize-none bg-bozz-six w-full max-w-md" placeholder="Bio"></textarea>
+                                <textarea onChange={(e) => setNote(e.target.value)} className="textarea border border-bozz-one h-24 resize-none bg-bozz-six w-full max-w-md" placeholder="Bio"></textarea>
                             </div>
                         </div>
                         <div>
@@ -166,51 +154,6 @@ const OrderUser = () => {
                     <div className='py-10'>
                         <h1 className='text-3xl'>Service Detail</h1>
                         <div className='py-10 border rounded-md w-full border-bozz-one px-10'>
-                            {/* <div className='grid grid-cols-3 lg:grid-cols-3 px-2'>
-                                <div>
-                                    <p className='text-lg font-bold'>Service Name</p>
-                                    <p className='text-lg font-bold'>Service Price</p>
-                                    <p className='text-lg font-bold'>Additionals</p>
-                                    {additional? (
-                                        additional.map((item)=> {
-                                            return (
-                                                <p className='text-md my-7'>{item.additional_name}</p>
-                                            )
-                                        })
-                                    ):<></>}
-                                </div>
-                                <div>
-                                    <p className='font-extrabold'>:</p>
-                                    <p className='font-extrabold'>:</p>
-                                    <p className='font-extrabold'>:</p>
-                                    <p className='font-extrabold'>:</p>
-                                    {additional? (
-                                        additional.map((item, index) => {
-                                            return (
-                                                <div className='my-3 flex'>
-                                                    <p className='text-md px-2'>{item.additional_price} x</p>
-                                                    <button onClick={decNum} className='h-8 w-5 flex justify-center items-center  hover:bg-bozz-one hover:text-white'>-</button>
-                                                    <input onChange={(e) => setQty(e.target.value) } value={num} className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center' />
-                                                    <button onClick={incNum} className='h-8 w-5 flex justify-center items-center  hover:bg-bozz-one hover:text-white'>+</button>
-                                                    <p className='text-lg font-bold my-6'>{item.additional_price * num}</p>
-                                                </div>
-                                            )
-                                        })
-                                    ):<></>}
-                                </div>
-                                <div>
-                                    <p className='text-lg font-bold'>{serviceId.service_name}</p>
-                                    <p className='text-lg font-bold'>{serviceId.service_price}</p>
-                                    
-                                    <p className='text-lg font-bold my-6'>{formatCurrency(1200000)}</p>
-                                </div>
-                            </div>
-                            <div className="divider bg-bozz-one h-0.5"></div> 
-                            <div className='grid grid-cols-3 lg:grid-cols-3 my-5'>
-                                <p className='text-lg font-bold ml-2'>TOTAL</p>
-                                <p className='text-lg font-bold' >:</p>
-                                <p className='text-lg font-bold'>{formatCurrency(15000000)}</p>
-                            </div> */}
                             <div className='flex juastify-between'>
                                 <p className='text-lg font-bold w-[30%]'>Service Name</p>
                                 <p className='w-8'>:</p>
@@ -227,38 +170,26 @@ const OrderUser = () => {
                                 <p className='text-lg font-bold'></p>
                             </div>
                             <div className='pl-10'>
-                                {/* {additional?.map((item,i) => {
+                                {additional && additionalArr ?
+                                    additional.map((item,i) => {
+                                    let num = additionalArr[i]?.qty
+                                    // console.log(`Quantity ke ${i}`,additionalArr[i]?.qty)
+                                    // console.log(num)
                                     return (
-                                        <div className='flex my-3'>
+                                        <div className='flex my-3' key={i}>
                                         <p className='text-lg font-bold w-[30%]'>{item.additional_name}</p>
                                         <p className='w-8'>:</p>
                                         <p className='text-lg font-bold w-40'>{formatCurrency(item.additional_price)}</p>
                                         <div className='flex w-40'>
-                                            <button onClick={decNum} className='h-8 w-8 flex justify-center items-center rounded border border-bozz-one hover:bg-bozz-one hover:text-white'>-</button>
-                                            <input value={num} className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center bg-white' />
-                                            <button onClick={incNum} className='h-8 w-8 flex justify-center items-center rounded border border-bozz-one hover:bg-bozz-one hover:text-white'>+</button>
+                                            <button onClick={() => {decNum(i), num += 1}} className='h-8 w-8 flex justify-center items-center rounded border border-bozz-one hover:bg-bozz-one hover:text-white'>-</button>
+                                            <p className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center bg-white' >{num}</p>
+                                            <button onClick={() => {incNum(i), num -= 1}} className='h-8 w-8 flex justify-center items-center rounded border border-bozz-one hover:bg-bozz-one hover:text-white'>+</button>
                                         </div>
                                         <p className='text-lg font-bold text-right'>{formatCurrency(item.additional_price * num)}</p>
                                     </div>
                                     )
-                                })} */}
-                                {additional?.map((item,i) => {
-                                    // let qty = arr[i].qty
-                                    return (
-                                        <div className='flex my-3'>
-                                        <p className='text-lg font-bold w-[30%]'>{item.additional_name}</p>
-                                        <p className='w-8'>:</p>
-                                        <p className='text-lg font-bold w-40'>{formatCurrency(item.additional_price)}</p>
-                                        <div className='flex w-40'>
-                                            <button onClick={() => decNum(i)} className='h-8 w-8 flex justify-center items-center rounded border border-bozz-one hover:bg-bozz-one hover:text-white'>-</button>
-                                            <input value={num} className='text-lg px-2 border-b-2 border-bozz-one h-8 w-8 text-center bg-white' />
-                                            <button onClick={() => incNum(i)} className='h-8 w-8 flex justify-center items-center rounded border border-bozz-one hover:bg-bozz-one hover:text-white'>+</button>
-                                        </div>
-                                        <p>{qtyAdd[i]}</p>
-                                        <p className='text-lg font-bold text-right'>{formatCurrency(item.additional_price * qtyAdd[i])}</p>
-                                    </div>
-                                    )
-                                })}
+                                }) : <p>Tidak Ada Additional Untuk Service Ini</p>
+                            }
                             </div>
 
                         </div>
@@ -267,7 +198,6 @@ const OrderUser = () => {
                                 <button className='btn bg-bozz-one hover:bg-bozz-two text-white' onClick={() => onPayment()}>Order</button>
                             </div>
                     </div>
-                {/* </form> */}
             </div>
             <Footer />
         </div>

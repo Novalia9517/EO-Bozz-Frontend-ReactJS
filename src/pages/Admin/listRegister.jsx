@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import LayoutAdmin from '../../components/LayoutAdmin'
 import Loading from '../../components/Loading'
 
-const DashboardAdmin = () => {
+const ListRegister = () => {
   const tableHead = ['No', 'Company Name', 'Register Date', 'PIC Name', 'Status', 'Action']
   const [partnerData, setPartnerData] = useState()
   const navigate = useNavigate()
@@ -112,4 +112,4 @@ const DashboardAdmin = () => {
   )
 }
 
-export default DashboardAdmin
+export default ListRegister

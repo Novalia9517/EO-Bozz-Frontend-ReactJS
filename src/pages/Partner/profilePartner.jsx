@@ -16,8 +16,6 @@ const ProfilePartner = () => {
     const userId = cookie.id
     const userToken = cookie.token
     const [userData, setUserData] = useState()
-    console.log(userId)
-    console.log(userToken)
     const role = cookie.role
     const [name, setName] = useState()
     const [companyName, setCompanyName] = useState()
@@ -38,7 +36,7 @@ const ProfilePartner = () => {
             setCity(currentUser.company_city)
             setAddress(currentUser.company_address)
             setImg(currentUser.company_image_file)
-            console.log(currentUser)
+            // console.log(currentUser)
     }
     const updateUser = async() => {
         apiWithAuth(`partners/${localStorage.getItem('partner_id')}`, `GET`, null, "application/json", localStorage.getItem('userToken'))
@@ -77,14 +75,14 @@ const ProfilePartner = () => {
         body.append('bank_account_name', userData.bank_account_name)
         body.append('file', userData.company_image_file)
 
-        console.log([...body])
+        // console.log([...body])
     
         apiWithAuth(`partners`, `PUT`, body, `multipart/form-data`, localStorage.getItem('userToken'))
         .then(res => { 
             Swal.fire({
                 position : "center",
                 icon : "success",
-                title : 'Edit Profile Successfull, Let\'s Login...',
+                title : 'Edit Profile Successfull...',
                 showConfirmButton : true
             })    
             navigate('/partner/')
@@ -105,7 +103,7 @@ const ProfilePartner = () => {
     useEffect(() => {
         getUserData()
     },[userData])
-    console.log(currentUser)
+    // console.log(currentUser)
   return (
     <>
         {userData ? 
@@ -116,14 +114,14 @@ const ProfilePartner = () => {
                     <div className='w-[25%] h-full py-12 flex flex-col items-center'>
                         <div className='relative'>
                             <img src={userData.company_image_file} className='rounded-full h-48 w-48 border border-bozz-one'/>
-                            <div className="flex text-bozz-one absolute right-6 bottom-0"><FaEdit className='text-2xl'/>
-                                <input type={'file'} className='hidden'></input>
+                            <div className="flex text-bozz-one absolute right-6 bottom-0" onClick={() => setEdit(!edit)}><FaEdit className='text-2xl'/>
+                                {/* <input type={'file'} className='hidden'></input> */}
                             </div>
                         </div>
                         <p className='text-xl text-bozz-one font-semibold text-center capitalize mt-3'>{userData.company_name}</p>
                         <p className='text-sm text-bozz-one font-semibold text-center capitalize'>{userData.role}</p>
                         <p className='text-sm text-bozz-one font-semibold text-center capitalize'>{userData.verification_status}</p>
-                        <p className='underline text-bozz-one mt-8 font-semibold bg-bozz-five' >Edit Password</p>
+                        <p className='underline text-bozz-one mt-8 font-semibold bg-bozz-five'onClick={() => setEdit(!edit)} >Edit Password</p>
                     </div>
                     <div className='w-[75%] h-full py-12 pl-8 pr-16'>
                         <div className='flex justify-between w-full'>
@@ -136,23 +134,23 @@ const ProfilePartner = () => {
                             <div className='mt-5'>
                                 <div className='mt-3'>
                                     <span className="label-text text-bozz-three capitalize">{userData.role} Email</span>
-                                    <p className='text-lg font-semibold text-bozz-one border-b border-bozz-one'>{userData.email}</p>
+                                    <p className='text-md font-semibold text-bozz-one border-b border-bozz-one'>{userData.email}</p>
                                 </div>
                                 <div className='mt-3'>
                                     <span className="label-text text-bozz-three capitalize">{role} Phone</span>
-                                    <p className='text-lg font-semibold text-bozz-one border-b border-bozz-one'>{userData.company_phone}</p>
+                                    <p className='text-md font-semibold text-bozz-one border-b border-bozz-one'>{userData.company_phone}</p>
                                 </div>
                                 <div className={`mt-3 ${role == 'admin' ? 'hidden' : 'block'}`}>
                                     <span className="label-text text-bozz-three capitalize">City</span>
-                                    <p className='text-lg font-semibold text-bozz-one border-b border-bozz-one'>{userData.company_city}</p>
+                                    <p className='text-md font-semibold text-bozz-one border-b border-bozz-one'>{userData.company_city}</p>
                                 </div>
                                 <div className={`mt-3 ${role == 'admin' ? 'hidden' : 'block'}`}>
                                     <span className="label-text text-bozz-three capitalize">Address</span>
-                                    <p className='text-lg font-semibold text-bozz-one border-b border-bozz-one'>{userData.company_address}</p>
+                                    <p className='text-md font-semibold text-bozz-one border-b border-bozz-one'>{userData.company_address}</p>
                                 </div>
                                 <div className={`mt-3 ${role == 'admin' ? 'hidden' : 'block'}`}>
                                     <span className="label-text text-bozz-three capitalize">Link Website</span>
-                                    <p className='text-lg font-semibold text-bozz-one border-b border-bozz-one'>{userData.link_website}</p>
+                                    <p className='text-md font-semibold text-bozz-one border-b border-bozz-one'>{userData.link_website}</p>
                                 </div>
                             </div>
                         : 

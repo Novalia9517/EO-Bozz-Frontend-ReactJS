@@ -47,6 +47,18 @@ const ProfilePartnerUser = () => {
         .then(res => setListCompany(res.data))
         .catch(err => console.log(err))
     }
+    const getServices = async(id) => {
+        apiRequest(`partners/${parseInt(id)}/services`, `GET`, null, "application/json", token )
+        .then(res => setLisServices(res.data))
+        .catch(err => console.log(err))
+    }
+    const onDetail = (id) => {
+        navigate('/detail', {
+            state: {
+                id: id
+            }
+        })
+    }
 
     
 
@@ -59,7 +71,6 @@ const ProfilePartnerUser = () => {
     return (
         <>
         {partnerData ? 
-        
         <div className='bg-bozz-six text-bozz-one'>
             <Navbar />
             <div className='container mx-auto px-10 py-10'>
@@ -72,7 +83,7 @@ const ProfilePartnerUser = () => {
                     </div>
                 </div>
                 <div className='flex justify-center my-8'>
-                    <div className='px-10 mx-5 border border-bozz-one rounded-md '>
+                    {/* <div className='px-10 mx-5 border border-bozz-one rounded-md '>
                         <p className='text-xl text-center'>
                             <span className='font-semibold'>4.8</span><br />
                             <span className='text-sm'>Average Rating</span>
@@ -82,6 +93,12 @@ const ProfilePartnerUser = () => {
                         <p className='text-xl text-center'>
                             <span className='font-semibold'>120</span><br />
                             <span className='text-sm'>Total Event</span>
+                        </p>
+                    </div> */}
+                    <div className='px-10 mx-5 border border-bozz-one rounded-md '>
+                        <p className='text-xl text-center'>
+                            <span className='font-semibold'>{partnerData.verification_status}</span><br />
+                            <span className='text-sm'>Status</span>
                         </p>
                     </div>
                 </div>
@@ -131,7 +148,7 @@ const ProfilePartnerUser = () => {
                                     </div>
                                 </div>
                                 </div>
-                            <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                            <div className="absolute flex justify-between transform-translate-y-1/2 left-5 right-5 top-1/2">
                             <a href="#slide2" className="btn btn-circle">❮</a> 
                             <a href="#slide1" className="btn btn-circle">❯</a>
                             </div>
