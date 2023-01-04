@@ -27,6 +27,7 @@ const Detail = () => {
     const [startDate, setStartDate] = useState()
     const [endDate, setEndDate] = useState()
     const [available, setAvailable] = useState(false)
+    const [included, setIncluded] = useState()
     const navigate = useNavigate()
     const [cookie, setCookie] = useCookies()
     const token = localStorage.getItem('userToken')
@@ -48,6 +49,7 @@ const Detail = () => {
                 setServiceId(data)
                 // getCompany()
                 setCompany(data.partner)
+                setIncluded(data.service_included.split(','))
             })
             .catch(err => {
                 console.log(err)
@@ -207,7 +209,12 @@ const Detail = () => {
                             <div className='mx-auto'>
                                 <h1 className='text-center text-4xl'>Included Service</h1>
                                 <div className='mt-5'>
-                                    <p className='py-3 flex'><img src={Ceklist} width={20} /><span className='ml-5'>{serviceId.service_include}</span></p>
+                                    {included && included.length > 1 ?
+                                        included?.map((item,i) => {
+                                            return <p className='py-3 flex'><img src={Ceklist} width={20} /><span className='ml-5'>{item}</span></p>
+                                        })
+                                        : <p className='font-semibold'>Not Included, ask Partner for detail included</p>
+                                    }
                                 </div>
 
                             </div>

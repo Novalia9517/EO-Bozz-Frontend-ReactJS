@@ -38,7 +38,7 @@ const AddService = () => {
     setLoading(true)
     const body = new FormData()
     body.append('service_name', values.servicename) 
-    body.append('service_include', tags) 
+    body.append('service_included', tags) 
     body.append('service_description', values.description) 
     body.append('service_category', values.category) 
     body.append('service_price', values.serviceprice)

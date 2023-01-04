@@ -58,7 +58,7 @@ const RevisiRegister = () => {
     const body = new FormData()
     body.append('name', values.picname) 
     body.append('email', values.picemail)
-    body.append('password', values.password)
+    // body.append('password', values.password)
     body.append('pic_position', values.picposition)
     body.append('pic_phone', values.picphone)
     body.append('pic_address', values.picaddress)
