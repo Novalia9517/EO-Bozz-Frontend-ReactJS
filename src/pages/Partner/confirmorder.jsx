@@ -16,7 +16,7 @@ const ConfirmOrder = () => {
   const [email, setEmail] = useState('')
   const location = useLocation()
   const id = location?.state?.id
-  console.log(id)
+  // console.log(id)
 
   const getDetailOrder = async() => {
     apiWithAuth(`orders/${parseInt(id)}`, `GET`, null, "application/json", localStorage.getItem('userToken'))
@@ -77,6 +77,7 @@ const ConfirmOrder = () => {
             timer: 1500,
           });
         })
+        .catch(err => console.log(err))
       }
     });        
   }
@@ -86,7 +87,7 @@ const ConfirmOrder = () => {
     getDetailOrder()
     getClients()
   },[])
-  console.log(order)
+  // console.log(order)
   return (
     <>
     {order && listClients ? 
@@ -109,20 +110,20 @@ const ConfirmOrder = () => {
                 <Row keyName={'service name'} value={order.service_name}/>
                 </tbody>
             </table>
-                <div class="grid gap-5 grid-cols-4 grid-rows-1 w-full font-semibold text-bozz-one text-sm">
+                <div className="grid gap-5 grid-cols-4 grid-rows-1 w-full font-semibold text-bozz-one text-sm">
                     <span className='colspan-1'>Service Price</span>
                     <span className='colspan-1'>: </span>
                     <span></span>
                     <span className='text-right colspan-2'>{formatCurrency(order.service_price)}</span>
-                  </div>
-                <tr className='grid mb-3  gap-5 grid-cols-4 grid-rows-1 w-[100%] font-semibold text-bozz-one text-sm'>
-                    <td className='colspan-1'>Additional Info</td>
-                    <td>:</td>
-                </tr>
+                </div>
+                <div className='grid mb-3  gap-5 grid-cols-4 grid-rows-1 w-[100%] font-semibold text-bozz-one text-sm'>
+                    <span className='colspan-1'>Additional Info</span>
+                    <span>:</span>
+                </div>
             {
               order.detail_orders.map((item, i) => {
                 return (
-                  <div class="grid gap-5 grid-cols-4 grid-rows-1 w-full pl-10 font-semibold text-bozz-one text-sm">
+                  <div key={i} className="grid gap-5 grid-cols-4 grid-rows-1 w-full pl-10 font-semibold text-bozz-one text-sm">
                     <span>{item.additional_name}</span>
                     <span>: {formatCurrency(item.additional_price)} x {item.qty} = </span>
                     <span>=</span>

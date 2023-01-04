@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { AiFillStar } from 'react-icons/ai'
 import { formatCurrency } from '../utils/formatCurrency'
 import Art from '../assets/art.png'
+import Profile from '../assets/profile.png'
 import { askSchema } from '../validations/validations'
 import { useFormik } from 'formik'
 import { useCookies } from 'react-cookie'
@@ -36,8 +37,6 @@ const Detail = () => {
     const [company, setCompany] = useState()
     const [reviews, setReviews] = useState()
     const [listClients, setListClients] = useState()
-    
-    // console.log('id',serviceId)
 
     const getDataId = async () => {
         await axios.get(`https://irisminty.my.id/services/${id}`, {
@@ -45,9 +44,7 @@ const Detail = () => {
         })
             .then(res => {
                 const data = res.data.data
-                console.log(data)
                 setServiceId(data)
-                // getCompany()
                 setCompany(data.partner)
                 setIncluded(data.service_included.split(','))
             })
@@ -76,23 +73,11 @@ const Detail = () => {
             .then(res => {
                 const dataDiscussion = res.data.data
                 setDiscussion(dataDiscussion)
-                console.log(discussions)
             })
             .catch(err => {
                 console.log(err)
             })
     }
-
-    // const getCompany = async() => {
-    //     apiWithAuth(`partners`, `GET`, null, "application/json", token)
-    //     .then(res => {
-    //         res.data.map((company,i) => {
-    //             if(company.id == serviceId?.partner_id) setCompany(company.company_name)
-    //         })
-    //         console.log(company)
-    //     })
-    //     .catch(err => console.log(err))
-    // }
 
     const getReview = async() => {
         apiRequest(`reviews`, `GET`, null)
@@ -178,12 +163,10 @@ const Detail = () => {
         getDiscussion()
         getDataId()
         getAdditional()
-        // getCompany()
         getReview()
         getClient()
     }, [])
 
-    // console.log(listClients)
     return (
         <>
             {serviceId ?
@@ -211,7 +194,7 @@ const Detail = () => {
                                 <div className='mt-5'>
                                     {included && included.length > 1 ?
                                         included?.map((item,i) => {
-                                            return <p className='py-3 flex'><img src={Ceklist} width={20} /><span className='ml-5'>{item}</span></p>
+                                            return <div key={i} className='py-3 flex'><img src={Ceklist} width={20} /><span className='ml-5'>{item}</span></div>
                                         })
                                         : <p className='font-semibold'>Not Included, ask Partner for detail included</p>
                                     }
@@ -224,15 +207,15 @@ const Detail = () => {
                                 <h1 className='text-center text-4xl'>Additional</h1>
                                 <div className='mt-5'>
                                     {additional ? (
-                                        additional.map((item =>{
+                                        additional.map((item,i) =>{
                                             return (
-                                     <p className='py-3 flex'>
+                                     <div className='py-3 flex' key={i}>
                                         <img src={Plus} width={20} />
                                         <span className='ml-5'>
                                                         {item.additional_name} - RP.{item.additional_price}
-                                        </span></p>
+                                        </span></div>
                                             )
-                                        }))
+                                        })
                                     ):<></>}
                                 </div>
                             </div>
@@ -274,10 +257,10 @@ const Detail = () => {
                                         <div className='grid grid-cols-1 lg:grid-cols-2'>
                                             <div className='px-2'>
                                                 <div className='flex'>
-                                                    <img src={image || Art} className='w-12 h-12 rounded-full border border-bozz-one mr-5' />
+                                                    <img src={image || Profile} className='w-12 h-12 rounded-full border border-bozz-one mr-5' />
                                                     <div className='flex flex-col'>
                                                         <p className='text-xl font-semibold'>{clientName}</p>
-                                                        <p className='px-4 text-lg font-semibold capitalize'>{clientCity}</p>
+                                                        <p className='text-lg font-semibold capitalize'>{clientCity}</p>
                                                     </div>
                                                 </div>
                                                 <p className='flex text-lg font-semibold items-center'> <AiTwotoneStar className='text-orange-500 mr-1'/>{item.rating} Rating</p>

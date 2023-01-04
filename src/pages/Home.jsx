@@ -48,9 +48,6 @@ const Home = () => {
                 console.log(err)
             })
     }
-    // const onClick = () => {
-    //     navigate('/detail')
-    // }
 
     const onDetail = (id) => {
         navigate('/detail', {
@@ -70,7 +67,6 @@ const Home = () => {
         getDataService()
         getCompany()
         getCity()
-        // console.log('this', data_service)
     }, [])
 
 
@@ -107,7 +103,7 @@ const Home = () => {
                 <div className='grid gap-8 grid-cols-1 lg:grid-cols-3 md:grid-cols-'>
                     {data_service ? (data_service.map((item,i) => {
                         let compName = ''
-                        listCompany?.map((company,i) => {
+                        listCompany?.map((company) => {
                             if(company.id == item.partner_id) compName = company.company_name
                         })
                         return (

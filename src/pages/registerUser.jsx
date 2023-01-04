@@ -31,7 +31,7 @@ const RegisterUser = () => {
         body.append('city', values.city)
         body.append('phone', values.phone)
         body.append('client_image_file', image)
-        console.log([...body])
+        // console.log([...body])
 
         apiRequest(`clients`, `POST`, body, `multipart/form-data`)
         .then(res => { 
@@ -42,7 +42,7 @@ const RegisterUser = () => {
                 title : 'Register Successfull, Let\'s Login...',
                 showConfirmButton : true
             })    
-            console.log(res)
+            // console.log(res)
             navigate('/login')
         })
         .catch(err => {
@@ -53,7 +53,7 @@ const RegisterUser = () => {
                 title : `${err.response.data.message}`,
                 showConfirmButton : true
             })
-            console.log(err.response.data.message)
+            // console.log(err.response.data.message)
         })
     }
 
@@ -72,7 +72,7 @@ const RegisterUser = () => {
         onSubmit
     })
 
-    console.log(allCity)
+    // console.log(allCity)
   return (
     <div className={`md:h-screen h-full w-screen relative`}>
         <img src={Background} className='w-full md:h-full min-h-screen object-fill relative'/>         
@@ -132,7 +132,7 @@ const RegisterUser = () => {
                             <InputRegPwd title='confirmPassword' id='confirmPassword' placeholder='08912345678' value={values.confirmPassword} check1={errors.confirmPassword} check2={touched.confirmPassword} change={handleChange} blur={handleBlur}/>    
                         </div>
                     
-                        <a className="text-bozz-one text-xs mt-2 underline">Forgot Your Password?</a>
+                        {/* <a className="text-bozz-one text-xs mt-2 underline">Forgot Your Password?</a> */}
                         <div className="flex justify-center">
                             <button
                             className="bg-bozz-one text-bozz-six h-10 w-36 rounded-lg text-sm focus:border-none focus:ring-2 focus:ring-bozz-two"

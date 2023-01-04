@@ -16,7 +16,7 @@ const TransactionList = () => {
             .then(res => {
                 const data = res.data.data
                 setOrder(data)
-                console.log('cek',data)
+                // console.log('cek',data)
             })
             .catch(err => {
                 console.log(err)
@@ -54,26 +54,29 @@ const TransactionList = () => {
                                     <th className='text-base'>Action</th>
                             </tr>
                         </thead>
-                        <tbody className=''>
+                        {/* <tbody className=''> */}
                             {order? (
                                 order.map((item,i) => {
                                     return (
-                                        <TableTransaction
-                                            no={i + 1}
-                                            eventName={item.EventName}
-                                            serviceName={item.ServiceName}
-                                            startDate={item.StartDate}
-                                            endDate={item.EndDate}
-                                            eventLocation={item.EventLocation}
-                                            price={item.GrossAmmount}
-                                            orderStatus={item.OrderStatus}
-                                            onDetail={() => onDetail(item.ID)}
-                                        />
+                                        <tbody key={i}>
+                                            <TableTransaction
+                                                no={i + 1}
+                                                eventName={item.EventName}
+                                                serviceName={item.ServiceName}
+                                                startDate={item.StartDate}
+                                                endDate={item.EndDate}
+                                                eventLocation={item.EventLocation}
+                                                price={item.GrossAmmount}
+                                                orderStatus={item.OrderStatus}
+                                                onDetail={() => onDetail(item.ID)}
+                                            />
+
+                                        </tbody>
                                     )
                                 })
-                            ):<p> Anda belum memiliki transaksi</p>
+                            ):<tbody><tr><td>Anda belum memiliki transaksi</td></tr></tbody>
                             }
-                            </tbody>
+                            {/* </tbody> */}
                     </table>
                 </div>
             </div>

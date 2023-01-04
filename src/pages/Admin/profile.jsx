@@ -79,13 +79,13 @@ const Profile = () => {
             <div className='w-[25%] h-full py-12 flex flex-col items-center'>
                 <div className='relative'>
                     <img src={Admin} className='rounded-full h-48 w-48 border border-bozz-one'/>
-                    <div className="flex text-bozz-one absolute right-6 bottom-0"><FaEdit className='text-2xl'/>
+                    <div className="flex text-bozz-one absolute right-6 bottom-0" onClick={() => setEdit(!edit)}><FaEdit className='text-2xl'/>
                         <input type={'file'} className='hidden'></input>
                     </div>
                 </div>
                 <p className='text-xl text-bozz-one font-semibold text-center capitalize mt-3'>{userData.name}</p>
                 <p className='text-sm text-bozz-one font-semibold text-center capitalize'>{userData.rolel}</p>
-                <p className='underline text-bozz-one mt-8 font-semibold bg-bozz-five' >Edit Password</p>
+                <p className='underline text-bozz-one mt-8 font-semibold bg-bozz-five'onClick={() => setEdit(!edit)} >Edit Password</p>
             </div>
             <div className='w-[75%] h-full py-12 pl-8 pr-16'>
                 <div className='flex justify-between w-full'>

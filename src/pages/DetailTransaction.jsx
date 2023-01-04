@@ -38,7 +38,7 @@ const DetailTransaction = () => {
     }
 
     const completeOrder = () => {
-        console.log('complete order')
+        // console.log('complete order')
         setStatus("Complete Order")
     }
     const onSubmitReview = () => {
@@ -58,7 +58,6 @@ const DetailTransaction = () => {
                 title : `Success Send Review`,
                 showConfirmButton : true
             })  
-            console.log(err)
         })
         .catch(err => {
             Swal.fire({
@@ -74,7 +73,7 @@ const DetailTransaction = () => {
         getOrderDetail()
     },[])
 
-    console.log(total)
+    // console.log(total)
   return (
     <>
     {orderDetail ? 

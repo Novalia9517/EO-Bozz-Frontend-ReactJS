@@ -44,12 +44,11 @@ const ProfilePartnerUser = () => {
         getServices(id)
     },[])
 
-    console.log(partnerData)
-    console.log(lisServices)
+    // console.log(partnerData)
+    // console.log(lisServices)
     return (
         <>
         {partnerData ? 
-        
         <div className='bg-bozz-six text-bozz-one'>
             <Navbar />
             <div className='container mx-auto px-10 py-10'>
@@ -127,7 +126,7 @@ const ProfilePartnerUser = () => {
                                     </div>
                                 </div>
                                 </div>
-                            <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                            <div className="absolute flex justify-between transform-translate-y-1/2 left-5 right-5 top-1/2">
                             <a href="#slide2" className="btn btn-circle">❮</a> 
                             <a href="#slide1" className="btn btn-circle">❯</a>
                             </div>
@@ -138,26 +137,25 @@ const ProfilePartnerUser = () => {
                 <div className>
                     <h1 className='text-2xl font-bold text-center'>LIST SERVICE</h1>
                     <div className='grid gird-cols-2 lg:grid-cols-3 mt-5'>
-                    {lisServices ? (lisServices.map((item) => {
+                    {lisServices ? (lisServices.map((item,i) => {
                         let compName = ''
                         // listCompany?.map((company,i) => {
                         //     if(company.id == item.partner_id) compName = company.company_name
                         // })
                         return (
-                            <CardProduct
-                                img={item.service_image_file} keyId={item.id}
-                                name={item.service_name}
-                                rating={item.average_rating}
-                                price={item.service_price}
-                                click={() => onDetail(item.id)}
-                                company={compName} companyDetail={() => navigate('/profilepartner', {state : { id : item.partner_id }})}
-                                city={item.city} />
+                            <div key={i}>
+                                <CardProduct
+                                    img={item.service_image_file} keyId={item.id}
+                                    name={item.service_name}
+                                    rating={item.average_rating}
+                                    price={item.service_price}
+                                    click={() => onDetail(item.id)}
+                                    company={compName} companyDetail={() => navigate('/profilepartner', {state : { id : item.partner_id }})}
+                                    city={item.city} />
+                            </div>
                         )
                     })
                     ) : <></>}
-                        {/* <CardProduct img={Art} name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
-                        <CardProduct img={Art} name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/>
-                        <CardProduct img={Art} name='Package A' rating='3.8' price={12000000} click={onClick} company='Company A' city='Jakarta'/> */}
                     </div>
                 </div>
             </div>

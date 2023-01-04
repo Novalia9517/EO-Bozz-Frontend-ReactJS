@@ -62,11 +62,11 @@ const ListOrderAdmin = () => {
                   })}
                 </tr>
               </thead>
-              <tbody>
+              {/* <tbody> */}
                 {current ? 
                     current.map((data, index) => {
                   return (
-                    <>
+                    <tbody key={index}>
                     <tr className='text-bozz-two border-b border-bozz-three h-8 text-xs text-center text-xs font-semibold' key={index}>
                       <td>{firstIndex + index + 1}</td>
                       <td>{data.event_name.slice(0,20)}...</td>
@@ -77,14 +77,14 @@ const ListOrderAdmin = () => {
                       <td>{formatCurrency(data.gross_ammount)}</td>
                       <td>{data.order_status}</td>
                       <td>{data.order_status === 'Complete Order' ? <label htmlFor="my-modal-4" className='btn btn-xs border border-white w-16 h-6 bg-bozz-three hover:bg-bozz-two text-bozz-six rounded-lg text-[10px]'>Pay</label> : '-'}</td>
+                      <td><PayoutModal change={(e) => setImg(e.target.files[0])} payout={() => onPayout(data.id)} partner={data.partner} total={data.gross_ammount}/></td>
                     </tr>
-                      <PayoutModal change={(e) => setImg(e.target.files[0])} payout={() => onPayout(data.id)} partner={data.partner} total={data.gross_ammount}/>
-                    </>
+                    </tbody>
                   )
                 })
                 : <tr className='text-lg font-semibold text-bozz-one mt-10'>Belum Ada Order Yang Masuk</tr>
               }
-              </tbody>
+              {/* </tbody> */}
             </table>
             <div className="btn-group flex place-items-center justify-center gap-2 m-5">
               {/* <button className="btn border border-bozz-two hover:text-white hover:bg-bozz-three bg-white text-bozz-two h-8 w-10 text-xs" onClick={()=>paginateBack()}>Prev</button> */}
@@ -100,7 +100,6 @@ const ListOrderAdmin = () => {
             </div>
           </div>
         </div>
-        {/* <PayoutModal/> */}
     </LayoutAdmin>
     : <Loading/>
   }

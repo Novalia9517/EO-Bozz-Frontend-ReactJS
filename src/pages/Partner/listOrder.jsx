@@ -23,16 +23,11 @@ const ListOrder = () => {
     const paginateBack = () => {currentPage > 1 && setCurrentPage(currentPage - 1)}
     const paginateFront =() => setCurrentPage(currentPage + 1)
 
-
-    // const nextPage = (id) =>{
-    //   Router.push({pathname:`/property`,query:{param:id}});
-    // }
-
     const getOrderList = async() => {
 
         apiWithAuth(`partners/orders`, `GET`, null, "application/json", localStorage.getItem('userToken'))
         .then(res => {
-          console.log(res.data)
+          // console.log(res.data)
           setOrderList(res.data)
           setLoading(false)
         })
@@ -42,7 +37,7 @@ const ListOrder = () => {
     useEffect(() => {
         getOrderList()
     },[])
-    console.log(orderList)
+    // console.log(orderList)
   return (
     <>
     {!loading ? 

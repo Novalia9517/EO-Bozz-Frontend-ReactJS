@@ -7,8 +7,8 @@ const TableTransaction = ({no, serviceName, eventName, startDate, endDate, event
     return (
             <tr className='px-3 h-10 border-b '>
                 <td>{no}</td>
-                <td>{serviceName.slice(0,15)}...</td>
-                <td>{eventName.slice(0,15)}...</td>
+                <td>{serviceName.slice(0,20)}...</td>
+                <td>{eventName.slice(0,20)}...</td>
                 <td>{startDate}</td>
                 <td>{endDate}</td>
                 <td>{formatCurrency(price)}</td>

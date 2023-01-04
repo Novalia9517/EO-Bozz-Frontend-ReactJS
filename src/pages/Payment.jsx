@@ -30,10 +30,6 @@ const Payment = () => {
     const eventAddress = location?.state?.eventAddress
     const note = location?.state?.note
     const qty = location?.state?.qty
-
-    console.log('q',qty)
-    
-    console.log('ab', additional)
     
 
     // console.log('ab', clientName)
@@ -42,7 +38,7 @@ const Payment = () => {
             const jumlah = item.qty * additional[i].additional_price
             total += jumlah
         })
-        console.log(total)
+        // console.log(total)
     }
     useEffect(() => {
         // getTotal()
@@ -59,7 +55,7 @@ const Payment = () => {
                 service_id : parseInt(data.serviceId.id),
                 order_details : additionalArr
         }
-        console.log(body)
+        // console.log(body)
         apiWithAuth(`orders`, `POST`, body, "application/json", token)
         .then(res => {
             const vaNumber = res.data.va_number
@@ -72,17 +68,16 @@ const Payment = () => {
             navigate('/detail-transaction', { state : {id : res.data.id}})
         })
         .catch(err => {
+            const message = err.message == 'Incorrect input. payment_method: cannot be blank.' ? err.message : 'Failed to make order! Try again letter'
             Swal.fire({
                 position : "center",
                 icon : "error",
-                title : `${err}`,
+                title : `${message}`,
                 showConfirmButton : true
             }) 
-            console.log(err)
+            // console.log(err)
         })
     }
-    console.log(chosen)
-    console.log(additionalArr)
     return (
         <div className='bg-bozz-six text-bozz-one'>
             <Navbar />
@@ -173,6 +168,7 @@ const Payment = () => {
                                 className="bg-white px-3 border border-bozz-two text-md text-bozz-two h-10 rounded-lg w-full capitalize"
                                 id='companycity'  onChange={(e) => setChosen(e.target.value)}
                                 >
+                                    <option className='capitalize'>Choose Bank</option>
                                 {banks.map((bank, i) => {
                                     return <option key={i} className='capitalize' value={bank}>{bank.slice(3)} Bank Virtual Account</option>
                                 })}
