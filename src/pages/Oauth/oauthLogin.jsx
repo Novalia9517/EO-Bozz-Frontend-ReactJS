@@ -4,11 +4,11 @@ const clientId = '1070594591121-q552jhgvbmjpqhduvglc542p3ojumftn.apps.googleuser
 
 function OauthLogin() {
 
-    const onSucces = (ress) => {
-        console.log("Login Succes", ress.profileObj)
+    const onSucces = (res) => {
+        console.log("Login Succes", res.profileObj)
     }
 
-    const onFailure = (ress) => {
+    const onFailure = (res) => {
         console.log("Login Failed", res)
     }
 
@@ -22,7 +22,6 @@ function OauthLogin() {
             cookiePolicy={'single_host_origin'}
             inSingedIn={true}
             />
-   
         </div>
     )
 }

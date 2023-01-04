@@ -4,6 +4,7 @@ import LayoutAdmin from '../../components/LayoutAdmin'
 import Loading from '../../components/Loading'
 import { apiWithAuth } from '../../services/api'
 import { formatCurrency } from '../../utils/formatCurrency'
+import ImageModal from '../../components/ImageModal'
 
 const ListOrder = () => {
     const tableHead = ['no', 'event name', 'service name', 'city', 'total order', 'start date', 'end date', 'status', 'action', 'transfer file']
@@ -72,10 +73,17 @@ const ListOrder = () => {
                         >Confirm</button> : '-'}</td>
                       {/* <td>{data.payout_status}</td> */}
                       {/* <td>{data.transfer_file && data.payout_status === 'pay' ?  */}
-                      <td>{data.payout_receipt_url !== '' && data.order_status == 'Paid Off'? 
+                      {/* <td>{data.payout_receipt_url !== '' && data.order_status == 'Paid Off'? 
                         <button className='w-20 h-6 bg-bozz-three text-bozz-six rounded-lg text-[8px]'
                         src={data.payout_receipt_url}
-                        >Download File</button> : '-'}</td>
+                        >Download File</button> : '-'}</td> */}
+                      <td>{data.payout_receipt_url !== '' && data.order_status == 'Paid Off'? 
+                        <>
+                        <label htmlFor="my-modal-4" 
+                          className='text-xs border border-white px-3 py-2 bg-bozz-three hover:bg-bozz-two text-bozz-six rounded-lg text-[10px]'
+                          >Payout File</label>
+                          <ImageModal link={data.payout_receipt_url} title={'Image'}/>
+                    </>: '-'}</td>
                     </tr>
                   )
                 })

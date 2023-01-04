@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
+import { FcGoogle} from 'react-icons/fc'
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -111,8 +112,8 @@ const Login = () => {
                         <button className='bg-bozz-five text-bozz-one w-full h-12 rounded-xl font-bold border border-bozz-one hover:scale-110' onClick={() => setRole('admin')}>Admin</button>
                     </div>
                     :
-                    <div className='card rounded-[47px] w-[80%] h-[90%] border border-bozz-one flex flex-col justity- p-10 px-24 shadow-[6px_6px_6px_rgba(83,62,133,0.5)] bg-bozz-six'>
-                        <h2 className='text-bozz-one font-bold text-center text-xl mb-10'>LOGIN AS {role.toUpperCase()}</h2>
+                    <div className='card rounded-[47px] w-[80%] h-[95%] border border-bozz-one flex flex-col justity- p-10 px-24 shadow-[6px_6px_6px_rgba(83,62,133,0.5)] bg-bozz-six'>
+                        <h2 className='text-bozz-one font-bold text-center text-xl mb-2'>LOGIN AS {role.toUpperCase()}</h2>
                         <form onSubmit={handleSubmit}>
                             <div className="form-control w-full">
                                 <label className="label mb-[-10px]">
@@ -154,10 +155,19 @@ const Login = () => {
                             <a className="text-bozz-one text-xs mt-1">Forgot Your Password?</a>
                             <div className="flex justify-center">
                                 <button
-                                    className="bg-bozz-one text-bozz-six h-[40px] w-full mt-8 rounded-lg"
+                                    className="bg-bozz-one text-bozz-six h-[40px] w-full mt-3 rounded-lg"
                                     type='submit'
                                 >
                                     Login
+                                </button>
+                            </div>
+                            <div className="divider diveider-gray-600 text-gray-700">OR</div>
+                            <div className="flex justify-center">
+                                <button
+                                    className="bg-bozz-six border border-bozz-one flex justify-center items-center text-sm text-bozz-three flex h-[40px] w-full mt-2 rounded-lg"
+                                    type='submit'
+                                >
+                                   <FcGoogle className='text-md mr-3'/> Login with Google
                                 </button>
                             </div>
                             {role !== 'admin' ?
