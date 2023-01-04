@@ -47,7 +47,7 @@ const Navbar = () => {
             <div className='container mx-auto py-px-10'>
                 <div className="navbar text-white">
                     <div className="flex-1">
-                        <a className="btn btn-ghost normal-case text-2xl">EO Bozz</a>
+                        <Link to={"/"} className="btn btn-ghost normal-case text-2xl">EO Bozz</Link>
                         <div className='pl-5'>
                             <Link to={"/"} className="btn btn-ghost normal-case text-lg">Home</Link>
                         </div>

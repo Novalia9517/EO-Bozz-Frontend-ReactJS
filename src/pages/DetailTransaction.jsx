@@ -1,6 +1,5 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
 import Navbar from '../component/Navbar'
 import { formatCurrency } from '../utils/formatCurrency'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -124,7 +123,7 @@ const DetailTransaction = () => {
                            {status ==  "Waiting For Payment" ?
                             <div className='mt-10 border border-bozz-two p-5 mr-8'>
                                     <p className='text-xs text-bozz-two'>Payment Method</p>
-                                    <p className='text-md text-bozz-three font-semibold'>Virtual Account {orderDetail.payment_method.slice(3)}</p>
+                                    <p className='text-md text-bozz-three font-semibold'>Virtual Account <span className='uppercase'>{orderDetail.payment_method.slice(3)}</span></p>
                                     <p className='text-xs text-bozz-two'>No. Virtual Account</p>
                                     <p className='text-md text-bozz-three font-semibold'>{orderDetail.payment_va_number}</p>
                                     <p className='text-xs text-bozz-two'>Expired Time</p>

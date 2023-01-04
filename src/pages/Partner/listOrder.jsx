@@ -10,6 +10,23 @@ const ListOrder = () => {
     const [orderList, setOrderList] = useState()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [dataPerPage, setdataPerPage] = useState(8)
+    const lastIndex = currentPage * dataPerPage
+    const firstIndex = lastIndex - dataPerPage
+    const current = orderList?.slice(firstIndex, lastIndex)
+    const maxPage = Math.ceil(orderList?.length / dataPerPage)
+    const pages = []
+    for(let i = 1; i <= maxPage; i++){pages.push(i)}
+    const disabled = currentPage === Math.ceil(orderList?.length / dataPerPage) ? true : false;
+    const disableBack = currentPage === 1 ? true : false
+    const paginateBack = () => {currentPage > 1 && setCurrentPage(currentPage - 1)}
+    const paginateFront =() => setCurrentPage(currentPage + 1)
+
+
+    // const nextPage = (id) =>{
+    //   Router.push({pathname:`/property`,query:{param:id}});
+    // }
 
     const getOrderList = async() => {
 
@@ -32,7 +49,7 @@ const ListOrder = () => {
     <LayoutAdmin>
         <div className='mt-3 w-full h-full'>
           <h1 className='text-xl font-bold text-bozz-one mb-5'>List Order Partner</h1>
-          <div className='px-6 py-3 bg-white rounded-lg'>
+          <div className='px-6 py-3 bg-white rounded-lg h-[90%] flex flex-col justify-between'>
             <table className='w-full table-fixed'>
               <thead className='border-b-2 border-bozz-three'>
                 <tr>
@@ -42,8 +59,8 @@ const ListOrder = () => {
                 </tr>
               </thead>
               <tbody>
-                {orderList ? 
-                    orderList.map((data, index) => {
+                {current ? 
+                    current.map((data, index) => {
                   return (
                     <tr className='text-bozz-two border-b-2 border-bozz-three h-6 text-center text-xs capitalize' key={index}>
                       <td>{index + 1}</td>
@@ -68,10 +85,21 @@ const ListOrder = () => {
                   )
                 })
                 : <tr><td className='w-full text-md font-semibold text-bozz-one mt-5'>Belum Ada Order Yang Masuk</td></tr>
-            }
+              }
               </tbody>
             </table>
-
+            <div className="btn-group flex place-items-center justify-center gap-2 m-5">
+              {/* <button className="btn border border-bozz-two hover:text-white hover:bg-bozz-three bg-white text-bozz-two h-8 w-10 text-xs" onClick={()=>paginateBack()}>Prev</button> */}
+              {
+                pages?.map((page,index) => {
+                  return (
+                  <button key={index} className="h-8 w-8 focus:bg-bozz-two focus:text-white border border-bozz-two bg-white text-bozz-two hover:text-white hover:bg-bozz-two btn-circle"
+                    onClick={() => setCurrentPage(page)}>{page}</button>
+                  )
+                })
+              }
+              {/* <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark h-8 w-8" onClick={()=>paginateFront()}>Next</button>    */}
+            </div>
           </div>
         </div>
     </LayoutAdmin>

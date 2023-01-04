@@ -84,7 +84,7 @@ const ProfilePartner = () => {
             Swal.fire({
                 position : "center",
                 icon : "success",
-                title : 'Edit Profile Successfull, Let\'s Login...',
+                title : 'Edit Profile Successfull...',
                 showConfirmButton : true
             })    
             navigate('/partner/')

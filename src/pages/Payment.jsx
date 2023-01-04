@@ -6,7 +6,7 @@ import { formatCurrency } from '../utils/formatCurrency'
 import Swal from 'sweetalert2'
 
 const Payment = () => {
-    const banks = ['va bni', 'va bca', 'va mandiri','va permata']
+    const banks = ['va bni', 'va bca', 'va bri','va permata']
     const [chosen, setChosen] = useState()
     const navigate = useNavigate()
     const location = useLocation()

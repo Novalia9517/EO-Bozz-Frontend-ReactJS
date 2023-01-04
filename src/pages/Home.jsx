@@ -87,9 +87,9 @@ const Home = () => {
                         <button className='btn bg-[#EF6D58] my-10'>About Us</button>
                     </div>
                     <div className='grid grid-cols-3 h-96 gap-3'>
-                        <img className='mx-auto h-96 rounded col-span-2 row-span-2 bg-clip-padding border-4 border-bozz-two border-dashed' src={Wed} alt="home"/>
-                        <img className='mx-auto h-48 rounded col-span-1 row-span-1 bg-clip-padding border-4 border-bozz-two border-dashed w-48 h-44' src={Wed2} alt="home"/>
-                        <img className='mx-auto h-48 rounded col-span-1 row-span-1 bg-clip-padding border-4 border-bozz-two border-dashed w-48' src={cake} alt="home"/>
+                        <img className='mx-auto h-96 rounded-xl col-span-2 row-span-2 bg-clip-padding border-2 border-bozz-two border-dashed' src={Wed} alt="home"/>
+                        <img className='mx-auto h-48 rounded-xl col-span-1 row-span-1 bg-clip-padding border-2 border-bozz-two border-dashed w-48 h-44' src={Wed2} alt="home"/>
+                        <img className='mx-auto h-48 rounded-xl col-span-1 row-span-1 bg-clip-padding border-2 border-bozz-two border-dashed w-48' src={cake} alt="home"/>
                     </div>
                 </div>
             </div>
@@ -105,20 +105,22 @@ const Home = () => {
             </div>
             <div className='container mx-auto px-5 py-5 '>
                 <div className='grid gap-8 grid-cols-1 lg:grid-cols-3 md:grid-cols-'>
-                    {data_service ? (data_service.map((item) => {
+                    {data_service ? (data_service.map((item,i) => {
                         let compName = ''
                         listCompany?.map((company,i) => {
                             if(company.id == item.partner_id) compName = company.company_name
                         })
                         return (
-                            <CardProduct
-                                img={item.service_image_file} keyId={item.id}
-                                name={item.service_name}
-                                rating={item.average_rating}
-                                price={item.service_price}
-                                click={() => onDetail(item.id)}
-                                company={compName} companyDetail={() => navigate('/profilepartner', {state : { id : item.partner_id }})}
-                                city={item.city} />
+                            <div key={i}>
+                                <CardProduct
+                                    img={item.service_image_file} keyId={item.id}
+                                    name={item.service_name}
+                                    rating={item.average_rating}
+                                    price={item.service_price}
+                                    click={() => onDetail(item.id)}
+                                    company={compName} companyDetail={() => navigate('/profilepartner', {state : { id : item.partner_id }})}
+                                    city={item.city} />
+                            </div>
                         )
                     })
                     ) : <></>}

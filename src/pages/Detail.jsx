@@ -192,7 +192,7 @@ const Detail = () => {
                             <img className='mx-auto h-[320px] rounded-md' src={serviceId.service_image_file} alt="home" width={500} />
                             <div className='mx-auto text-bozz-one'>
                                 <p className='py-3 px-3 font-bold text-xl'>{serviceId.service_name}</p>
-                                <p className='px-3 font-bold text-lg hover:underline' onClick={() => navigate('/profilepartner', {state : { id : serviceId.partner_id }})}>{company.company_name.slice(0,20)}</p>
+                                <p className='px-3 font-bold text-lg hover:underline' onClick={() => navigate('/profilepartner', {state : { id : company.id }})}>{company.company_name.slice(0,20)}</p>
                                 <p className='px-3 font-bold text-lg flex gap-2 my-2'><IoLocationSharp className='text-red-500'/>{company.company_city}</p>
                                 <p className='py-3 px-3 font-bold text-xl text-bozz-two'>{formatCurrency(serviceId.service_price)}</p>
                                 <p className=' px-3 text-lg text-[#726F6F]'>Category {serviceId.service_category}</p>
