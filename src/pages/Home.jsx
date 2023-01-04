@@ -49,6 +49,7 @@ const Home = () => {
             })
     }
 
+
     const onDetail = (id) => {
         navigate('/detail', {
             state: {
@@ -69,6 +70,7 @@ const Home = () => {
         getCity()
     }, [])
 
+    
 
     return (
         <div className='bg-bozz-six'>
@@ -105,6 +107,9 @@ const Home = () => {
                         let compName = ''
                         listCompany?.map((company) => {
                             if(company.id == item.partner_id) compName = company.company_name
+                            return (
+                                <p> THIS {compName}</p>
+                            )
                         })
                         return (
                             <div key={i}>
@@ -114,7 +119,7 @@ const Home = () => {
                                     rating={item.average_rating}
                                     price={item.service_price}
                                     click={() => onDetail(item.id)}
-                                    company={compName} companyDetail={() => navigate('/profilepartner', {state : { id : item.partner_id }})}
+                                    company={compName} companyDetail={() => navigate('/profilepartner', { state: { id: item.partner_id } })}
                                     city={item.city} />
                             </div>
                         )

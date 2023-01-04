@@ -176,6 +176,7 @@ const Detail = () => {
                         <div className='grid gap-10 grid-cols-1 md:grid-cols-1 lg:grid-cols-2'>
                             <img className='mx-auto h-[320px] rounded-md' src={serviceId.service_image_file} alt="home" width={500} />
                             <div className='mx-auto text-bozz-one'>
+                                <p className='py-3 px-3 font-bold text-2xl'>{serviceId.partner.company_name}</p>
                                 <p className='py-3 px-3 font-bold text-xl'>{serviceId.service_name}</p>
                                 <p className='px-3 font-bold text-lg hover:underline' onClick={() => navigate('/profilepartner', {state : { id : company.id }})}>{company.company_name.slice(0,20)}</p>
                                 <p className='px-3 font-bold text-lg flex gap-2 my-2'><IoLocationSharp className='text-red-500'/>{company.company_city}</p>

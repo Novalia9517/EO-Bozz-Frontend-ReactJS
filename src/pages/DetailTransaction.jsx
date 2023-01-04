@@ -69,6 +69,13 @@ const DetailTransaction = () => {
         })
     }
 
+    const onSubmit = (e) => {
+        e.preventDefault()
+        addReview()
+    }
+
+
+
     useEffect(() => {
         getOrderDetail()
     },[])

@@ -62,7 +62,6 @@ const Rating = () => {
             </div>
             </div>
         </div>
-        <hr />
         <div className='py-5'>
           <h1>Berikan Rating untuk EO</h1>
           <div>
