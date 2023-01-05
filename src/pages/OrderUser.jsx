@@ -6,6 +6,7 @@ import Row from '../components/Row'
 import { formatCurrency } from '../utils/formatCurrency'
 import Loading from '../components/Loading'
 import Swal from 'sweetalert2'
+import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript'
 
 const OrderUser = () => {
     const location = useLocation()
@@ -19,6 +20,7 @@ const OrderUser = () => {
     const endDate = location?.state?.endDate
     const additional = location?.state?.additional
     const serviceId = location?.state?.serviceId
+    let total = serviceId.service_price
     const [additionalArr, setAdditionalArr] = useState([])
     const [qty, setQty] = useState(0)
     let arr = [], qtyAdd = []
@@ -175,6 +177,7 @@ const OrderUser = () => {
                                     let num = additionalArr[i]?.qty
                                     // console.log(`Quantity ke ${i}`,additionalArr[i]?.qty)
                                     // console.log(num)
+                                    total += (item.additional_price * num)
                                     return (
                                         <div className='flex my-3' key={i}>
                                         <p className='text-lg font-bold w-[30%]'>{item.additional_name}</p>
@@ -191,7 +194,10 @@ const OrderUser = () => {
                                 }) : <p>Tidak Ada Additional Untuk Service Ini</p>
                             }
                             </div>
-
+                            <div className='flex justify-between border-t-2 border-bozz-one py-3'>
+                                <span className='text-md'>TOTAL</span>
+                                <span className='text-lg font-bold text-right'>{formatCurrency(total)}</span>
+                            </div>
                         </div>
                             <div className='flex justify-end  mt-4'>
                                 <button className='btn hover:btn-warning bg-orange-400 mx-2 text-white'>Cancel</button>

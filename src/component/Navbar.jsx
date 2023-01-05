@@ -64,18 +64,18 @@ const Navbar = () => {
                                             <img src="https://placeimg.com/80/80/people" />
                                         </div>
                                     </label>
-                                <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-bozz-six text-bozz-one border border-bozz-one rounded-box w-32">
+                                <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-bozz-six text-bozz-one border border-bozz-one rounded-box w-36">
                                     <li>
                                         <Link to={'/profile'}
-                                            className="justify-between"><FaUserAlt className='text-md'
+                                            className=""><FaUserAlt className='text-md'
                                                  />Profile</Link>
                                     </li>
                                     <li>
                                         <Link to={'/transaction'}
-                                            className="justify-between flex text-sm"><BsFillCartCheckFill className='text-md'
+                                            className=" flex text-sm"><BsFillCartCheckFill className='text-md'
                                             />My order</Link>
                                     </li>
-                                    <li onClick={onLogout}><a className="justify-between"><TbLogout className='text-lg' />Logout</a></li>
+                                    <li onClick={onLogout}><a className=""><TbLogout className='text-lg' />Logout</a></li>
                                 </ul>
                                 </div>
                             ) : <div className='flex gap-5'>

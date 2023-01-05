@@ -82,7 +82,10 @@ const Home = () => {
                         <h1 className='text-4xl font-bold drop-shadow-[0_4px_4px_#352360] hover:animate-bounce my-5'>EO-BOZZ</h1>
                         <h1 className='text-bozz-two font-semibold my-2'>Event Organizer Platform</h1>
                         <p>A platform that help Clients and Event Organizer to connect easily</p>
-                        <button className='btn bg-[#EF6D58] my-10'>About Us</button>
+                        <button 
+                            className='btn bg-bozz-two hover:bg-bozz-three border-none hover:ring-2 my-10'
+                            onClick={() => navigate('/about')}
+                            >About Us</button>
                     </div>
                     <div className='grid grid-cols-3 h-96 gap-3'>
                         <img className='mx-auto h-96 rounded-xl col-span-2 row-span-2 bg-clip-padding border-2 border-bozz-two border-dashed' src={Wed} alt="home"/>

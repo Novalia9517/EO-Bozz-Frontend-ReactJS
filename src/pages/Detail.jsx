@@ -195,9 +195,9 @@ const Detail = () => {
                                 <div className='mt-5'>
                                     {included && included.length > 1 ?
                                         included?.map((item,i) => {
-                                            return <div key={i} className='py-3 flex'><img src={Ceklist} width={20} /><span className='ml-5'>{item}</span></div>
+                                            return <div key={i} className='py-3 flex uppercase'><img src={Ceklist} width={20} /><span className='ml-5'>{item}</span></div>
                                         })
-                                        : <p className='font-semibold'>Not Included, ask Partner for detail included</p>
+                                        : <p className='font-semibold'>Nothing Included, ask Partner for detail included</p>
                                     }
                                 </div>
 
@@ -213,7 +213,7 @@ const Detail = () => {
                                      <div className='py-3 flex' key={i}>
                                         <img src={Plus} width={20} />
                                         <span className='ml-5'>
-                                                        {item.additional_name} - RP.{item.additional_price}
+                                                        {item.additional_name} - {formatCurrency(item.additional_price)}
                                         </span></div>
                                             )
                                         })

@@ -37,9 +37,26 @@ const DetailTransaction = () => {
         .catch(err => console.log(err))
     }
 
-    const completeOrder = () => {
+    const completeOrder = (async) => {
         // console.log('complete order')
-        setStatus("Complete Order")
+        apiWithAuth(`clients/orders/42/complete`, `PUT`, null, "application/json", token)
+        .then(res => {
+            Swal.fire({
+                position : "center",
+                icon : "success",
+                title : `Success Complete Order`,
+                showConfirmButton : true
+            }) 
+            setStatus("Complete Order")
+        })
+        .catch(err => {
+            Swal.fire({
+                position : "center",
+                icon : "error",
+                title : `Failed Complete Order, try again letter!`,
+                showConfirmButton : true
+            })  
+        })
     }
     const onSubmitReview = () => {
         const body = {
@@ -66,6 +83,7 @@ const DetailTransaction = () => {
                 title : `Failed Send Review`,
                 showConfirmButton : true
             })  
+            console.log(err)
         })
     }
 
@@ -135,7 +153,15 @@ const DetailTransaction = () => {
                                     <p className='text-xs text-bozz-two'>Expired Time</p>
                                     <p className='text-md text-bozz-three font-semibold'>{orderDetail.payment_expired_time}</p>
                                 </div>
-                            : <div className='mt-10 border border-bozz-two p-5 mr-8'>
+                            : null
+                           }
+                           {status ==  "Waiting Confirmation" &&
+                                <div className='mt-10 border border-bozz-two p-5 mr-8'>
+                                <p className='text-bozz-three font-bold'>Waiting Partner to Corfirm</p>
+                                </div>
+                           }
+                           {status ==  "Order Confirmed" &&
+                                <div className='mt-10 border border-bozz-two p-5 mr-8'>
                                 <p className='text-bozz-three font-bold'>Event Ongoing</p>
                                 </div>
                            }
