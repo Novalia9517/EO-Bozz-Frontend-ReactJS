@@ -93,7 +93,7 @@ const Detail = () => {
         if (values.ask.length >= 10) {
             const body = {
                 comment: values.ask,
-                partner_id: parseInt(serviceId.partner_id),
+                partner_id: parseInt(serviceId.partner.id),
                 client_id: parseInt(cookie.id),
                 service_id: parseInt(serviceId.id)
             }

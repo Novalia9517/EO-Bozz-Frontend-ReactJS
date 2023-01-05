@@ -43,8 +43,11 @@ const ProfilePartnerUser = () => {
     }
 
     const getPartner = async(id) => {
-        apiWithAuth(`partners/${parseInt(id)}`, `GET`, null, "application/json", localStorage.getItem('userToken'))
-        .then(res => setListCompany(res.data))
+        // apiWithAuth(`partners/${parseInt(id)}`, `GET`, null, "application/json", localStorage.getItem('userToken'))
+        await axios.get(`https://irisminty.my.id/partners/${id}`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
+        })
+        .then(res => setListCompany(res.data.data))
         .catch(err => console.log(err))
     }
     const getServices = async(id) => {
@@ -68,6 +71,7 @@ const ProfilePartnerUser = () => {
         console.log('data',partnerData)
     },[])
 
+    console.log(listCompany)
     return (
         <>
         {partnerData ? 
@@ -97,7 +101,7 @@ const ProfilePartnerUser = () => {
                     </div> */}
                     <div className='px-10 mx-5 border border-bozz-one rounded-md '>
                         <p className='text-xl text-center'>
-                            <span className='font-semibold'>{partnerData.verification_status}</span><br />
+                            <span className='font-semibold text-bozz-one'>{listCompany.verification_status}</span><br />
                             <span className='text-sm'>Status</span>
                         </p>
                     </div>
@@ -112,7 +116,7 @@ const ProfilePartnerUser = () => {
                                     <div className="max-w-md text-bozz-six">
                                     <h1 className='text-xl font-bold mb-16'>EVENT YANG PERNAH KAMI TANGANI </h1>
                                     <h1 className='text-xl font-bold mb-3'>{listCompany.event1_name}</h1>
-                                    <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                                    {/* <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p> */}
                                     </div>
                                 </div>
                                 </div>

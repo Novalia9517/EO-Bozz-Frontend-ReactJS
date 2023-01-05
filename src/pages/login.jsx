@@ -161,15 +161,15 @@ const Login = () => {
                                     Login
                                 </button>
                             </div>
-                            <div className="divider diveider-gray-600 text-gray-700">OR</div>
-                            <div className="flex justify-center">
+                            {/* <div className="divider diveider-gray-600 text-gray-700">OR</div> */}
+                            {/* <div className="flex justify-center">
                                 <button
                                     className="bg-bozz-six border border-bozz-one flex justify-center items-center text-sm text-bozz-three flex h-[40px] w-full mt-2 rounded-lg"
                                     type='submit'
                                 >
                                    <FcGoogle className='text-md mr-3'/> Login with Google
                                 </button>
-                            </div>
+                            </div> */}
                             {role !== 'admin' ?
                                 <p className="text-bozz-one text-sm mt-3">
                                     Dont have an account ?
