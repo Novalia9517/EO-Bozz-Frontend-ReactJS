@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { FaUserAlt } from 'react-icons/fa'
 import { TbLogout } from 'react-icons/tb'
 import Swal from 'sweetalert2'
+import Logo from '../assets/logo2.png'
 
 const SideBarAdmin = ({role, name}) => {
     const navigate = useNavigate()
@@ -36,10 +37,13 @@ const SideBarAdmin = ({role, name}) => {
         });
     }
   return (
-    <div className='min-h-screen w-[20%] bg-bozz-one pt-24 px-10 cursor-pointer'>
-        <h1 className='text-white font-bold text-4xl text-center drop-shadow-[0_4px_4px_#352360] hover:animate-bounce'>EO-Bozz</h1>
+    <div className='min-h-screen w-[20%] bg-bozz-one pt-12 px-10 cursor-pointer'>
+        {/* <h1 className='text-white font-bold text-4xl text-center drop-shadow-[0_4px_4px_#352360] hover:animate-bounce'>EO-Bozz</h1> */}
+        <div className='flex justify-center mb-[-50px]'>
+            <img src={Logo} className='w-40 align-center drop-shadow-[0_6px_6px_#352360] hover:animate-bounce'/>
+        </div>
             { role === 'Partner' ? 
-                <ul className='flex flex-col px-10 w-full mt-8'>
+                <ul className='flex flex-col px-10 w-full'>
                     <li 
                         className='flex text-white font-bold text-xs my-3 items-center'
                         onClick={() => navigate('/partner/')}

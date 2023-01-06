@@ -67,7 +67,7 @@ const ConfirmOrder = () => {
         const body = {
           order_status: "order confirmed"
         }
-        apiWithAuth(`partners/orders/${parseInt(id)}/confirm`, `PUT`, body, "application/json", localStorage.getItem('userToken'))
+        apiWithAuth(`partners/orders/${id}/confirm`, `PUT`, body, "application/json", localStorage.getItem('userToken'))
         .then(res => {
           Swal.fire({
             position: "center",
@@ -125,7 +125,7 @@ const ConfirmOrder = () => {
                 return (
                   <div key={i} className="grid gap-5 grid-cols-4 grid-rows-1 w-full pl-10 font-semibold text-bozz-one text-sm">
                     <span>{item.additional_name}</span>
-                    <span>: {formatCurrency(item.additional_price)} x {item.qty} = </span>
+                    <span>: {formatCurrency(item.additional_price)} x {item.qty} </span>
                     <span>=</span>
                     <span className='text-right'>{formatCurrency(item.detail_order_total)}</span>
                   </div>

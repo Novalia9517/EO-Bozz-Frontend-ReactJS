@@ -11,6 +11,8 @@ import { data } from 'autoprefixer'
 import cake from '../assets/cake-bunga.jpg'
 import Wed from '../assets/wed2.jpg'
 import Wed2 from '../assets/wed4.jfif'
+import Logo from '../assets/logo2.png'
+import photo from '../assets/photo.jpeg'
 
 const Home = () => {
 
@@ -75,11 +77,12 @@ const Home = () => {
     return (
         <div className='bg-bozz-six'>
             <Navbar />
-            <hr className='text-black' />
+            {/* <hr className='text-black' /> */}
             <div className='bg-bozz-one'>
                 <div className='container mx-auto py-20 px-20 text-white flex'>
                     <div className='px-10'>
-                        <h1 className='text-4xl font-bold drop-shadow-[0_4px_4px_#352360] hover:animate-bounce my-5'>EO-BOZZ</h1>
+                        {/* <h1 className='text-4xl font-bold drop-shadow-[0_4px_4px_#352360] hover:animate-bounce my-5'>EO-BOZZ</h1> */}
+                         <img src={Logo} className='w-40 drop-shadow-[0_6px_6px_#352360] mb-[-50px]'/>
                         <h1 className='text-bozz-two font-semibold my-2'>Event Organizer Platform</h1>
                         <p>A platform that help Clients and Event Organizer to connect easily</p>
                         <button 
@@ -88,9 +91,9 @@ const Home = () => {
                             >About Us</button>
                     </div>
                     <div className='grid grid-cols-3 h-96 gap-3'>
-                        <img className='mx-auto h-96 rounded-xl col-span-2 row-span-2 bg-clip-padding border-2 border-bozz-two border-dashed' src={Wed} alt="home"/>
-                        <img className='mx-auto h-48 rounded-xl col-span-1 row-span-1 bg-clip-padding border-2 border-bozz-two border-dashed w-48 h-44' src={Wed2} alt="home"/>
-                        <img className='mx-auto h-48 rounded-xl col-span-1 row-span-1 bg-clip-padding border-2 border-bozz-two border-dashed w-48' src={cake} alt="home"/>
+                        <img className='mx-auto h-96 rounded-xl col-span-3 row-span-3 bg-clip-padding ' src={photo} alt="home"/>
+                        {/* <img className='mx-auto h-48 rounded-xl col-span-1 row-span-1 bg-clip-padding border-2 border-bozz-two border-dashed w-48 h-44' src={Wed2} alt="home"/>
+                        <img className='mx-auto h-48 rounded-xl col-span-1 row-span-1 bg-clip-padding border-2 border-bozz-two border-dashed w-48' src={cake} alt="home"/> */}
                     </div>
                 </div>
             </div>

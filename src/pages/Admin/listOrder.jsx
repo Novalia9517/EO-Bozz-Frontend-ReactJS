@@ -4,12 +4,16 @@ import Loading from '../../components/Loading'
 import PayoutModal from '../../components/PayoutModal'
 import { apiWithAuth } from '../../services/api'
 import { formatCurrency } from '../../utils/formatCurrency'
+import Swal from 'sweetalert2'
 
 const ListOrderAdmin = () => {
      // company name, clent name,start date, end date, gross ammount, status, paaction(pay)
     const tableHead = ['no', 'event name', 'start date', 'end date', 'total', 'status', 'action']
     const [orderList, setOrderList] = useState()
     const [img, setImg] = useState()
+    const [payoutId, setPayoutId] = useState()
+    const [partner, setPartner] = useState()
+    const [total, setTotal] = useState(0)
     const token = localStorage.getItem('userToken')
     const [currentPage, setCurrentPage] = useState(1)
     const [dataPerPage, setdataPerPage] = useState(10)
@@ -38,11 +42,22 @@ const ListOrderAdmin = () => {
       apiWithAuth(`orders/${parseInt(id)}/payout`, `PUT`, data, "multipart/form-data", token)
       .then(res => {
         console.log(res)
-        // window.location.reload()
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: 'success send payout file',
+          showConfirmButton: true
+        })
+        getOrderList()
       })
       .catch(err => console.log(err))
     }
 
+    const onSet = (id, partner, total) => {
+      setPayoutId(id)
+      setPartner(partner)
+      setTotal(total)
+    }
 
     useEffect(() => {
         getOrderList()
@@ -76,8 +91,12 @@ const ListOrderAdmin = () => {
                       <td>{data.end_date.slice(0,10)}</td>
                       <td>{formatCurrency(data.gross_ammount)}</td>
                       <td>{data.order_status}</td>
-                      <td>{data.order_status === 'Complete Order' ? <label htmlFor="my-modal-4" className='btn btn-xs border border-white w-16 h-6 bg-bozz-three hover:bg-bozz-two text-bozz-six rounded-lg text-[10px]'>Pay</label> : '-'}</td>
-                      <td><PayoutModal change={(e) => setImg(e.target.files[0])} payout={() => onPayout(data.id)} partner={data.partner} total={data.gross_ammount}/></td>
+                      <td>{data.order_status === 'Complete Order' ? 
+                        <label htmlFor="my-modal-4" 
+                        className='btn btn-xs border border-white w-16 h-6 bg-bozz-three hover:bg-bozz-two text-bozz-six rounded-lg text-[10px]'
+                        onClick={() => onSet(data.id, data.partner, data.gross_ammount)}
+                        >Pay</label> : '-'}</td>
+                      {/* <td><PayoutModal change={(e) => setImg(e.target.files[0])} payout={() => onPayout(id)} partner={partner} total={total}/></td> */}
                     </tr>
                     </tbody>
                   )
@@ -86,6 +105,7 @@ const ListOrderAdmin = () => {
               }
               {/* </tbody> */}
             </table>
+            <PayoutModal change={(e) => setImg(e.target.files[0])} payout={() => onPayout(payoutId)} partner={partner} total={total}/>
             <div className="btn-group flex place-items-center justify-center gap-2 m-5">
               {/* <button className="btn border border-bozz-two hover:text-white hover:bg-bozz-three bg-white text-bozz-two h-8 w-10 text-xs" onClick={()=>paginateBack()}>Prev</button> */}
               {

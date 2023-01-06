@@ -5,6 +5,7 @@ import { useCookies } from 'react-cookie'
 import { FaUserAlt } from 'react-icons/fa'
 import { TbLogout } from 'react-icons/tb'
 import { BsFillCartCheckFill } from 'react-icons/bs'
+import Logo from '../assets/logo2.png'
 
 const Navbar = () => {
 
@@ -43,11 +44,14 @@ const Navbar = () => {
     }
 
     return (
-        <div className='relative bg-bozz-one'>
+        <div className='relative bg-bozz-one border-b shadow-lg'>
             <div className='container mx-auto py-px-10'>
                 <div className="navbar text-white">
                     <div className="flex-1">
-                        <Link to={"/"} className="btn btn-ghost normal-case text-2xl">EO Bozz</Link>
+                        <Link to={"/"} className="normal-case text-2xl flex items-center">
+                            <img src={Logo} className='w-16 align-center drop-shadow-[0_6px_6px_#352360]'/>
+                            {/* EO-BOZZ */}
+                        </Link>
                         <div className='pl-5'>
                             <Link to={"/"} className="btn btn-ghost normal-case text-lg">Home</Link>
                         </div>
