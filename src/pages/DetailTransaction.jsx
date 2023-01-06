@@ -39,7 +39,7 @@ const DetailTransaction = () => {
 
     const completeOrder = (async) => {
         // console.log('complete order')
-        apiWithAuth(`clients/orders/42/complete`, `PUT`, null, "application/json", token)
+        apiWithAuth(`clients/orders/${parseInt(id)}/complete`, `PUT`, null, "application/json", token)
         .then(res => {
             Swal.fire({
                 position : "center",
@@ -47,7 +47,8 @@ const DetailTransaction = () => {
                 title : `Success Complete Order`,
                 showConfirmButton : true
             }) 
-            setStatus("Complete Order")
+            // setStatus("Complete Order")
+            getOrderDetail()
         })
         .catch(err => {
             Swal.fire({
@@ -56,6 +57,7 @@ const DetailTransaction = () => {
                 title : `Failed Complete Order, try again letter!`,
                 showConfirmButton : true
             })  
+            console.log(err)
         })
     }
     const onSubmitReview = () => {
@@ -75,6 +77,7 @@ const DetailTransaction = () => {
                 title : `Success Send Review`,
                 showConfirmButton : true
             })  
+            getOrderDetail()
         })
         .catch(err => {
             Swal.fire({

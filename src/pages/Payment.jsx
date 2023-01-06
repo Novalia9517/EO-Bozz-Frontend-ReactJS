@@ -62,7 +62,7 @@ const Payment = () => {
             Swal.fire({
                 position : "center",
                 icon : "success",
-                title : `Your Virtual Account ${vaNumber}`,
+                title : `Success make order`,
                 showConfirmButton : true
             })   
             navigate('/detail-transaction', { state : {id : res.data.id}})
@@ -75,7 +75,7 @@ const Payment = () => {
                 title : `${message}`,
                 showConfirmButton : true
             }) 
-            // console.log(err)
+            console.log(err)
         })
     }
     return (

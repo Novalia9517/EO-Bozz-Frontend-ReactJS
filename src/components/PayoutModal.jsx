@@ -8,6 +8,8 @@ const PayoutModal = ({change, payout, partner, total}) => {
     
     return (
         <>
+        {partner && total ? 
+        <>
             <input type="checkbox" id="my-modal-4" className="modal-toggle" />
             <label htmlFor="my-modal-4" className="modal cursor-pointer">
                 <label className="modal-box relative py-10 px-16 h-auto bg-white text-bozz-one" htmlFor="">
@@ -42,6 +44,9 @@ const PayoutModal = ({change, payout, partner, total}) => {
                     <button className='w-full text-md bg-bozz-three text-white mt-8 rounded-md h-10' onClick={payout}>Confirm Payment</button>
                 </label>
             </label>
+            </>
+        : null
+    }
         </>
     )
 }
