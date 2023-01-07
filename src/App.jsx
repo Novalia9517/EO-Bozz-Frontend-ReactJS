@@ -33,6 +33,7 @@ import DetailTransaction from './pages/DetailTransaction'
 import ServiceAdditional from './pages/Partner/ServiceAdditional'
 import Oauth from './pages/Oauth/oAuth'
 import About from './pages/About'
+import ValidationGoogle from './pages/ValidationGoogle'
 
 let persistor = persistStore(store);
 
@@ -45,6 +46,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About/>} />
             <Route path="/oauth" element={<Oauth />} />
+            <Route path="/login/oauth/google" element={<ValidationGoogle />} />
             <Route path="/detail" element={<Detail />} />
             <Route path="/orderuser" element={<OrderUser />} />
             <Route path="/transaction" element={<TransactionList />} />

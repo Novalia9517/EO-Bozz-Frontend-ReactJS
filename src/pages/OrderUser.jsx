@@ -7,7 +7,6 @@ import { formatCurrency } from '../utils/formatCurrency'
 import Loading from '../components/Loading'
 import Swal from 'sweetalert2'
 
-
 const OrderUser = () => {
     const location = useLocation()
     const [clientName,setClientName] = useState()
@@ -33,7 +32,7 @@ const OrderUser = () => {
     const decNum = (i) => {
         arr = additionalArr.slice()
         if (arr[i].qty > 0) {
-            return arr[i].qty = arr[i].qty-1
+            arr[i].qty = arr[i].qty-1
         }
         setAdditionalArr(arr)
         // console.log(additionalArr)

@@ -71,7 +71,7 @@ const ProfilePartnerUser = () => {
         console.log('data',partnerData)
     },[])
 
-    console.log(listCompany)
+    console.log('company',listCompany)
     return (
         <>
         {partnerData ? 
@@ -79,11 +79,11 @@ const ProfilePartnerUser = () => {
             <Navbar />
             <div className='container mx-auto px-10 py-10'>
                 <div className='flex justify-center'>
-                    <img src={listCompany.company_image_file} className='h-32 w-32 rounded-full border border-bozz-one'/>
+                    <img src={listCompany?.company_image_file} className='h-32 w-32 rounded-full border border-bozz-one'/>
                     <div className='ml-10'>
-                        <h1 className='text-3xl my-3 font-bold'>{listCompany.company_name}</h1>
-                        <p className='text-xl flex'>{listCompany.company_address}</p>
-                        <p className='text-md flex'>{listCompany.link_website}</p>
+                        <h1 className='text-3xl my-3 font-bold'>{listCompany?.company_name}</h1>
+                        <p className='text-xl flex'>{listCompany?.company_address}</p>
+                        <p className='text-md flex'>{listCompany?.link_website}</p>
                     </div>
                 </div>
                 <div className='flex justify-center my-8'>
@@ -101,7 +101,7 @@ const ProfilePartnerUser = () => {
                     </div> */}
                     <div className='px-10 mx-5 border border-bozz-one rounded-md '>
                         <p className='text-xl text-center'>
-                            <span className='font-semibold text-bozz-one'>{listCompany.verification_status}</span><br />
+                            <span className='font-semibold text-bozz-one'>{listCompany?.verification_status}</span><br />
                             <span className='text-sm'>Status</span>
                         </p>
                     </div>
@@ -110,12 +110,12 @@ const ProfilePartnerUser = () => {
                 <div className='text-center my-5'>
                     <div className="carousel w-full">
                             <div id="slide1" className="carousel-item relative w-full">
-                                <div className="hero h-96" style={{ backgroundImage: `url(${listCompany.event1_image_file})`, backgroundSize: 'cover'}}>
+                                <div className="hero h-96" style={{ backgroundImage: `url(${listCompany?.event1_image_file})`, backgroundSize: 'cover'}}>
                                 <div className="hero-overlay bg-opacity-50"></div>
                                 <div className="hero-content text-center text-bozz-two">
                                     <div className="max-w-md text-bozz-six">
                                     <h1 className='text-xl font-bold mb-16'>EVENT YANG PERNAH KAMI TANGANI </h1>
-                                    <h1 className='text-xl font-bold mb-3'>{listCompany.event1_name}</h1>
+                                    <h1 className='text-xl font-bold mb-3'>{listCompany?.event1_name}</h1>
                                     {/* <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p> */}
                                     </div>
                                 </div>
@@ -126,12 +126,12 @@ const ProfilePartnerUser = () => {
                             </div>
                         </div> 
                         <div id="slide2" className="carousel-item relative w-full">
-                        <div className="hero h-96" style={{ backgroundImage: `url(${listCompany.event2_image_file})` }}>
+                        <div className="hero h-96" style={{ backgroundImage: `url(${listCompany?.event2_image_file})` }}>
                                 <div className="hero-overlay bg-opacity-50"></div>
                                 <div className="hero-content text-center text-neutral-content text-bozz-two">
                                     <div className="max-w-md text-bozz-six">
                                     <h1 className='text-xl font-bold mb-16'>EVENT YANG PERNAH KAMI TANGANI </h1>
-                                    <h1 className='text-xl font-bold mb-3'>{listCompany.event2_name} </h1>
+                                    <h1 className='text-xl font-bold mb-3'>{listCompany?.event2_name} </h1>
                                     <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                                     </div>
                                 </div>
@@ -142,12 +142,12 @@ const ProfilePartnerUser = () => {
                             </div>
                         </div> 
                         <div id="slide3" className="carousel-item relative w-full">
-                        <div className="hero h-96" style={{ backgroundImage: `url(${listCompany.event4_image_file})` }}>
+                        <div className="hero h-96" style={{ backgroundImage: `url(${listCompany?.event4_image_file})` }}>
                                 <div className="hero-overlay bg-opacity-50"></div>
                                 <div className="hero-content text-center text-neutral-content text-bozz-two">
                                     <div className="max-w-md text-bozz-six">
                                     <h1 className='text-xl font-bold mb-16'>EVENT YANG PERNAH KAMI TANGANI </h1>
-                                    <h1 className='text-xl font-bold mb-3'>{listCompany.event3_name}</h1>
+                                    <h1 className='text-xl font-bold mb-3'>{listCompany?.event3_name}</h1>
                                     <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                                     </div>
                                 </div>

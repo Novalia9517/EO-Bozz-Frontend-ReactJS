@@ -1,8 +1,8 @@
 import React from 'react'
-import OauthLogout from './oauthLogout'
-import OauthLogin from './oauthLogin'
 import { useEffect } from 'react'
 import { gapi } from 'gapi-script'
+import { FcGoogle } from 'react-icons/fc'
+
 
 const clientId = '1070594591121-q552jhgvbmjpqhduvglc542p3ojumftn.apps.googleusercontent.com'
 
@@ -12,7 +12,7 @@ const Oauth = () => {
       function start() {
         gapi.client.init({
             clientId: clientId,
-            scope: ""
+          scope: ""
         })
       }
       gapi.load('client:auth2', start)
@@ -21,8 +21,12 @@ const Oauth = () => {
 
   return (
     <div>
-        <OauthLogin/>
-        <OauthLogout/>
+      <button className='btn btn-ghost my-2'>
+
+
+        <a target={'_self'} href='https://irisminty.my.id/login/oauth/google'>Google</a>
+
+      </button>
     </div>
   )
 }

@@ -8,7 +8,9 @@ import { useFormik } from 'formik';
 import { loginSchema } from '../validations/validations';
 import { apiRequest } from '../services/api';
 import { useCookies } from 'react-cookie';
+import {Link } from 'react-router-dom'
 import Swal from 'sweetalert2';
+import Oauth from './Oauth/oAuth';
 
 
 const Login = () => {
@@ -110,6 +112,7 @@ const Login = () => {
                         <button className='bg-bozz-five text-bozz-one w-full h-12 rounded-xl font-bold border border-bozz-one hover:scale-110' onClick={() => setRole('partner')}>Partner</button>
                         <p className='text-black text-center my-3 text-xs'>OR</p>
                         <button className='bg-bozz-five text-bozz-one w-full h-12 rounded-xl font-bold border border-bozz-one hover:scale-110' onClick={() => setRole('admin')}>Admin</button>
+                        <p className='text-black mt-5'>Sign in with Google <Oauth/></p>
                     </div>
                     :
                     <div className='card rounded-[47px] w-[80%] h-[95%] border border-bozz-one flex flex-col justity- p-10 px-24 shadow-[6px_6px_6px_rgba(83,62,133,0.5)] bg-bozz-six'>
@@ -158,7 +161,7 @@ const Login = () => {
                                     className="bg-bozz-one text-bozz-six h-[40px] w-full mt-3 rounded-lg"
                                     type='submit'
                                 >
-                                    Login
+                                    Login 
                                 </button>
                             </div>
                             {/* <div className="divider diveider-gray-600 text-gray-700">OR</div> */}
@@ -184,7 +187,13 @@ const Login = () => {
                             }
 
                             <p className='underline text-bozz-one text-xs font-semibold text-center mt-3' onClick={() => setRole('')}>Choose Login</p>
+                      
+                                <p className='text-black'>Sign in with Google</p>
+                              
+                              
+                       
                         </form>
+                        
                     </div>
                 }
 
