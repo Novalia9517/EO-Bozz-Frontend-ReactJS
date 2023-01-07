@@ -46,7 +46,7 @@ const ListOrder = () => {
         <div className='mt-3 w-full h-full'>
           <h1 className='text-xl font-bold text-bozz-one mb-5'>List Order Partner</h1>
           <div className='px-6 py-3 bg-white rounded-lg h-[90%] flex flex-col justify-between'>
-            <table className='w-full table-fixed'>
+            <table className='w-full table-auto'>
               <thead className='border-b-2 border-bozz-three'>
                 <tr>
                   {tableHead.map((title,index) => {
@@ -58,7 +58,7 @@ const ListOrder = () => {
                 {current ? 
                     current.map((data, index) => {
                   return (
-                    <tr className='text-bozz-two border-b-2 border-bozz-three h-6 text-center text-xs capitalize' key={index}>
+                    <tr className='text-bozz-two border-b-2 border-bozz-three h-10 text-center text-xs capitalize' key={index}>
                       <td>{index + 1}</td>
                       <td>{data.event_name}</td>
                       <td>{data.service_name.slice(0,10)}...</td>
