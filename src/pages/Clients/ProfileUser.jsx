@@ -5,6 +5,7 @@ import Picprofile from '../../assets/profile.png'
 import { useCookies } from 'react-cookie';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import Swal from 'sweetalert2';
 
 const ProfileUser = () => {
 
@@ -25,6 +26,10 @@ const ProfileUser = () => {
             .then(res => {
                 const result = res.data.data
                 setDataClient(result)
+                setName(result.name)
+                setEmail(result.email)
+                setPhone(result.phone)
+                setAddress(result.address)
             })
             .catch(err => {
                 console.log(err)
@@ -43,7 +48,12 @@ const ProfileUser = () => {
             'content-type': 'multipart/form-data',
         })
             .then(response => {
-                console.log(response)
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: 'Edit Data Successfull',
+                    showConfirmButton: true
+                })
             })
             .catch(err => {
                 console.log(err)

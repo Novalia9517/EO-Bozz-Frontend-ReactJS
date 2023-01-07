@@ -54,8 +54,8 @@ const Navbar = () => {
                             {/* EO-BOZZ */}
                         </Link>
                         <div className='pl-5'>
-                            <Link to={"/"} className="btn btn-ghost normal-case text-lg">Home</Link>
-                            <Link to={"/about"} className="btn btn-ghost normal-case text-lg">About</Link>
+                            <Link to={"/"} className="btn btn-ghost normal-case text-lg drop-shadow-[0_2px_2px_#352360]">Home</Link>
+                            <Link to={"/about"} className="btn btn-ghost normal-case text-lg drop-shadow-[0_2px_2px_#352360]">About</Link>
                         </div>
                     </div>
 
