@@ -24,7 +24,7 @@ const CardProduct = ({ name, rating, price, click, company, companyDetail, city,
                         </div>
                     </div>
                     <div className="card-actions mt-2">
-                        <button className="btn bg-bozz-one" onClick={click}>More Detail</button>
+                        <button className="btn bg-bozz-one text-white text-xs hover:bg-bozz-two" onClick={click}>More Detail</button>
                     </div>
                 </div>
             </div>
