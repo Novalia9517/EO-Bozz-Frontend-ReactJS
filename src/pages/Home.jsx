@@ -101,7 +101,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <div className='container mx-auto flex justify-center px-10 py-10'>
+            <div className='container mx-auto flex justify-center px-10 py-10 text-black'>
                 {data_service ? (
                     <CardHome
                         dataCategory={data_service}

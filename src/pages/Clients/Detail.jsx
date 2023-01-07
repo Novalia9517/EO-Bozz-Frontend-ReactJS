@@ -88,12 +88,13 @@ const Detail = () => {
         .then(res => setListClients(res.data))
         .catch(err => console.log(err))
     }
+    console.log('idd', localStorage.getItem('id'))
     const onSubmit = () => {
         if (values.ask.length >= 10) {
             const body = {
                 comment: values.ask,
                 partner_id: parseInt(serviceId.partner.id),
-                client_id: parseInt(cookie.id),
+                client_id: parseInt(localStorage.getItem('idclient')),
                 service_id: parseInt(serviceId.id)
             }
             apiWithAuth(`discussions`, `POST`, body, "application/json", token)
