@@ -83,8 +83,8 @@ const Navbar = () => {
                                 </ul>
                                 </div>
                             ) : <div className='flex gap-5'>
-                                <Link to='/login' ><button className='bg-bozz-six text-bozz-one ring-2 ring-bozz-two'>Login</button></Link>
-                                <Link to='/register/user' ><button className='bg-bozz-six text-bozz-one ring-2 ring-bozz-two'>Register as Clients</button></Link>
+                                <Link to='/login' ><button className='ml-3 bg-bozz-six h-10 text-bozz-one ring-2 rounded-lg  ring-bozz-two px-3'>Login</button></Link>
+                                <Link to='/register/user' ><button className='bg-bozz-six  h-10 text-bozz-one  rounded-lg ring-2 ring-bozz-two px-3'>Register as Clients</button></Link>
                             </div>}
 
                     </div>

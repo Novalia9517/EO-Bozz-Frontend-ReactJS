@@ -37,10 +37,10 @@ const SideBarAdmin = ({role, name}) => {
         });
     }
   return (
-    <div className='min-h-screen w-[20%] bg-bozz-one pt-12 px-10 cursor-pointer'>
+    <div className='min-h-screen w-[20%] bg-bozz-one pt-8 px-10 cursor-pointer'>
         {/* <h1 className='text-white font-bold text-4xl text-center drop-shadow-[0_4px_4px_#352360] hover:animate-bounce'>EO-Bozz</h1> */}
-        <div className='flex justify-center mb-[-50px]'>
-            <img src={Logo} className='w-40 align-center drop-shadow-[0_6px_6px_#352360] hover:animate-bounce'/>
+        <div className='flex justify-center'>
+            <img src={Logo} className='w-40 align-center drop-shadow-[0_6px_6px_#352360]'/>
         </div>
             { role === 'Partner' ? 
                 <ul className='flex flex-col px-10 w-full'>
