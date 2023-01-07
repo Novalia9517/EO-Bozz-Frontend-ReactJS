@@ -18,7 +18,7 @@ const ProfilePartnerUser = () => {
     const [listCompany,setListCompany] = useState()
     const location = useLocation()
     const id = location?.state.id
-    console.log('id',id)
+    // console.log('id',id)
 
     const onClick = (id) => {
         navigate('/detail', {
@@ -34,7 +34,7 @@ const ProfilePartnerUser = () => {
         })
             .then(res => {
                 const data = res.data.data
-                console.log(data)
+                // console.log(data)
                 setPartnerData(data)
             })
             .catch(err => {
@@ -68,13 +68,12 @@ const ProfilePartnerUser = () => {
     useEffect(() => {
         getList()
         getPartner(id)
-        console.log('data',partnerData)
+        // console.log('data',partnerData)
     },[])
 
-    console.log('company',listCompany)
     return (
         <>
-        {partnerData ? 
+        {listCompany && partnerData ? 
         <div className='bg-bozz-six text-bozz-one'>
             <Navbar />
             <div className='container mx-auto px-10 py-10'>
@@ -87,18 +86,6 @@ const ProfilePartnerUser = () => {
                     </div>
                 </div>
                 <div className='flex justify-center my-8'>
-                    {/* <div className='px-10 mx-5 border border-bozz-one rounded-md '>
-                        <p className='text-xl text-center'>
-                            <span className='font-semibold'>4.8</span><br />
-                            <span className='text-sm'>Average Rating</span>
-                        </p>
-                    </div>
-                    <div className='px-10 mx-5 border border-bozz-one rounded-md '>
-                        <p className='text-xl text-center'>
-                            <span className='font-semibold'>120</span><br />
-                            <span className='text-sm'>Total Event</span>
-                        </p>
-                    </div> */}
                     <div className='px-10 mx-5 border border-bozz-one rounded-md '>
                         <p className='text-xl text-center'>
                             <span className='font-semibold text-bozz-one'>{listCompany?.verification_status}</span><br />
@@ -164,16 +151,18 @@ const ProfilePartnerUser = () => {
                     <h1 className='text-2xl font-bold text-center'>LIST SERVICE</h1>
                     <div className='grid gird-cols-2 lg:grid-cols-3 mt-5'>
                         {partnerData? (
-                                    partnerData.map((item) => {
+                                    partnerData.map((item,i) => {
                                         return(
-                                            <CardProduct
-                                                img={item.service_image_file}
-                                                name={item.service_name}
-                                                rating={item.average_rating}
-                                                price={item.service_price}
-                                                company={listCompany.company_name}
-                                                click={() => onClick(item.id)}
-                                                city={item.city} />
+                                            <div key={i}>
+                                                <CardProduct
+                                                    img={item.service_image_file}
+                                                    name={item.service_name}
+                                                    rating={item.average_rating}
+                                                    price={item.service_price}
+                                                    company={listCompany.company_name}
+                                                    click={() => onClick(item.id)}
+                                                    city={item.city} />
+                                            </div>
                                         )
                                     })
                         ):<></>}

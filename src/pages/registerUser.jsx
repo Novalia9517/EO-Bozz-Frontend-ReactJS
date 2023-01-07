@@ -133,7 +133,7 @@ const RegisterUser = () => {
                         </div>
                     
                         {/* <a className="text-bozz-one text-xs mt-2 underline">Forgot Your Password?</a> */}
-                        <div className="flex justify-center">
+                        <div className="flex justify-center mt-3">
                             <button
                             className="bg-bozz-one text-bozz-six h-10 w-36 rounded-lg text-sm focus:border-none focus:ring-2 focus:ring-bozz-two"
                             type='submit' onClick={() => onSubmit()}
