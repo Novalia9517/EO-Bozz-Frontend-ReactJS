@@ -90,7 +90,7 @@ const Home = () => {
                         <h1 className='text-bozz-two font-semibold my-2'>Event Organizer Platform</h1>
                         <p>A platform that help Clients and Event Organizer to connect easily</p>
                         <button 
-                            className='btn bg-bozz-two hover:bg-bozz-three border-none hover:ring-2 my-10'
+                            className='btn bg-bozz-two hover:bg-bozz-three border-none hover:ring-2 my-10 text-white'
                             onClick={() => navigate('/about')}
                             >About Us</button>
                     </div>

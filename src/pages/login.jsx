@@ -64,7 +64,7 @@ const Login = () => {
                 Swal.fire({
                     position: "center",
                     icon: "error",
-                    title: `${err}`,
+                    title: `Login gagal, coba lagi nanti.`,
                     showConfirmButton: true
                 })
             })
@@ -112,7 +112,7 @@ const Login = () => {
                         <button className='bg-bozz-five text-bozz-one w-full h-12 rounded-xl font-bold border border-bozz-one hover:scale-110' onClick={() => setRole('partner')}>Partner</button>
                         <p className='text-black text-center my-3 text-xs'>OR</p>
                         <button className='bg-bozz-five text-bozz-one w-full h-12 rounded-xl font-bold border border-bozz-one hover:scale-110' onClick={() => setRole('admin')}>Admin</button>
-                        <p className='text-black mt-5'>Sign in with Google <Oauth/></p>
+                        {/* <p className='text-black mt-5'>Sign in with Google <Oauth/></p> */}
                     </div>
                     :
                     <div className='card rounded-[47px] w-[80%] h-[95%] border border-bozz-one flex flex-col justity- p-10 px-24 shadow-[6px_6px_6px_rgba(83,62,133,0.5)] bg-bozz-six'>
@@ -164,15 +164,16 @@ const Login = () => {
                                     Login 
                                 </button>
                             </div>
-                            {/* <div className="divider diveider-gray-600 text-gray-700">OR</div> */}
+                            <div className="divider divider-gray-600 text-gray-700 h-3 text-xs">OR</div>
                             {/* <div className="flex justify-center">
                                 <button
                                     className="bg-bozz-six border border-bozz-one flex justify-center items-center text-sm text-bozz-three flex h-[40px] w-full mt-2 rounded-lg"
                                     type='submit'
                                 >
-                                   <FcGoogle className='text-md mr-3'/> Login with Google
+                                   <FcGoogle className='text-md mr-3'/> Login with <Oauth/>
                                 </button>
                             </div> */}
+                            <Oauth/>
                             {role !== 'admin' ?
                                 <p className="text-bozz-one text-sm mt-3">
                                     Dont have an account ?
@@ -186,17 +187,10 @@ const Login = () => {
                                 </p> : null
                             }
 
-                            <p className='underline text-bozz-one text-xs font-semibold text-center mt-3' onClick={() => setRole('')}>Choose Login</p>
-                      
-                                <p className='text-black'>Sign in with Google</p>
-                              
-                              
-                       
-                        </form>
-                        
+                            <p className='underline text-bozz-one text-xs font-semibold text-center mt-3' onClick={() => setRole('')}>Choose Login</p>         
+                        </form>                   
                     </div>
                 }
-
             </div>
         </div>
     )
