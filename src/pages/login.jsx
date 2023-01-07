@@ -164,16 +164,12 @@ const Login = () => {
                                     Login 
                                 </button>
                             </div>
-                            <div className="divider divider-gray-600 text-gray-700 h-3 text-xs">OR</div>
-                            {/* <div className="flex justify-center">
-                                <button
-                                    className="bg-bozz-six border border-bozz-one flex justify-center items-center text-sm text-bozz-three flex h-[40px] w-full mt-2 rounded-lg"
-                                    type='submit'
-                                >
-                                   <FcGoogle className='text-md mr-3'/> Login with <Oauth/>
-                                </button>
-                            </div> */}
-                            <Oauth/>
+                            {role == 'clients' &&
+                                <>
+                                    <div className="divider divider-gray-600 text-gray-700 h-3 text-xs">OR</div>
+                                    <Oauth/>
+                                </>
+                            }
                             {role !== 'admin' ?
                                 <p className="text-bozz-one text-sm mt-3">
                                     Dont have an account ?
