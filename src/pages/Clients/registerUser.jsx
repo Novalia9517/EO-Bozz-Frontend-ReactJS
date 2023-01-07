@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
-import Background from '../assets/shoes.jpg'
+import Background from '../../assets/shoes.jpg'
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
-import { registerSchema } from '../validations/validations';
-import { apiRequest } from '../services/api';
-import InputReg from '../components/inputReg';
-import InputRegPwd from '../components/inputRegPwd';
+import { registerSchema } from '../../validations/validations';
+import { apiRequest } from '../../services/api';
+import InputReg from '../../components/inputReg';
+import InputRegPwd from '../../components/inputRegPwd';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 

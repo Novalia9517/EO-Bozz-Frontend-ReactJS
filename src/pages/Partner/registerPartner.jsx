@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Background from '../assets/shoes.jpg'
-import { registerPartnerSchema } from '../validations/validations';
-import InputReg from '../components/inputReg';
+import Background from '../../assets/shoes.jpg'
+import { registerPartnerSchema } from '../../validations/validations';
+import InputReg from '../../components/inputReg';
 import { useFormik } from 'formik';
-import InputRegFile from '../components/inputRegFile';
-import InputRegPwd from '../components/inputRegPwd';
-import { apiRequest } from '../services/api';
+import InputRegFile from '../../components/inputRegFile';
+import InputRegPwd from '../../components/inputRegPwd';
+import { apiRequest } from '../../services/api';
 import Swal from 'sweetalert2';
 import { useNavigate, Link } from 'react-router-dom';
 

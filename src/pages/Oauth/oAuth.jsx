@@ -22,10 +22,7 @@ const Oauth = () => {
   return (
     <div>
       <button className='btn btn-ghost my-2'>
-
-
         <a target={'_self'} href='https://irisminty.my.id/login/oauth/google'>Google</a>
-
       </button>
     </div>
   )

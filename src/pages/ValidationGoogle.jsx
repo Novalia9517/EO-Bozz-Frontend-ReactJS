@@ -12,7 +12,7 @@ const ValidationGoogle = () => {
 
     localStorage.setItem('userToken', token)
     localStorage.setItem('idclient', userid)
-  localStorage.setItem('id', id)
+    localStorage.setItem('id', id)
 
   const getAllCity = async () => {
     apiRequest(`city`, `GET`, null)

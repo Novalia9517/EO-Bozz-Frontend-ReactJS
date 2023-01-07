@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import Navbar from '../component/Navbar'
-import { apiWithAuth } from '../services/api'
-import { formatCurrency } from '../utils/formatCurrency'
+import Navbar from '../../components/Navbar'
+import { apiWithAuth } from '../../services/api'
+import { formatCurrency } from '../../utils/formatCurrency'
 import Swal from 'sweetalert2'
 
 const Payment = () => {

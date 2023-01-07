@@ -81,7 +81,7 @@ const RevisiRegister = () => {
     body.append('bank_name', values.bankname)
     body.append('bank_account_number', values.banknumber)
     body.append('bank_account_name', values.bankaccountname)
-    console.log([...body])
+    // console.log([...body])
 
     apiWithAuth(`partners`, `PUT`, body, `multipart/form-data`, localStorage.getItem('userToken'))
     .then(res => { 
@@ -91,11 +91,10 @@ const RevisiRegister = () => {
             title : 'Revision Successfull, Wait for next proccess.',
             showConfirmButton : true
         })    
-        console.log(res)
+        // console.log(res)
         navigate('/partner/')
     })
     .catch(err => {
-        setLoading(false)
         Swal.fire({
             position : "center",
             icon : "error",
@@ -149,7 +148,7 @@ const RevisiRegister = () => {
            <li><ListRevisi label='company phone' placeholder={'Company A'} id='companyphone' value={values.companyphone} check1={errors.companyphone} check2={touched.companyphone} change={handleChange} blur={handleBlur}/></li>
            <li><ListRevisi label='company address' placeholder={'Company A'} id='companyaddress' value={values.companyaddress} check1={errors.companyaddress} check2={touched.companyaddress} change={handleChange} blur={handleBlur}/></li>
            <li>
-            <div className='flex justify-between items-end gap-5 pr-12'>
+            <div className='flex flex-col gap-5 pr-12'>
               <label className='text-bozz-three text-sm font-semibold capitalize'>Company Profile Image</label>
               <input 
                 type={'file'} onChange={(e) => setImg(e.target.files[0])}

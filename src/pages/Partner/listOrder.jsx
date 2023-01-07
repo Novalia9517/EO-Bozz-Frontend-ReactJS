@@ -11,6 +11,7 @@ const ListOrder = () => {
     const [orderList, setOrderList] = useState()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
+    const [payoutImage, setPayoutImage] = useState()
     const [currentPage, setCurrentPage] = useState(1)
     const [dataPerPage, setdataPerPage] = useState(8)
     const lastIndex = currentPage * dataPerPage
@@ -19,10 +20,6 @@ const ListOrder = () => {
     const maxPage = Math.ceil(orderList?.length / dataPerPage)
     const pages = []
     for(let i = 1; i <= maxPage; i++){pages.push(i)}
-    const disabled = currentPage === Math.ceil(orderList?.length / dataPerPage) ? true : false;
-    const disableBack = currentPage === 1 ? true : false
-    const paginateBack = () => {currentPage > 1 && setCurrentPage(currentPage - 1)}
-    const paginateFront =() => setCurrentPage(currentPage + 1)
 
     const getOrderList = async() => {
 
@@ -50,12 +47,12 @@ const ListOrder = () => {
               <thead className='border-b-2 border-bozz-three'>
                 <tr>
                   {tableHead.map((title,index) => {
-                    return <th className='text-bozz-two font-semibold capitalize text-md' key={index}>{title}</th>
+                    return <th className='text-bozz-two font-semibold capitalize text-sm' key={index}>{title}</th>
                   })}
                 </tr>
               </thead>
               <tbody>
-                {current ? 
+                {current && 
                     current.map((data, index) => {
                   return (
                     <tr className='text-bozz-two border-b-2 border-bozz-three h-10 text-center text-xs capitalize' key={index}>
@@ -71,26 +68,22 @@ const ListOrder = () => {
                         <button className='w-16 h-6 bg-bozz-three text-bozz-six rounded-lg text-[10px]'
                         onClick={() => navigate('/partner/confirm-order', {state : { id : data.id}})}
                         >Confirm</button> : '-'}</td>
-                      {/* <td>{data.payout_status}</td> */}
-                      {/* <td>{data.transfer_file && data.payout_status === 'pay' ?  */}
-                      {/* <td>{data.payout_receipt_url !== '' && data.order_status == 'Paid Off'? 
-                        <button className='w-20 h-6 bg-bozz-three text-bozz-six rounded-lg text-[8px]'
-                        src={data.payout_receipt_url}
-                        >Download File</button> : '-'}</td> */}
                       <td>{data.payout_receipt_url !== '' && data.order_status == 'Paid Off'? 
                         <>
                         <label htmlFor="my-modal-4" 
                           className='text-xs border border-white px-3 py-2 bg-bozz-three hover:bg-bozz-two text-bozz-six rounded-lg text-[10px]'
+                          onClick={() => setPayoutImage(data.payout_receipt_url)}
                           >Payout File</label>
-                          <ImageModal link={data.payout_receipt_url} title={'Image'}/>
+                          {/* <ImageModal link={data.payout_receipt_url} title={'Image'}/> */}
                     </>: '-'}</td>
                     </tr>
                   )
                 })
-                : <tr><td className='w-full text-md font-semibold text-bozz-one mt-5'>Belum Ada Order Yang Masuk</td></tr>
               }
               </tbody>
             </table>
+              {!current && <p className='w-full text-md font-semibold text-bozz-one mt-5'>Belum Ada Order Yang Masuk</p>}
+            <ImageModal link={payoutImage} title={'Image'}/>
             <div className="btn-group flex place-items-center justify-center gap-2 m-5">
               {/* <button className="btn border border-bozz-two hover:text-white hover:bg-bozz-three bg-white text-bozz-two h-8 w-10 text-xs" onClick={()=>paginateBack()}>Prev</button> */}
               {

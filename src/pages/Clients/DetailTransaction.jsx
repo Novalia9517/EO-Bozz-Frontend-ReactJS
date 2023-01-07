@@ -1,10 +1,10 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import Navbar from '../component/Navbar'
-import { formatCurrency } from '../utils/formatCurrency'
+import Navbar from '../../components/Navbar'
+import { formatCurrency } from '../../utils/formatCurrency'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { apiWithAuth } from '../services/api'
-import Loading from '../components/Loading'
+import { apiWithAuth } from '../../services/api'
+import Loading from '../../components/Loading'
 import Swal from 'sweetalert2'
 import { BiArrowBack} from 'react-icons/bi'
 
@@ -68,7 +68,7 @@ const DetailTransaction = () => {
             service_id : parseInt(orderDetail.service_id)
         }
 
-        console.log(body)
+        // console.log(body)
         apiWithAuth(`reviews`, `POST`, body, "application/json", token)
         .then(res => {
             Swal.fire({
@@ -77,7 +77,8 @@ const DetailTransaction = () => {
                 title : `Success Send Review`,
                 showConfirmButton : true
             })  
-            getOrderDetail()
+            // getOrderDetail()
+            setStatus('after-review')
         })
         .catch(err => {
             Swal.fire({
@@ -86,13 +87,12 @@ const DetailTransaction = () => {
                 title : `Failed Send Review`,
                 showConfirmButton : true
             })  
-            console.log(err)
+            // console.log(err)
         })
     }
 
     const onSubmit = (e) => {
         e.preventDefault()
-        addReview()
     }
 
 
@@ -199,6 +199,10 @@ const DetailTransaction = () => {
                                     </div>
                                 </div>
                              : null
+                            }
+                            {status == 'after-review' &&
+                                <p className='text-lg mt-5 text-bozz-two font semi-bold'>You have added a review to this order</p>
+
                             }
                         </div>
                     <div>

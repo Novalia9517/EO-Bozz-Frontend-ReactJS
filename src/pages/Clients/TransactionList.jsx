@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from 'react'
-import Navbar from '../component/Navbar'
-import TableTransaction from '../component/TableTransaction'
+import Navbar from '../../components/Navbar'
+import TableTransaction from '../../components/TableTransaction'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -14,7 +13,7 @@ const TransactionList = () => {
             headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}`}
         })
             .then(res => {
-                const data = res.data.data
+                const data = res.data.data.reverse()
                 setOrder(data)
                 // console.log('cek',data)
             })
@@ -37,7 +36,7 @@ const TransactionList = () => {
     
 
     return (
-        <div className='bg-white h-screen h-full'>
+        <div className='bg-white min-h-screen h-full'>
             <Navbar />
             <div className='container mx-auto px-10 py-10 text-black bg-white h-screen'>
                 <div className="overflow-x-auto border border-bozz-one rounded p-5 shadow-lg text-gray.700">
