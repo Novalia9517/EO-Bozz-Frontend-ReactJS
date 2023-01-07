@@ -70,7 +70,7 @@ const AddAdditional = () => {
                   <EditInput label='Additional Price' value={addPrice} change={(e) => setAddPrice(e.target.value)} id='addprice' placeholder={'800000'}/>
                 </div>
                 <div className='flex justify-center mt-3'>
-                  <button className='h-12 w-18 border rounded-md border-bozz-one flex justify-center items-center text-xs font-bold bg-bozz-five' onClick={addAdditional}>+ Add Additional</button>
+                  <button className='h-12 px-3 border rounded-md border-bozz-one flex justify-center items-center text-xs font-bold bg-bozz-five' onClick={addAdditional}>+ Add Additional</button>
                 </div>
               </div>
             </div>

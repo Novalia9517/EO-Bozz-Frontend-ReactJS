@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from '../component/Navbar'
+import Navbar from '../components/Navbar'
 import imgHome from '../assets/HomeImage.png'
-import CardHome from '../component/CardHome'
-import CardProduct from '../component/CardProduct'
-import Footer from '../component/Footer'
+import CardHome from '../components/CardHome'
+import CardProduct from '../components/CardProduct'
+import Footer from '../components/Footer'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { apiWithAuth } from '../services/api'
@@ -29,7 +29,7 @@ const Home = () => {
             headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
         })
             .then(res => {
-                const data = res.data.data
+                const data = res.data.data.reverse()
                 // console.log(data)
                 setDataService(data)
             })
@@ -66,10 +66,14 @@ const Home = () => {
         .catch(err => console.log(err))
     }
 
+
+
     useEffect(() => {
         getDataService()
-        getCompany()
         getCity()
+        if(localStorage.getItem('userToken')){
+            getCompany()
+        }
     }, [])
 
     

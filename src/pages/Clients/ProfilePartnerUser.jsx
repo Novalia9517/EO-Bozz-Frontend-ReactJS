@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import Footer from '../component/Footer'
-import Navbar from '../component/Navbar'
+import Footer from '../../components/Footer'
+import Navbar from '../../components/Navbar'
 import { FaEdit } from 'react-icons/fa'
-import Picprofile from '../assets/profile.png'
-import Dummy from '../assets/HomeImage.png'
-import CardProduct from '../component/CardProduct'
-import Art from '../assets/art.png'
+import CardProduct from '../../components/CardProduct'
+import Art from '../../assets/art.png'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { apiWithAuth } from '../services/api'
-import Loading from '../components/Loading'
+import Loading from '../../components/Loading'
 import axios from 'axios'
 
 
@@ -17,7 +14,7 @@ const ProfilePartnerUser = () => {
     const [partnerData ,setPartnerData] = useState()
     const [listCompany,setListCompany] = useState()
     const location = useLocation()
-    const id = location?.state.id
+    const id = location?.state?.id
     // console.log('id',id)
 
     const onClick = (id) => {
@@ -50,20 +47,6 @@ const ProfilePartnerUser = () => {
         .then(res => setListCompany(res.data.data))
         .catch(err => console.log(err))
     }
-    const getServices = async(id) => {
-        apiRequest(`partners/${parseInt(id)}/services`, `GET`, null, "application/json", token )
-        .then(res => setLisServices(res.data))
-        .catch(err => console.log(err))
-    }
-    const onDetail = (id) => {
-        navigate('/detail', {
-            state: {
-                id: id
-            }
-        })
-    }
-
-    
 
     useEffect(() => {
         getList()
@@ -120,7 +103,7 @@ const ProfilePartnerUser = () => {
                                     <div className="max-w-md text-bozz-six">
                                     <h1 className='text-xl font-bold mb-16'>EVENT YANG PERNAH KAMI TANGANI </h1>
                                     <h1 className='text-xl font-bold mb-3'>{listCompany.event2_name} </h1>
-                                    <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                                    {/* <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p> */}
                                     </div>
                                 </div>
                                 </div>
@@ -136,7 +119,7 @@ const ProfilePartnerUser = () => {
                                     <div className="max-w-md text-bozz-six">
                                     <h1 className='text-xl font-bold mb-16'>EVENT YANG PERNAH KAMI TANGANI </h1>
                                     <h1 className='text-xl font-bold mb-3'>{listCompany.event3_name}</h1>
-                                    <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                                    {/* <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p> */}
                                     </div>
                                 </div>
                                 </div>

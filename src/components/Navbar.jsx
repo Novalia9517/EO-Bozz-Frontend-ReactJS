@@ -5,6 +5,7 @@ import { useCookies } from 'react-cookie'
 import { FaUserAlt } from 'react-icons/fa'
 import { TbLogout } from 'react-icons/tb'
 import { BsFillCartCheckFill } from 'react-icons/bs'
+import { IoMenuOutline} from 'react-icons/io5'
 import Logo from '../assets/logo2.png'
 
 const Navbar = () => {
@@ -54,6 +55,7 @@ const Navbar = () => {
                         </Link>
                         <div className='pl-5'>
                             <Link to={"/"} className="btn btn-ghost normal-case text-lg">Home</Link>
+                            <Link to={"/about"} className="btn btn-ghost normal-case text-lg">About</Link>
                         </div>
                     </div>
 
@@ -64,9 +66,12 @@ const Navbar = () => {
                             {token ? (
                                 <div className="dropdown dropdown-end">
                                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                                        <div className="w-10 rounded-full">
+                                        {/* <div className="w-10 rounded-full">
                                             <img src="https://placeimg.com/80/80/people" />
-                                        </div>
+                                        </div> */}
+                                        <button className="btn btn-square btn-ghost">
+                                           <IoMenuOutline className='text-2xl'/>
+                                        </button>
                                     </label>
                                 <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-bozz-six text-bozz-one border border-bozz-one rounded-box w-36">
                                     <li>
