@@ -13,6 +13,7 @@ import Wed from '../assets/wed2.jpg'
 import Wed2 from '../assets/wed4.jfif'
 import Logo from '../assets/logo2.png'
 import photo from '../assets/photo.jpeg'
+import Loading from '../components/Loading'
 
 const Home = () => {
 
@@ -79,6 +80,10 @@ const Home = () => {
     
 
     return (
+        <>
+        {data_service && city && listCompany ?
+
+
         <div className='bg-bozz-six'>
             <Navbar />
             {/* <hr className='text-black' /> */}
@@ -145,6 +150,9 @@ const Home = () => {
             </div>
             <Footer />
         </div>
+        : <Loading/>
+        }
+        </>
     )
 }
 

@@ -5,6 +5,7 @@ import { apiWithAuth } from '../../services/api'
 import { formatCurrency } from '../../utils/formatCurrency'
 import Swal from 'sweetalert2'
 import TermsCondition from '../../components/termsCondition'
+import Loading from '../../components/Loading'
 
 const Payment = () => {
     const banks = ['va bni', 'va bca', 'va bri','va permata']
@@ -80,6 +81,8 @@ const Payment = () => {
         })
     }
     return (
+        <>
+        {data ?
         <div className='bg-bozz-six text-bozz-one'>
             <Navbar />
             <div className="flex justify-center w-screen min-h-screen bg-gray-100 text-gray-800 p-8">
@@ -187,6 +190,9 @@ const Payment = () => {
             </div>
         </div>
         </div>
+        : <Loading/>
+        }
+        </>
     )
 }
 

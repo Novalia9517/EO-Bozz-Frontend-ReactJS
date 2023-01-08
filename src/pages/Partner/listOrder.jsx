@@ -38,7 +38,7 @@ const ListOrder = () => {
     // console.log(orderList)
   return (
     <>
-    {!loading ? 
+    {!loading && current ? 
     <LayoutAdmin>
         <div className='mt-3 w-full h-full'>
           <h1 className='text-xl font-bold text-bozz-one mb-5'>List Order Partner</h1>

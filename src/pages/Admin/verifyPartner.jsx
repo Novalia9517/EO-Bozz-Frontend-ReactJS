@@ -99,7 +99,6 @@ const VerifyPartner = () => {
   return (
     <>
     {partnerData ? 
-    
     <LayoutAdmin>
       <Link to='/admin/' className='text-bozz-one font-bold flex items-center mt-2'>
         <BiLeftArrow className='mx-2 text-xl font-bold' />
