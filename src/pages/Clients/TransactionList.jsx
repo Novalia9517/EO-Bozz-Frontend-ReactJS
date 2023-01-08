@@ -3,6 +3,7 @@ import Navbar from '../../components/Navbar'
 import TableTransaction from '../../components/TableTransaction'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../../components/Loading'
 
 const TransactionList = () => {
     const [order,setOrder] = useState()
@@ -36,6 +37,9 @@ const TransactionList = () => {
     
 
     return (
+        <>
+        {order ?
+        
         <div className='bg-white min-h-screen h-full'>
             <Navbar />
             <div className='container mx-auto px-10 py-10 text-black bg-white h-screen'>
@@ -80,6 +84,9 @@ const TransactionList = () => {
                 </div>
             </div>
         </div>
+        :<Loading/>
+        }
+        </>
     )
 }
 

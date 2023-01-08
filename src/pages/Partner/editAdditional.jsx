@@ -10,6 +10,7 @@ import EditInput from '../../components/EditInput'
 import { apiWithAuth } from '../../services/api'
 import { useCookies } from 'react-cookie'
 import Swal from 'sweetalert2'
+import Loading from '../../components/Loading'
 
 const EditAdditional = () => {
     const [addName, setAddName] = useState('')
@@ -58,6 +59,10 @@ const EditAdditional = () => {
       setAddPrice(data.additional_price)
     },[setAddName, setAddPrice])
   return (
+    <>
+    {addName && addPrice ?
+
+
     <LayoutAdmin>
       <Link to='/partner/' className='text-bozz-one font-bold flex items-center mt-2'>
           <BiLeftArrow className='mx-2 text-xl font-bold'/>
@@ -81,6 +86,9 @@ const EditAdditional = () => {
           </div>
         </div>
     </LayoutAdmin>
+    : <Loading/>
+    }
+    </>
   )
 }
 
