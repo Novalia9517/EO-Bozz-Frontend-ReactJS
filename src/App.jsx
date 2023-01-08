@@ -34,6 +34,7 @@ import ServiceAdditional from './pages/Partner/ServiceAdditional'
 import Oauth from './pages/Oauth/oAuth'
 import ValidationGoogle from './pages/ValidationGoogle'
 import About from './pages/Clients/About'
+import ListRegister from './pages/Admin/listRegister'
 
 let persistor = persistStore(store);
 
@@ -59,6 +60,7 @@ function App() {
             <Route path='/register/user' element={<RegisterUser />} />
             <Route path='/register/partner' element={<RegisterPartner />} />
             <Route path='/admin/' element={<DashboardAdmin />} />
+            <Route path='/admin/list-register' element={<ListRegister/>} />
             <Route path='/admin/profile' element={<Profile />} />
             <Route path='/admin/list-order' element={<ListOrderAdmin />} />
             <Route path='/admin/verify-partner' element={<VerifyPartner />} />

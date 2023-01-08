@@ -5,6 +5,9 @@ import { FaUserAlt } from 'react-icons/fa'
 import { TbLogout } from 'react-icons/tb'
 import Swal from 'sweetalert2'
 import Logo from '../assets/logo2.png'
+import {FaRegHandshake} from 'react-icons/fa'
+import {IoListOutline} from "react-icons/io5"
+import {HiOutlineUserCircle} from "react-icons/hi"
 
 const SideBarAdmin = ({role, name}) => {
     const navigate = useNavigate()
@@ -75,26 +78,35 @@ const SideBarAdmin = ({role, name}) => {
                 </ul>
             : <ul className='flex flex-col px-10 w-full mt-8'>
                 <li 
-                    className='flex text-white font-bold text-xs my-3 items-center'
+                    className='flex  gap-3 text-white font-bold text-xs my-3 items-center'
                     onClick={() => navigate('/admin/')}
                     >
-                    <FaHome  className='text-xl mx-4'/>
+                    <FaHome  className='text-xl'/>
                     <span>Dashboard</span>
                 </li>
                 <li 
-                    className='flex text-white font-bold text-xs my-3 items-center'
+                    className='flex  gap-3 text-white font-bold text-xs my-3 items-center'
+                    onClick={() => navigate('/admin/list-register')}
+                    >
+                    <FaRegHandshake className='text-lg'/>
+                    <span>List Register</span>
+                </li>
+                <li 
+                    className='flex gap-3 text-white font-bold text-xs my-3 items-center'
                     onClick={() => navigate('/admin/list-order')}
                     >
-                    <FaThList className='text-lg mx-4'/>
+                    <IoListOutline className='text-lg'/>
                     <span>List Order</span>
                 </li>
                 <li>
                     <Link to={link}
-                        className="flex text-white font-bold text-xs my-3 items-center">
-                            <FaUserAlt className='text-lg mx-4'
+                        className="flex  gap-3 text-white font-bold text-xs my-3 items-center">
+                            <HiOutlineUserCircle className='text-[16px]'
                             onClick={() => profileClick()} />Profile</Link>
                     </li>
-                    <li onClick={onLogout}><a className="flex text-white font-bold text-xs my-3 items-center"><TbLogout className='text-lg mx-4' />Logout</a></li>
+                    <li onClick={onLogout}>
+                        <a className="flex  gap-3 text-white font-bold text-xs my-3 items-center">
+                            <TbLogout className='text-lg' />Logout</a></li>
             </ul>
             }
     </div>
