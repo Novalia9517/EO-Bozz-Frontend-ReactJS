@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from '../component/Navbar'
+import Navbar from '../components/Navbar'
 import imgHome from '../assets/HomeImage.png'
-import CardHome from '../component/CardHome'
-import CardProduct from '../component/CardProduct'
-import Footer from '../component/Footer'
+import CardHome from '../components/CardHome'
+import CardProduct from '../components/CardProduct'
+import Footer from '../components/Footer'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { apiWithAuth } from '../services/api'
@@ -29,7 +29,7 @@ const Home = () => {
             headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
         })
             .then(res => {
-                const data = res.data.data
+                const data = res.data.data.reverse()
                 // console.log(data)
                 setDataService(data)
             })
@@ -66,10 +66,14 @@ const Home = () => {
         .catch(err => console.log(err))
     }
 
+
+
     useEffect(() => {
         getDataService()
-        getCompany()
         getCity()
+        if(localStorage.getItem('userToken')){
+            getCompany()
+        }
     }, [])
 
     
@@ -86,7 +90,7 @@ const Home = () => {
                         <h1 className='text-bozz-two font-semibold my-2'>Event Organizer Platform</h1>
                         <p>A platform that help Clients and Event Organizer to connect easily</p>
                         <button 
-                            className='btn bg-bozz-two hover:bg-bozz-three border-none hover:ring-2 my-10'
+                            className='btn bg-bozz-two hover:bg-bozz-three border-none hover:ring-2 my-10 text-white'
                             onClick={() => navigate('/about')}
                             >About Us</button>
                     </div>

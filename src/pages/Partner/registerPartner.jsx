@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Background from '../assets/shoes.jpg'
-import { registerPartnerSchema } from '../validations/validations';
-import InputReg from '../components/inputReg';
+import Background from '../../assets/shoes.jpg'
+import { registerPartnerSchema } from '../../validations/validations';
+import InputReg from '../../components/inputReg';
 import { useFormik } from 'formik';
-import InputRegFile from '../components/inputRegFile';
-import InputRegPwd from '../components/inputRegPwd';
-import { apiRequest } from '../services/api';
+import InputRegFile from '../../components/inputRegFile';
+import InputRegPwd from '../../components/inputRegPwd';
+import { apiRequest } from '../../services/api';
 import Swal from 'sweetalert2';
 import { useNavigate, Link } from 'react-router-dom';
 
@@ -276,8 +276,8 @@ function RegisterPartner() {
                         <InputReg title='Email' id='picemail' placeholder='Email_to_login@gmail.com' value={values.picemail} check1={errors.picemail} check2={touched.picemail} change={handleChange} blur={handleBlur}/>
                       </div>
                       <div className='flex justify-between flex-col md:flex-row md:gap-5 gap-1'>
-                        <InputRegPwd title='Password' id='password' placeholder='password123' value={values.password} check1={errors.password} check2={touched.password} change={handleChange} blur={handleBlur}/>
-                        <InputRegPwd title='Confirm Password' id='confirmPassword' placeholder='password123' value={values.confirmPassword} check1={errors.confirmPassword} check2={touched.confirmPassword} change={handleChange} blur={handleBlur}/>
+                        <InputRegPwd title='Password' id='password' placeholder='Password123' value={values.password} check1={errors.password} check2={touched.password} change={handleChange} blur={handleBlur}/>
+                        <InputRegPwd title='Confirm Password' id='confirmPassword' placeholder='Password123' value={values.confirmPassword} check1={errors.confirmPassword} check2={touched.confirmPassword} change={handleChange} blur={handleBlur}/>
                       </div>
                   </div>
                     }

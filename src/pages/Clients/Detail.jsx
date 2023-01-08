@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from '../component/Navbar'
-import imgHome from '../assets/HomeImage.png'
-import Ceklist from '../assets/Vector.png'
-import Plus from '../assets/plus.png'
-import Footer from '../component/Footer'
-import Loading from '../components/Loading'
+import Navbar from '../../components/Navbar'
+import Ceklist from '../../assets/Vector.png'
+import Plus from '../../assets/plus.png'
+import Footer from '../../components/Footer'
+import Loading from '../../components/Loading'
 import Swal from 'sweetalert2'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AiFillStar } from 'react-icons/ai'
-import { formatCurrency } from '../utils/formatCurrency'
-import Art from '../assets/art.png'
-import Profile from '../assets/profile.png'
-import { askSchema } from '../validations/validations'
+import { formatCurrency } from '../../utils/formatCurrency'
+import Art from '../../assets/art.png'
+import Profile from '../../assets/profile.png'
+import { askSchema } from '../../validations/validations'
 import { useFormik } from 'formik'
 import { useCookies } from 'react-cookie'
-import { apiRequest, apiWithAuth } from '../services/api'
+import { apiRequest, apiWithAuth } from '../../services/api'
 import axios from 'axios'
 import { AiTwotoneStar} from 'react-icons/ai'
 import { IoLocationSharp} from 'react-icons/io5'
@@ -175,10 +174,9 @@ const Detail = () => {
                     <Navbar />
                     <div className='container px-20 py-20 mx-auto'>
                         <div className='grid gap-10 grid-cols-1 md:grid-cols-1 lg:grid-cols-2'>
-                            <img className='mx-auto h-[320px] rounded-md' src={serviceId.service_image_file} alt="home" width={500} />
+                            <img className='mx-auto h-[320px] rounded-md border-2 border-bozz-one' src={serviceId.service_image_file} alt="home" width={500} />
                             <div className='mx-auto text-bozz-one'>
-                                <p className='py-3 px-3 font-bold text-2xl'>{serviceId.partner.company_name}</p>
-                                <p className='py-3 px-3 font-bold text-xl'>{serviceId.service_name}</p>
+                                <p className='py-3 px-3 font-bold text-2xl'>{serviceId.service_name}</p>
                                 <p className='px-3 font-bold text-lg hover:underline' onClick={() => navigate('/profilepartner', {state : { id : company.id }})}>{company.company_name.slice(0,20)}</p>
                                 <p className='px-3 font-bold text-lg flex gap-2 my-2'><IoLocationSharp className='text-red-500'/>{company.company_city}</p>
                                 <p className='py-3 px-3 font-bold text-xl text-bozz-two'>{formatCurrency(serviceId.service_price)}</p>

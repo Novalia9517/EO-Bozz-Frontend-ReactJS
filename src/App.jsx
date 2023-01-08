@@ -9,31 +9,32 @@ import Dashboard from './pages/Partner/dashboard'
 import EditService from './pages/Partner/editService'
 import ListOrder from './pages/Partner/listOrder'
 import RevisiRegister from './pages/Partner/revisiRegister'
-import RegisterPartner from './pages/registerPartner'
-import RegisterUser from './pages/registerUser'
+import RegisterPartner from './pages/Partner/registerPartner'
+import RegisterUser from './pages/Clients/registerUser'
 import PageNotFound from './404'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
-import Detail from './pages/Detail'
-import OrderUser from './pages/OrderUser'
-import TransactionList from './pages/TransactionList'
-import Rating from './pages/Rating'
-import ProfileUser from './pages/ProfileUser'
-import Payment from './pages/Payment'
+import Detail from './pages/Clients/Detail'
+import OrderUser from './pages/Clients/OrderUser'
+import TransactionList from './pages/Clients/TransactionList'
+import Rating from './pages/Clients/Rating'
+import ProfileUser from'./pages/Clients/ProfileUser'
+import Payment from './pages/Clients/Payment'
 import ProfilePartner from './pages/Partner/profilePartner'
 import AddAdditional from './pages/Partner/addAdditional'
 import EditAdditional from './pages/Partner/editAdditional'
-import ProfilePartnerUser from './pages/ProfilePartnerUser'
+import ProfilePartnerUser from './pages/Clients/ProfilePartnerUser'
 import Discussion from './pages/Partner/discussion'
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import store from './store/store'
-import DetailTransaction from './pages/DetailTransaction'
+import DetailTransaction from './pages/Clients/DetailTransaction'
 import ServiceAdditional from './pages/Partner/ServiceAdditional'
 import Oauth from './pages/Oauth/oAuth'
-import About from './pages/About'
 import ValidationGoogle from './pages/ValidationGoogle'
+import About from './pages/Clients/About'
+import ListRegister from './pages/Admin/listRegister'
 
 let persistor = persistStore(store);
 
@@ -59,6 +60,7 @@ function App() {
             <Route path='/register/user' element={<RegisterUser />} />
             <Route path='/register/partner' element={<RegisterPartner />} />
             <Route path='/admin/' element={<DashboardAdmin />} />
+            <Route path='/admin/list-register' element={<ListRegister/>} />
             <Route path='/admin/profile' element={<Profile />} />
             <Route path='/admin/list-order' element={<ListOrderAdmin />} />
             <Route path='/admin/verify-partner' element={<VerifyPartner />} />

@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import Navbar from '../component/Navbar'
-import { apiWithAuth } from '../services/api'
-import { formatCurrency } from '../utils/formatCurrency'
+import Navbar from '../../components/Navbar'
+import { apiWithAuth } from '../../services/api'
+import { formatCurrency } from '../../utils/formatCurrency'
 import Swal from 'sweetalert2'
+import TermsCondition from '../../components/termsCondition'
 
 const Payment = () => {
     const banks = ['va bni', 'va bca', 'va bri','va permata']
@@ -12,7 +13,7 @@ const Payment = () => {
     const location = useLocation()
     const data = location?.state?.data
     const token = localStorage.getItem('userToken')
-    // const [total, setTotal] = useState()
+    const [check, setCheck] = useState(false)
     // let total = 0
     // console.log(data)
 
@@ -153,14 +154,15 @@ const Payment = () => {
                                 <span className="text-sm  font-semibold text-gray-800 mb-px">{formatCurrency(total)}</span>
                             </div>
                         </div>
-                        {/* <div className="flex items-center px-8 mt-8">
-                            <input id="termsConditions" type="checkbox" />
-                            <label className="text-xs text-gray-500 ml-2" for="termsConditions">I agree to the terms and conditions.</label>
-                        </div> */}
-                        {/* <div className="flex flex-col px-8 pt-4">
-                            <button className="flex items-center justify-center bg-blue-600 text-sm font-medium w-full h-10 rounded text-blue-50 hover:bg-blue-700">Start Subscription</button>
-                            <button className="text-xs text-blue-500 mt-3 underline">Have a coupon code?</button>
-                        </div> */}
+                        <div className="flex items-center px-8 mt-8">
+                            <input type="checkbox" className="checkbox checkbox-accent" id='termsConditions' onChange={() => setCheck(!check)} />
+                            <label className="text-xs text-gray-500 ml-2" htmlFor="termsConditions">
+                                <span>I agree to the </span>
+                                <label className='text-bozz-two hover:underline' htmlFor="my-modal-4">terms and conditions.</label>
+                                <span>as set out by the user agreement.</span>
+                                </label>
+                        </div>
+                       <TermsCondition/>
                          <div className="mt-4">
                             <div className="flex flex-col justify-between">
                                 <span className="text-md font-semibold text-bozz-three">Pilih Metode Pembayaran</span>
@@ -176,7 +178,10 @@ const Payment = () => {
                                 {chosen && <span className='text-xs font-semibold mt-1 text-bozz-two'>You Choose {chosen} for payment method</span>}
                             </div>
                         </div>
-                        <button className='w-full h-10 bg-bozz-two mt-5 text-white font-semibold rounded-lg' onClick={onPay}>Pay Now</button>
+                        <button 
+                            className='w-full h-10 bg-bozz-two mt-5 text-white font-semibold rounded-lg disabled:opacity-75 disabled:bg-gray-400'
+                            disabled={check ? false : true} 
+                            onClick={onPay}>Pay Now</button>
                     </div>
                 </div>
             </div>

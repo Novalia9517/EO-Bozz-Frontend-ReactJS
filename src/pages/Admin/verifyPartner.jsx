@@ -37,7 +37,7 @@ const VerifyPartner = () => {
 
   const editDisable = () => {
     // console.log(checkboxStatus)
-    if (checkboxStatus.filter(item => item == true).length >= 11) {
+    if (checkboxStatus.filter(item => item == true).length == 11) {
       setDisable(false)
     } else {
       setDisable(true)

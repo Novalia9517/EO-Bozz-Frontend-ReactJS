@@ -5,6 +5,7 @@ import { useCookies } from 'react-cookie'
 import { FaUserAlt } from 'react-icons/fa'
 import { TbLogout } from 'react-icons/tb'
 import { BsFillCartCheckFill } from 'react-icons/bs'
+import { IoMenuOutline} from 'react-icons/io5'
 import Logo from '../assets/logo2.png'
 
 const Navbar = () => {
@@ -53,7 +54,8 @@ const Navbar = () => {
                             {/* EO-BOZZ */}
                         </Link>
                         <div className='pl-5'>
-                            <Link to={"/"} className="btn btn-ghost normal-case text-lg">Home</Link>
+                            <Link to={"/"} className="btn btn-ghost normal-case text-lg drop-shadow-[0_2px_2px_#352360]">Home</Link>
+                            <Link to={"/about"} className="btn btn-ghost normal-case text-lg drop-shadow-[0_2px_2px_#352360]">About</Link>
                         </div>
                     </div>
 
@@ -64,9 +66,12 @@ const Navbar = () => {
                             {token ? (
                                 <div className="dropdown dropdown-end">
                                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                                        <div className="w-10 rounded-full">
+                                        {/* <div className="w-10 rounded-full">
                                             <img src="https://placeimg.com/80/80/people" />
-                                        </div>
+                                        </div> */}
+                                        <button className="btn btn-square btn-ghost">
+                                           <IoMenuOutline className='text-2xl'/>
+                                        </button>
                                     </label>
                                 <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-bozz-six text-bozz-one border border-bozz-one rounded-box w-36">
                                     <li>
@@ -83,8 +88,8 @@ const Navbar = () => {
                                 </ul>
                                 </div>
                             ) : <div className='flex gap-5'>
-                                <Link to='/login' ><button className='bg-bozz-six text-bozz-one ring-2 ring-bozz-two'>Login</button></Link>
-                                <Link to='/register/user' ><button className='bg-bozz-six text-bozz-one ring-2 ring-bozz-two'>Register as Clients</button></Link>
+                                <Link to='/login' ><button className='ml-3 bg-bozz-six h-10 text-bozz-one ring-2 rounded-lg  ring-bozz-two px-3'>Login</button></Link>
+                                <Link to='/register/user' ><button className='bg-bozz-six  h-10 text-bozz-one  rounded-lg ring-2 ring-bozz-two px-3'>Register as Clients</button></Link>
                             </div>}
 
                     </div>

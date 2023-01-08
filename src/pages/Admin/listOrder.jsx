@@ -30,18 +30,18 @@ const ListOrderAdmin = () => {
 
     const getOrderList = async() => {
         apiWithAuth(`orders`, `GET`, null, "application/json", token)
-        .then(res => setOrderList(res.data))
+        .then(res => setOrderList(res.data.reverse()))
         .catch(err => console.log(err))
     }
 
     const onPayout = async(id) => {
       const data = new FormData()
       data.append('payout_receipt_file', img)
-      console.log([...data])
+      // console.log([...data])
 
       apiWithAuth(`orders/${parseInt(id)}/payout`, `PUT`, data, "multipart/form-data", token)
       .then(res => {
-        console.log(res)
+        // console.log(res)
         Swal.fire({
           position: "center",
           icon: "success",

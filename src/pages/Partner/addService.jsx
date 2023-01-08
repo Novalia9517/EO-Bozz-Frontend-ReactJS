@@ -180,7 +180,7 @@ const AddService = () => {
                   </div>
                   <div className=''>
                     <p className='text-bozz-one text-xs '>Included Services</p>
-                    <div className='bg-bozz-six border border-bozz-one w-full h-10 pl-5 mt-3 rounded-lg flex gap-2 text-xs items-center'>
+                    <div className='bg-bozz-six border border-bozz-one w-full h-16 pl-5 mt-3 rounded-lg flex flex-wrap py-1 overflow-scroll gap-2 text-xs'>
                       {tags.map((tag, index) => {
                         return <p className='h-5 text-center px-3 bg-bozz-one text-white rounded-lg flex gap-2  items-center' key={index}>
                           <span>{tag}</span>

@@ -1,10 +1,9 @@
 import React,{useEffect, useState} from 'react'
-import Footer from '../component/Footer'
-import Navbar from '../component/Navbar'
+import Footer from '../../components/Footer'
+import Navbar from '../../components/Navbar'
 import { useLocation, useNavigate } from 'react-router-dom'
-import Row from '../components/Row'
-import { formatCurrency } from '../utils/formatCurrency'
-import Loading from '../components/Loading'
+import { formatCurrency } from '../../utils/formatCurrency'
+import Loading from '../../components/Loading'
 import Swal from 'sweetalert2'
 
 const OrderUser = () => {

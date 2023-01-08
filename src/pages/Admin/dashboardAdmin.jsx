@@ -3,108 +3,179 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LayoutAdmin from '../../components/LayoutAdmin'
 import Loading from '../../components/Loading'
+import { SlUserFollow} from 'react-icons/sl'
+import {FaRegHandshake} from 'react-icons/fa'
+import {MdOutlineVerified} from 'react-icons/md'
+import {IoCartOutline} from 'react-icons/io5'
+import { apiWithAuth } from '../../services/api'
+import {Chart as ChartJS, registerables} from 'chart.js/auto';
+import { Chart, Bar, Pie } from "react-chartjs-2";
+ChartJS.register(...registerables);
 
 const DashboardAdmin = () => {
-  const tableHead = ['No', 'Company Name', 'Register Date', 'PIC Name', 'Status', 'Action']
-  const [partnerData, setPartnerData] = useState()
   const navigate = useNavigate()
-  const [currentPage, setCurrentPage] = useState(1)
-  const [dataPerPage, setdataPerPage] = useState(10)
-  const lastIndex = currentPage * dataPerPage
-  const firstIndex = lastIndex - dataPerPage
-  const current = partnerData?.slice(firstIndex, lastIndex)
-  const maxPage = Math.ceil(partnerData?.length / dataPerPage)
-  const pages = []
-  for(let i = 1; i <= maxPage; i++){pages.push(i)}
-  const disabled = currentPage === Math.ceil(partnerData?.length / dataPerPage) ? true : false;
-  const disableBack = currentPage === 1 ? true : false
-  const paginateBack = () => {currentPage > 1 && setCurrentPage(currentPage - 1)}
-  const paginateFront =() => setCurrentPage(currentPage + 1)
 
-  const onVerify = (id) => {
-    navigate('/admin/verify-partner', {
-      state: {
-        id: id
-      }
-    })
-  }
-  const onDetailPartner = (id) => {
-    navigate('/profilepartner', {
-      state: {
-        id: id
-      }
+  const [totalReg, setTotalReg] = useState()
+  const [totalVerify, setTotalVerify] = useState()
+  const [totalUser, setTotalUser] = useState()
+  const [totalOrder, setTotalOrder] = useState()
+  const token = localStorage.getItem('userToken')
+  const labels = ['Waiting For Payment', 'Waiting Confirmation', 'Order Confirmed', 'Complete Order', 'Paid Off']
+  const labelsUser = ['Client', 'Partner', 'Admin']
+  const dataOrder = [], dataUsers = []
+  const [orderData, setOrderData] = useState()
+  const [usersData, setUsersData] = useState()
+
+  const getPartners = async() => {
+    apiWithAuth(`partners`, `GET`, null, "application/json", token)
+    .then(res => {
+      const total = res.data.length
+      const verify = res.data.filter(item => item.verification_status == 'Verified').length
+
+      setTotalReg(total)
+      setTotalVerify(verify)
     })
   }
 
-  const getDataPartner = async () => {
-    await axios.get(`https://irisminty.my.id/partners/register`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
+  const getClients = async() => {
+    apiWithAuth(`clients`, `GET`, null, "application/json", token)
+    .then(res => {
+      setTotalUser(res.data.length)
     })
-      .then(res => {
-        const data = res.data.data
-        setPartnerData(data)
+    .catch(err => console.log(err))
+  }
+
+  const getUsers = async() => {
+    apiWithAuth(`users`, `GET`, null, "application/json", token)
+    .then(res => {
+      labelsUser.map((item,i) => {
+        const thisRole = res.data.filter(user => user.role == item).length
+        dataUsers[i] = thisRole
       })
-      .catch(err => {
-        console.log(err)
-      })
-  }
 
+      setUsersData(dataUsers)
+    })
+    .catch(err => console.log(err))
+  }
+  const getOrder = async() => {
+    apiWithAuth(`orders`, `GET`, null, "application/json", token)
+    .then(res => {
+      const total = res.data.length
+      setTotalOrder(res.data.length)
+      labels.map((item,i) => {
+        const thisTotal = res.data.filter(order => order.order_status == item).length
+        dataOrder[i] = thisTotal
+      })
+
+      setOrderData(dataOrder)
+    })
+    .catch(err => console.log(err))
+  }
   useEffect(() => {
-    getDataPartner()
+    getPartners()
+    getClients()
+    getOrder()
+    getUsers()
   }, [])
 
+  console.log(usersData)
 
   return (
     <>
-    {partnerData ? 
+    {totalReg && totalUser && totalVerify && totalOrder && orderData && usersData ? 
     <LayoutAdmin>
-      <div className='mt-5 w-full h-full'>
-        <h1 className='text-xl font-bold text-bozz-one mb-3'>List Register Partner</h1>
-        <div className='p-5 bg-white rounded-lg'>
-          <table className='w-full table-auto'>
-            <thead className='border-b-2 border-bozz-two'>
-              <tr>
-                {tableHead.map((title, index) => {
-                  return <th className='text-bozz-two font-semibold' key={index}>{title}</th>
-                })}
-              </tr>
-            </thead>
-            <tbody>
-              {current ? (
-                  current.map((data, index) => {
-                    return (
-                      <tr className='text-bozz-two h-8 text-xs border-b-2 border-bozz-two h-10 text-center' key={index}>
-                        <td><p className='hover:underline' onClick={() => onDetailPartner(data.id)}>{firstIndex + index + 1}</p></td>
-                        <td>{data.company_name}</td>
-                        <td>{data.register_date.slice(0,10)}</td>
-                        <td>{data.pic_name}</td>
-                        <td>{data.verification_status}</td>
-                        <td>{data.verification_status === "Not Verified" || data.verification_status === "Revision" ?
-                          <button className='w-16 h-6 text-center py-0 bg-bozz-two text-bozz-six rounded-lg hover:bg-bozz-three hover:scale-110' onClick={()=> onVerify(data.id)}>Verify</button>
-                          : '-'}
-                        </td>
-                      </tr>
-                    )
-                  })
-                
-              ):<></>}
-              
-            </tbody>
-          </table>
-          <div className="btn-group flex place-items-center justify-center gap-2 m-5">
-              {/* <button className="btn border border-bozz-two hover:text-white hover:bg-bozz-three bg-white text-bozz-two h-8 w-10 text-xs" onClick={()=>paginateBack()}>Prev</button> */}
-              {
-                pages?.map((page,index) => {
-                  return (
-                  <button key={index} className="h-8 w-8 focus:bg-bozz-two focus:text-white border border-bozz-two bg-white text-bozz-two hover:text-white hover:bg-bozz-two btn-circle"
-                    onClick={() => setCurrentPage(page)}>{page}</button>
-                  )
-                })
-              }
-              {/* <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark h-8 w-8" onClick={()=>paginateFront()}>Next</button>    */}
+      <div className='mt-2 w-full h-full'>
+        <h1 className='text-bozz-one  text-center font-semibold mb-5 text-2xl drop-shadow-[1px_1px_1px_#352360]'>EO-Bozz Statistic</h1>
+        <div className='flex gap-3 justify-between py-2'>
+          <div className='w-40 h-32 border-t-4 border-bozz-one bg-white shadow-xl p-3 text-center'>
+            <div className='flex justify-center'>
+              <SlUserFollow className='text-bozz-one text-center text-2xl'/>
             </div>
+            <p className='text-lg font-bold text-bozz-one mt-3'>{totalUser}</p>
+            <p className='text-xs font-semibold text-bozz-one'>Total Users</p>
+          </div>
+          <div className='w-40 h-32 border-t-4 border-bozz-two bg-white shadow-xl p-3 text-center'>
+            <div className='flex justify-center'>
+              <FaRegHandshake className='text-bozz-two text-center text-2xl'/>
+            </div>
+            <p className='text-lg font-bold text-bozz-two mt-3'>{totalReg}</p>
+            <p className='text-xs font-semibold text-bozz-two'>Total Partner Register</p>
+          </div>
+          <div className='w-40 h-32 border-t-4 border-bozz-three bg-white shadow-xl p-3 text-center'>
+            <div className='flex justify-center'>
+              <MdOutlineVerified className='text-bozz-three text-center text-2xl'/>
+            </div>
+            <p className='text-lg font-bold text-bozz-three mt-3'>{totalVerify}</p>
+              <p className='text-xs font-semibold text-bozz-three'>Total Partner Terverifikasi</p>
+          </div>
+          <div className='w-40 h-32 border-t-4 border-green-600 bg-white shadow-xl p-3 text-center'>
+            <div className='flex justify-center'>
+              <IoCartOutline className='text-green-600 text-center text-2xl'/>
+            </div>
+            <p className='text-lg font-bold text-green-600 mt-3'>{totalOrder}</p>
+            <p className='text-xs font-semibold text-green-600'>Total Transaction</p>
+          </div>
         </div>
-      </div>
+
+        <div className='flex justify-between h-92'>
+            <div className="border border-bozz-one bg-white shadow-xl mt-3 w-[65%] h-full">
+              <h1 className='text-bozz-two text-center  font-semibold'>EO-Bozz'S Orders</h1>
+              <div style={{ maxWidth: "550px" }}>
+                <Bar
+                  data={{
+                    labels: labels,
+                    datasets: [
+                      {
+                        label: "Total Order",
+                        data: orderData,
+                        backgroundColor: ["orange", "#488fb1", "#3056D3", "green", "#533e85"],
+                        borderColor: ["yellow", "#488fb1", "#3056D3", "green", "#533e85"],
+                        borderWidth: 0.5,
+                      },
+                    ],
+                  }}
+                  // height={250}
+                  options={{
+                    legend: {
+                      labels: {
+                        fontSize: 15,
+                      },
+                    },
+                  }}
+                />
+              </div>
+            </div>
+            <div className="border border-bozz-one bg-white shadow-xl mt-3 w-[30%] h-full">
+              <h1 className='text-bozz-two text-center font-semibold'>EO-Bozz'S Users</h1>
+              <div style={{ maxWidth: "550px" }}>
+                <Pie
+                  data={{
+                    labels: labelsUser,
+                    datasets: [
+                      {
+                        label: "Total Users",
+                        data: usersData,
+                        backgroundColor: ["#488fb1", "#3056D3", "#533e85"],
+                        borderColor: ["#488fb1", "#3056D3", "#533e85"],
+                        borderWidth: 0.5,
+                      },
+                    ],
+                    hole: .4,
+                    type : "pie"
+                  }}
+                  height={250}
+                  options={{
+                    legend: {
+                      labels: {
+                        fontSize: 12,
+                      },
+                    },
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
     </LayoutAdmin>
     : <Loading/>
   }

@@ -4,7 +4,7 @@ import Row from '../../components/Row'
 import { BiLeftArrow } from 'react-icons/bi'
 import { formatCurrency } from '../../utils/formatCurrency'
 import Swal from 'sweetalert2'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { apiWithAuth } from '../../services/api'
 import Loading from '../../components/Loading'
@@ -16,6 +16,7 @@ const ConfirmOrder = () => {
   const [email, setEmail] = useState('')
   const location = useLocation()
   const id = location?.state?.id
+  const navigate = useNavigate()
   // console.log(id)
 
   const getDetailOrder = async() => {
@@ -76,6 +77,7 @@ const ConfirmOrder = () => {
             showConfirmButton: true,
             timer: 1500,
           });
+          navigate('/partner/list-order')
         })
         .catch(err => console.log(err))
       }

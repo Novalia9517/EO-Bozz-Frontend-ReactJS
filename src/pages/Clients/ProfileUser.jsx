@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import Footer from '../component/Footer'
-import Navbar from '../component/Navbar'
-import Picprofile from '../assets/profile.png'
+import Footer from '../../components/Footer'
+import Navbar from '../../components/Navbar'
+import Picprofile from '../../assets/profile.png'
 import { useCookies } from 'react-cookie';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import Swal from 'sweetalert2';
 
 const ProfileUser = () => {
 
@@ -25,6 +26,10 @@ const ProfileUser = () => {
             .then(res => {
                 const result = res.data.data
                 setDataClient(result)
+                setName(result.name)
+                setEmail(result.email)
+                setPhone(result.phone)
+                setAddress(result.address)
             })
             .catch(err => {
                 console.log(err)
@@ -43,7 +48,12 @@ const ProfileUser = () => {
             'content-type': 'multipart/form-data',
         })
             .then(response => {
-                console.log(response)
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: 'Edit Data Successfull',
+                    showConfirmButton: true
+                })
             })
             .catch(err => {
                 console.log(err)
@@ -141,9 +151,11 @@ const ProfileUser = () => {
                                     <label>
                                         Profile Pic
                                     </label>
-                                    <input onChange={(e) => setFile(e.target.files[0])} type="file" className="file-input w-full max-w-xs" />
+                                    <input onChange={(e) => setFile(e.target.files[0])} type="file" className="file-input w-full" />
                                 </div>
-                                <button className=''>Edit</button>
+                                <div className='flex justify-end mt-2'>
+                                    <button className='h-10 bg-bozz-two text-sm text-white px-3 rounded' type='submit'>EDIT</button>
+                                </div>
                             </form>
 
                         </div>

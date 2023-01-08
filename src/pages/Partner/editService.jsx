@@ -145,11 +145,11 @@ const EditService = () => {
                 <div className={`text-bozz-six text-xs w-2 h-2 flex justify-center items-center rounded-full p-4 bg-bozz-one`}>
                     <span>1</span></div>
               </li>
-            <li className={`flex items-center justify-start`}> 
+            {/* <li className={`flex items-center justify-start`}> 
                 <div className={`h-2 w-full ${step === 2 ? 'bg-bozz-one' : 'bg-bozz-four'} block`} value="100" max="100"></div>
                 <div className={`text-bozz-six text-xs w-2 h-2 flex justify-center items-center rounded-full p-4 ${step === 2 ? 'bg-bozz-one' : 'bg-bozz-four'}`}>
                     <span>2</span></div>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div className='flex flex-col justify-between h-full'>
@@ -206,7 +206,7 @@ const EditService = () => {
                 </div>
               </div>
             }
-            {step === 2 &&
+            {/* {step === 2 &&
               <div className=''>
                 <p className='text-md font-bold'>ADDITIONAL INFORMATION</p>
                 <div className={`flex gap-10 ${count >= 1 ? `block` : `hidden`}`}>
@@ -262,14 +262,15 @@ const EditService = () => {
                   <button className='h-12 w-12 border rounded-md border-bozz-one flex justify-center items-center text-xl font-bold bg-bozz-five hover:bg-bozz-one hover:text-white' onClick={() => setCount(count+1)}>+</button>
                 </div>
               </div>
-            }
+            } */}
 
-            <div className='flex justify-between mt-3 bottom-0'>
-              <button className={`flex items-center bg-white ${step === 2 ? 'block' : 'invisible'}`} onClick={() => step >= 1 ? setStep(1) : ''}><BiLeftArrowCircle/>Back</button>
+            <div className='flex justify-center mt-3 bottom-0'>
+              {/* <button className={`flex items-center bg-white ${step === 2 ? 'block' : 'invisible'}`} onClick={() => step >= 1 ? setStep(1) : ''}><BiLeftArrowCircle/>Back</button>
               {step === 1 ? 
                 <button className={`flex items-center bg-white `} onClick={() => step == 1 ? setStep(2) : ''}>Next<BiRightArrowCircle/></button>
-              : <button className={`flex items-center justify-center h-8 w-24 text-center bg-bozz-one text-white rounded-lg text-xs`} onClick={() => onSubmit()}>Edit Service</button>
-              }
+              :  */}
+              <button className={`flex items-center justify-center h-8 w-24 text-center bg-bozz-one text-white rounded-lg text-xs`} onClick={() => onSubmit()}>Edit Service</button>
+              {/* } */}
             </div>
           </div>
         </div>
