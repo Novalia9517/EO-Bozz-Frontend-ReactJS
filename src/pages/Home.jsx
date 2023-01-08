@@ -63,7 +63,7 @@ const Home = () => {
     const getCompany = async() => {
         apiWithAuth(`partners`, `GET`, null, "application/json", localStorage.getItem('userToken'))
         .then(res => setListCompany(res.data))
-        .catch(err)
+    
     }
 
 

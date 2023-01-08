@@ -42,7 +42,7 @@ const DashboardAdmin = () => {
     .then(res => {
       setTotalUser(res.data.length)
     })
-    .catch(err)
+
   }
 
   const getUsers = async() => {
@@ -55,7 +55,7 @@ const DashboardAdmin = () => {
 
       setUsersData(dataUsers)
     })
-    .catch(err)
+
   }
   const getOrder = async() => {
     apiWithAuth(`orders`, `GET`, null, "application/json", token)

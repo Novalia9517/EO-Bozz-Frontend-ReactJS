@@ -49,9 +49,7 @@ const Dashboard = () => {
                 // setStatus('Revision')
                 setLogs(data.verification_log.split('\n'))
             })
-            .catch(err => {
-                
-            })
+  
     }
 
     const navigate = useNavigate()
@@ -60,13 +58,13 @@ const Dashboard = () => {
         .then(res => {
             setListServices(res.data)
         })
-        .catch(err)
+       
 
     }
     const getListAdditionals = async () => {
         apiWithAuth(`partners/additionals`, `GET`, null,"application/json", token)
         .then(res => setListAdditional(res.data))
-        .catch(err)
+      
     }
 
     const goEdit = (id) => {
