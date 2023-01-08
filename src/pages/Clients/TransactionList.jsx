@@ -18,7 +18,7 @@ const TransactionList = () => {
                 // console.log('cek',data)
             })
             .catch(err => {
-                console.log(err)
+            
             })
     }
 

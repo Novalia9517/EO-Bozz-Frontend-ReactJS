@@ -34,7 +34,7 @@ const Home = () => {
                 setDataService(data)
             })
             .catch(err => {
-                console.log(err)
+           
             })
     }
 
@@ -47,7 +47,7 @@ const Home = () => {
                 setCity(data)
             })
             .catch(err => {
-                console.log(err)
+               
             })
     }
 
@@ -63,7 +63,7 @@ const Home = () => {
     const getCompany = async() => {
         apiWithAuth(`partners`, `GET`, null, "application/json", localStorage.getItem('userToken'))
         .then(res => setListCompany(res.data))
-        .catch(err => console.log(err))
+        .catch(err)
     }
 
 

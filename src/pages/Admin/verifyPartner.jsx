@@ -31,7 +31,7 @@ const VerifyPartner = () => {
         setPartnerData(data)
       })
       .catch(err => {
-        console.log(err)
+     
       })
   }
 
@@ -57,7 +57,7 @@ const VerifyPartner = () => {
     }
     apiWithAuth(`partners/verify`, `PUT`, body, "application/json", token )
     .then(res => {
-      console.log(res.data)
+     
       Swal.fire({
         position: "center",
         icon: "success",
@@ -66,7 +66,7 @@ const VerifyPartner = () => {
       })
       navigate('/admin/')
     })
-    .catch(err => console.log(err))
+    .catch(err)
   }
 
   const onRevisi = async() => {
@@ -87,7 +87,7 @@ const VerifyPartner = () => {
       })
       navigate('/admin/')
     })
-    .catch(err => console.log(err))
+    .catch(err)
   }
   useEffect(() => {
     getDataPartner()

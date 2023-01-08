@@ -42,7 +42,7 @@ const AddAdditional = () => {
                     navigate('/partner/')
                 }
               });
-              console.log(res)
+        
         })
         .catch(err => {
             Swal.fire({

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import Background from '../../assets/shoes.jpg'
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
@@ -19,6 +19,19 @@ const RegisterUser = () => {
     const allCity = JSON.parse(localStorage.getItem('city'))
     const [city, setCity] = useState()
     const navigate = useNavigate()
+
+    const getAllCity = async () => {
+        apiRequest(`city`, `GET`, null)
+            .then(res => {
+                setCity(res.data)
+                localStorage.setItem('city', JSON.stringify(res.data))
+            })
+            .catch(err)
+    }
+
+    useEffect(() => {
+        getAllCity()
+    }, [])
 
     const onSubmit = async() => {
         setLoading(true)

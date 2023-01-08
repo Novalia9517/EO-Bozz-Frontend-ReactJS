@@ -31,7 +31,7 @@ const ListOrderAdmin = () => {
     const getOrderList = async() => {
         apiWithAuth(`orders`, `GET`, null, "application/json", token)
         .then(res => setOrderList(res.data.reverse()))
-        .catch(err => console.log(err))
+        .catch(err)
     }
 
     const onPayout = async(id) => {
@@ -50,7 +50,7 @@ const ListOrderAdmin = () => {
         })
         getOrderList()
       })
-      .catch(err => console.log(err))
+      .catch(err)
     }
 
     const onSet = (id, partner, total) => {

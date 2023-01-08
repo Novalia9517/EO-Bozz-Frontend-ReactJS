@@ -45,7 +45,6 @@ const ListRegister = () => {
         setPartnerData(data)
       })
       .catch(err => {
-        console.log(err)
       })
   }
 

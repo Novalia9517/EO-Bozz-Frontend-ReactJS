@@ -32,7 +32,7 @@ const ProfileUser = () => {
                 setAddress(result.address)
             })
             .catch(err => {
-                console.log(err)
+              
             })
     }
 
@@ -56,7 +56,7 @@ const ProfileUser = () => {
                 })
             })
             .catch(err => {
-                console.log(err)
+             
             })
     }
 
