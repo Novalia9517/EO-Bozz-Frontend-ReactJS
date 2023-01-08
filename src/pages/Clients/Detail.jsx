@@ -29,7 +29,6 @@ const Detail = () => {
     const [available, setAvailable] = useState(false)
     const [included, setIncluded] = useState()
     const navigate = useNavigate()
-    const [cookie, setCookie] = useCookies()
     const token = localStorage.getItem('userToken')
     const location = useLocation();
     const id = location?.state?.id;
@@ -48,7 +47,6 @@ const Detail = () => {
                 setIncluded(data.service_included.split(','))
             })
             .catch(err => {
-                console.log(err)
             })
     }
 
@@ -61,7 +59,6 @@ const Detail = () => {
                 setAdditional(dataAdditional)
             })
             .catch(err => {
-                console.log(err)
             })
     }
 
@@ -74,21 +71,17 @@ const Detail = () => {
                 setDiscussion(dataDiscussion)
             })
             .catch(err => {
-                console.log(err)
             })
     }
 
     const getReview = async() => {
         apiRequest(`reviews`, `GET`, null)
         .then(res => setReviews(res.data.filter(item => item.service_id == id)))
-        .catch(err => console.log(err))
     }
     const getClient = async() => {
         apiWithAuth(`clients`, `GET`, null, "application/json", token)
         .then(res => setListClients(res.data))
-        .catch(err => console.log(err))
     }
-    console.log('idd', localStorage.getItem('id'))
     const onSubmit = () => {
         if (values.ask.length >= 10) {
             const body = {
@@ -142,7 +135,6 @@ const Detail = () => {
             setAvailable(true)
         })
         .catch(err => {
-            console.log(err)
             Swal.fire({
                 position: "center",
                 icon: "error",
