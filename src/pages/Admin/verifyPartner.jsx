@@ -126,7 +126,7 @@ const VerifyPartner = () => {
       <div className='flex justify-end mt-5 mb-10 h-8'>
         {disable === false ?
           <button className='btn btn-sm text-xs bg-bozz-one text-bozz-six w-24 mx-5 rounded-lg hover:bg-primary hover:scale-110 disabled:opacity-75 disabled:bg-gray-800' onClick={onVerify}>Verify</button>
-          : <button><label htmlFor="my-modal-4" className='btn btn-sm text-xs bg-[#EF6D58] text-bozz-six w-24 hover:bg-[#EF6D70] rounded-lg hover:scale-110'>Revision</label></button>
+          : <button><label htmlFor="notes" className='btn btn-sm text-xs bg-[#EF6D58] text-bozz-six w-24 hover:bg-[#EF6D70] rounded-lg hover:scale-110'>Revision</label></button>
         }
       </div>
       <NoteRevisi note={(e) => setNotesRevisi(e.target.value)} revisi={onRevisi}/>

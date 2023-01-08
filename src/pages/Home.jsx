@@ -81,9 +81,7 @@ const Home = () => {
 
     return (
         <>
-        {data_service && city && listCompany ?
-
-
+        {/* {data_service && city && listCompany ? */}
         <div className='bg-bozz-six'>
             <Navbar />
             {/* <hr className='text-black' /> */}
@@ -150,8 +148,8 @@ const Home = () => {
             </div>
             <Footer />
         </div>
-        : <Loading/>
-        }
+        {/* : <Loading/>
+        } */}
         </>
     )
 }
