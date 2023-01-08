@@ -38,7 +38,7 @@ const TransactionList = () => {
 
     return (
         <>
-        {order ?
+        {/* {order ? */}
         
         <div className='bg-white min-h-screen h-full'>
             <Navbar />
@@ -84,8 +84,8 @@ const TransactionList = () => {
                 </div>
             </div>
         </div>
-        :<Loading/>
-        }
+        {/* :<Loading/> */}
+        {/* } */}
         </>
     )
 }
