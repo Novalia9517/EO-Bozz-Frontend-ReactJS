@@ -9,6 +9,7 @@ import { loginSchema } from '../validations/validations';
 import { apiRequest } from '../services/api';
 import { useCookies } from 'react-cookie';
 import {Link } from 'react-router-dom'
+import imgLogin from '../assets/shoes.jpg'
 import Swal from 'sweetalert2';
 import Oauth from './Oauth/oAuth';
 
@@ -101,7 +102,7 @@ const Login = () => {
     return (
         <div className='flex h-screen w-screen bg-white'>
             <div className={`lg:w-[55%] w-full block`} >
-                <img src='src/assets/shoes.jpg' className='w-full h-full object-fill rounded-[1px] lg:rounded-[0_110px_110px_0]' />
+                <img src={imgLogin} className='w-full h-full object-fill rounded-[1px] lg:rounded-[0_110px_110px_0]' />
             </div>
             <div className='lg:w-[45%] w-full h-full grid place-items-center p-10 absolute lg:static'>
                 {role === '' ?
