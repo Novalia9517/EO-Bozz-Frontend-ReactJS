@@ -93,7 +93,7 @@ const Login = () => {
             setAllCity(res.data)
             localStorage.setItem('city', JSON.stringify(res.data))
         })
-        .catch(err)
+
     }
 
     useEffect(() => {

@@ -45,7 +45,7 @@ const ProfilePartnerUser = () => {
             headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
         })
         .then(res => setListCompany(res.data.data))
-        .catch(err)
+       
     }
 
     useEffect(() => {
