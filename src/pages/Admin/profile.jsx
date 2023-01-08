@@ -29,7 +29,7 @@ const Profile = () => {
             setName(res.data.name)
             setEmail(res.data.email)
         })
-        .catch(err => console.log(err))
+        .catch(err)
     }
 
     const onSubmitEdit =async() => {

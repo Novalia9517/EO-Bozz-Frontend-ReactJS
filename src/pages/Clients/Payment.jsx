@@ -76,7 +76,7 @@ const Payment = () => {
                 title : `${message}`,
                 showConfirmButton : true
             }) 
-            console.log(err)
+      
         })
     }
     return (

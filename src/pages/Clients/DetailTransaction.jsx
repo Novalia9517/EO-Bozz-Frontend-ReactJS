@@ -34,7 +34,7 @@ const DetailTransaction = () => {
             setStatus(res.data.order_status)
             // setStatus("Order Confirmed")
         })
-        .catch(err => console.log(err))
+        .catch(err)
     }
 
     const completeOrder = (async) => {
@@ -57,7 +57,7 @@ const DetailTransaction = () => {
                 title : `Failed Complete Order, try again letter!`,
                 showConfirmButton : true
             })  
-            console.log(err)
+         
         })
     }
     const onSubmitReview = () => {

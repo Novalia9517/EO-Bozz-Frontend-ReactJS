@@ -44,7 +44,7 @@ const ProfilePartner = () => {
             const data = res.data
                 dispatch(updateUser(data));
         })
-        .catch(err => console.log(err))
+        .catch(err)
     }
     const onEdit = async() => {
         const body = new FormData()
@@ -95,7 +95,7 @@ const ProfilePartner = () => {
                 title : `${err.response.data.message}`,
                 showConfirmButton : true
             })
-            console.log(err)
+        
         })
       }
 

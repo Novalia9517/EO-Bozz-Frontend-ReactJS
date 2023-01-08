@@ -35,7 +35,7 @@ const ProfilePartnerUser = () => {
                 setPartnerData(data)
             })
             .catch(err => {
-                console.log(err)
+             
             })
     }
 
@@ -45,7 +45,7 @@ const ProfilePartnerUser = () => {
             headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
         })
         .then(res => setListCompany(res.data.data))
-        .catch(err => console.log(err))
+        .catch(err)
     }
 
     useEffect(() => {

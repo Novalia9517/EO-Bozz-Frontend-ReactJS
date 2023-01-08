@@ -42,7 +42,7 @@ const DashboardAdmin = () => {
     .then(res => {
       setTotalUser(res.data.length)
     })
-    .catch(err => console.log(err))
+    .catch(err)
   }
 
   const getUsers = async() => {
@@ -55,7 +55,7 @@ const DashboardAdmin = () => {
 
       setUsersData(dataUsers)
     })
-    .catch(err => console.log(err))
+    .catch(err)
   }
   const getOrder = async() => {
     apiWithAuth(`orders`, `GET`, null, "application/json", token)
@@ -69,7 +69,7 @@ const DashboardAdmin = () => {
 
       setOrderData(dataOrder)
     })
-    .catch(err => console.log(err))
+    .catch()
   }
   useEffect(() => {
     getPartners()
@@ -78,7 +78,7 @@ const DashboardAdmin = () => {
     getUsers()
   }, [])
 
-  console.log(usersData)
+  
 
   return (
     <>

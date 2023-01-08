@@ -32,7 +32,7 @@ const EditService = () => {
   const [idAdditional, setIdAdditional] = useState()
   const navigate = useNavigate()
 
-  console.log(id)
+ 
   //   fieldnya disesuaikan setelah get dari api
 
   const getServiceById = async() => {
@@ -48,7 +48,7 @@ const EditService = () => {
       setCity(data.city)
       setImg(data.service_image_file)
     })
-    .catch(err => console.log(err))
+    .catch(err)
   }
   const onSubmit = async() => {
     const body = new FormData()
@@ -60,7 +60,7 @@ const EditService = () => {
     // body.append('average_rating', '0') 
     body.append('service_image_file', img) 
     body.append('city', city) 
-    console.log([...body])
+  
 
     apiWithAuth(`services/${parseInt(id)}`, `PUT`,body, `multipart/form-data`,token)
         .then(res => {
@@ -97,13 +97,13 @@ const EditService = () => {
   const onAddTags = (e) => {
     if(e.key === 'Enter'){
       setTags([...tags, e.target.value])
-      console.log(tags)
+
       e.target.value = ''
     }
   }
   const chooseAdd = (choose,value) => {
    choose(listAdditional.filter(item => item.id == value))
-    console.log(additional)
+  
   }
   const removeTags = (index) => {
     setTags(tags.filter((t,i) => i !== index))
@@ -112,12 +112,12 @@ const EditService = () => {
     // Masih get All Additional belum by ID
     apiWithAuth(`additionals`, `GET`, null,"application/json", token)
     .then(res => setListAdditional(res.data.filter(data => data.partner_id == partnerId)))
-    .catch(err => console.log(err))
+    .catch(err)
   }
   const getCity = () => {
     apiWithAuth(`city`, `GET`, null,"application/json", token)
     .then(res => setAllCity(res.data))
-    .catch(err => console.log(err))
+    .catch(err)
   }
   useEffect(() => {
     getListAdditionals()

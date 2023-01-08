@@ -24,7 +24,7 @@ const ServiceAdditional = () => {
             service_id: parseInt(serviceId),
             additionals: addArr
         }
-        console.log(body)
+       
         apiWithAuth(`services/additionals`, `POST`, body, "application/json", token)
         .then(res => {
             Swal.fire({
@@ -38,7 +38,7 @@ const ServiceAdditional = () => {
               navigate('/partner/')
         })
         .catch(err => {
-            console.log(err)
+           
             Swal.fire({
                 // title: "Add service Additional Failed, try again!",
                 title: `${err}`,
@@ -55,16 +55,14 @@ const ServiceAdditional = () => {
         // setAddArr([...addArr, filterAdd])
        
         // console.log(addArr)
-        console.log(idAdditional)
-        console.log(additional)
+       
       }
     const addToArr = () => {
         setAddArr([...addArr, {
             additional_id: parseInt(idAdditional)
         },])
         setDescArr([...descArr, additional[0]])
-        console.log(addArr)
-        console.log(descArr)
+  
     }
 
   return (

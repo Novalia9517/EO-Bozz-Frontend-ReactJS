@@ -40,7 +40,7 @@ const EditAdditional = () => {
                 confirmButtonText: "Oke",
               })
                     navigate('/partner/')
-              console.log(res)
+             
         })
         .catch(err => {
             Swal.fire({

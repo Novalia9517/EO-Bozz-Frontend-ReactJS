@@ -22,13 +22,13 @@ const ConfirmOrder = () => {
   const getDetailOrder = async() => {
     apiWithAuth(`orders/${parseInt(id)}`, `GET`, null, "application/json", localStorage.getItem('userToken'))
     .then(res => setOrder(res.data))
-    .catch(err => console.log(err))
+    .catch(err)
   }
 
   const getClients = async() => {
     apiWithAuth(`clients`, `GET`, null, "application/json", localStorage.getItem('userToken'))
     .then(res => setListClients(res.data))
-    .catch(err => console.log(err))
+    .catch(err)
 
   }
     const onDecline = () => {
@@ -79,7 +79,7 @@ const ConfirmOrder = () => {
           });
           navigate('/partner/list-order')
         })
-        .catch(err => console.log(err))
+        .catch(err)
       }
     });        
   }

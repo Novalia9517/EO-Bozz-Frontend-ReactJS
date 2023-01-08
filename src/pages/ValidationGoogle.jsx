@@ -8,7 +8,7 @@ const ValidationGoogle = () => {
     const id = new URLSearchParams(search).get('id')
     const token = new URLSearchParams(search).get('token')
     const userid = new URLSearchParams(search).get('client_id')
-    console.log(search)
+    
 
     localStorage.setItem('userToken', token)
     localStorage.setItem('idclient', userid)
@@ -20,7 +20,7 @@ const ValidationGoogle = () => {
         // setAllCity(res.data)
         localStorage.setItem('city', JSON.stringify(res.data))
       })
-      .catch(err => console.log(err))
+      .catch(err)
   }
 
     useEffect(() => {

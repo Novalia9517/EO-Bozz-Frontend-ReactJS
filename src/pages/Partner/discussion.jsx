@@ -12,7 +12,7 @@ const Discussion = () => {
     const getDiscussions = async() => {
         apiWithAuth(`discussions`, `GET`, null, "application/json")
         .then(res => setMyDisscussion(res.data.filter(item => item.partner_id == partnerId )))
-        .catch(err => console.log(err))
+        .catch(err)
     }
 
     const onSend = async( partnerId, clientId, serviceId) => {

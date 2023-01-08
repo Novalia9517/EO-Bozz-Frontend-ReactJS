@@ -45,7 +45,7 @@ const AddService = () => {
     body.append('average_rating', '0') 
     body.append('service_image_file', img) 
     body.append('city', city) 
-    console.log([...body])
+    
 
     apiWithAuth(`services`, `POST`, body, `multipart/form-data`, token)
         .then(res => {
@@ -84,7 +84,7 @@ const AddService = () => {
   const onAddTags = (e) => {
     if(e.key === 'Enter'){
       setTags([...tags, e.target.value])
-      console.log(tags)
+  
       e.target.value = ''
     }
   }
@@ -93,7 +93,7 @@ const AddService = () => {
     choose(filterAdd)
     setAddArr([...addArr, filterAdd])
    
-    console.log(addArr)
+ 
   }
   const removeTags = (index) => {
     setTags(tags.filter((t,i) => i !== index))
@@ -102,12 +102,12 @@ const AddService = () => {
     // Masih get All Additional belum by ID
     apiWithAuth(`additionals`, `GET`, null,"application/json", token)
     .then(res => setListAdditional(res.data.filter(data => data.partner_id == partnerId)))
-    .catch(err => console.log(err))
+    .catch(err)
   }
   const getCity = () => {
     apiWithAuth(`city`, `GET`, null,"application/json", token)
     .then(res => setAllCity(res.data))
-    .catch(err => console.log(err))
+    .catch(err)
   }
   useEffect(() => {
     getListAdditionals()
