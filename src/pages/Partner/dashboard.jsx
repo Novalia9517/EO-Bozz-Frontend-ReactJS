@@ -175,11 +175,9 @@ const Dashboard = () => {
     return (
         <>
         {status && listServices && listAdditional ?
-        
         <LayoutAdmin>
             <div className='flex flex-col justify between'>
                 <div>
-
                 {status == 'Not Verified' || status == 'Revision' ?
                     <div>
                         <h1 className='text-xl font-bold text-bozz-one mb-5 border border-bozz-one p-5 rounded-xl'>Account Not Verify Yet</h1>

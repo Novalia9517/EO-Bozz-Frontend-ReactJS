@@ -105,7 +105,6 @@ const DetailTransaction = () => {
   return (
     <>
     {orderDetail ? 
-    
     <div className='bg-bozz-six text-bozz-one'>
             <Navbar />
             <div className="flex justify-center w-screen min-h-screen bg-gray-100 text-gray-800 p-8">

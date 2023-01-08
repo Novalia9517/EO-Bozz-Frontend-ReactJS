@@ -85,7 +85,7 @@ const OrderUser = () => {
     // console.log(additional)
     return (
         <>
-        {additional && additionalArr ?
+        {/* {additional && additionalArr ? */}
         <div className='bg-bozz-six text-bozz-one'>
             <Navbar />
             <div className='container mx-auto px-10 py-10'>
@@ -205,8 +205,8 @@ const OrderUser = () => {
             </div>
             <Footer />
         </div>
-        : <Loading/>
-        }
+        {/* : <Loading/> */}
+        {/* } */}
         </>
     )
 }
