@@ -1,83 +1,175 @@
-![EO-Bozz](https://project3bucker.s3.ap-southeast-1.amazonaws.com/client/20JmPKEJUkL7ap284WAw-eo_bozz_logo.png)
-<h1 align="center">EO-Bozz</h1>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/116538882/211175131-95d2c06b-8ec1-401b-93bc-90f31a2c2967.png"alt="Logo">
 
-<p align="center">
-   💫 Project Kolaborasi Alterra Academy Backend Batch 13 & Frontend Batch 10 💫
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
 
-# Latar Belakang & Permasalahan 
+</div>
 
-Anda membutuhkan jasa EO untuk event tertentu? 
-namun anda masih kesulitan untuk mengatur waktu dengan berbagai kegiatan sehari-hari? 
-terlebih jika anda sudah menemukan jasa EO yang diperlukan, apa anda sudah merasa cocok dengan harga yang ditawarkan?
-jika sudah cocok, apa anda yakin dengan pengalaman EO dalam menangani event tertentu?
-tenang, anda tidak perlu khawatir, kini telah hadir EO-Bozz
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li><a href="#demo">Demo</a></li>
+    <li><a href="#prototype">Prototype</a></li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#collaboration">Collaboration</a></li>
+    <li><a href="#backend">Backend </a></li>
+    <li><a href="#quality-engineer">Quality Engineer</a></li>
+    <li><a href="#author">Author</a></li>
+  </ol>
+</details>
+<br>
 
-# Gambaran Aplikasi
+## 📃About The Project
 
-EO-Bozz merupakan aplikasi yang menyediakan jasa EO (Event Organizer) dengan berbagai pilihan, terverifikasi dan review yang jelas dari kegiatan yang pernah EO tersebut tangani. Menjadi perantara antara EO dan Customer yang membutuhkan jasanya sehingga mencegah permasalahan diatas terjadi dalam kehidupan anda.
-
-# Fitur untuk EO:
-
-1. pengguna dapat membuat akun sebagai partner atau EO.
-2. pengguna dapat melakukan login.
-3. pengguna dapat mengubah informasi akun dan menghapus akun.
-4. saat membuat akun, pengguna wajib melengkapi dokumen-dokumen yang diperlukan sebagai persyaratan untuk mendaftar sebagai partner di EO-Bozz dan menunggu verifikasi dari admin.
-5. setelah akun terverifikasi, pengguna dapat memulai untuk memasarkan jasa atau layanan yang dimiliki, juga dapat menambahkan additional untuk layanan tersebut.
-6. pengguna sebagai EO juga dapat menerima review dan melakukan diskusi dengan client terkait pemesanan layanan.
-7. setelah dirasa cocok dengan kesepakatan antara client, pengguna sebagai partner dapat mengkonfirmasi pesanan dan menentukan jadwal event yang diselenggarakan.
-8. setelah event berjalan sesuai harapan, pengguna sebagai partner akan menerima payout dari admin dan review dari client agar dapat meningkatkan kualitas kinerja EO di EO-Bozz.
-
-# Fitur untuk Client:
-
-1. pengguna dapat membuat akun sebagai Customer atau Client.
-2. pengguna dapat melakukan login.
-3. pengguna dapat mengubah informasi akun dan menghapus akun.
-4. saat membuat akun, pengguna wajib melengkapi data-data client sepeti alamat, gender, dll.
-5. setelah melakukan login sebagai Client, pengguna dapat langsung melihat semua layanan yang dimiliki EO-Bozz dari semua partner / EO yang terdaftar dan melihat berbagai review yang ada.
-6. pengguna sebagai client juga dapat memulai diskusi untuk membuat penawaran dan kesepakatan kepada EO, disini pengguna dapat mulai mencari layanan berdasarkan event, category, kota, dan rentang harga yang diinginkan.
-7. setelah dirasa cocok dengan penawaran, kesepakatan, dan harga yang ditetapkan, pengguna wajib melakukan cek ketersediaan layanan sesuai tanggal yang diinginkan.
-8. apabila layanan telah tersedia di tanggal tersebut, pengguna sebagai client dapat melakukan pemesanan dengan melengkapi data-data yang diperlukan.
-9. kemudian client akan mendapat email secara berkala di setiap perubahan status order, juga client akan mendapat penjadwalan dari admin untuk melakukan pembayaran daan pelaksanaan event.
-10. setelah event telah selesai dilaksanakan, pengguna bisa memberikan review terhadap EO yang menangani event.
-
-# Fitur oleh Admin:
-
-1. admin dapat login.
-2. admin bertugas memverifikasi data EO yang melakukan register.
-3. admin menyediakan fitur add additional to service untuk partner, sehingga memudahkan partner dalam memanage layanan nya.
-4. admin menyediakan fitur check availability untuk cek ketersediaan layanan.
-5. admin menyediakan fitur pembayaran midtrans.
-6. admin menyediakan fitur penjadwalan di google calendar.
-7. admin menyediakan fitur login dengan akun google.
-
-# Tech Stack
-![React Router](https://img.shields.io/badge/React_Router-CA4245?style=plastic&logo=react-router&logoColor=white) 
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=plastic&logo=react&logoColor=%2361DAFB) 
-![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=plastic&logo=redux&logoColor=white) 
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=plastic&logo=tailwind-css&logoColor=white)
-![Daisyui](https://img.shields.io/badge/daisyui-%2338B2AC.svg?style=plastic&logo=tailwind-css&logoColor=white)
-![Vercel](https://img.shields.io/badge/vercel-%2338B2AC.svg?style=plastic&logo=tailwind-css&logoColor=white)
-![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=plastic&logo=figma&logoColor=white)
+EO-Bozz is an application that provides EO (Event Organizer) services with various choices, verified and clear reviews of the activities that the EO has handled. Become an intermediary between the EO and customers who need their services so as to prevent the above problems from happening in your life.
 
 
-Coba program yang kami buat dengan cara:
+### 🛠️Built With
 
-A. coba fungsionalitas
+<br>
 
-kunjungi laman [EO-Bozz](https://irisminty.my.id)
+![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![React Router Dom](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)
+<img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+<img src="https://img.shields.io/badge/DaisyUi-FFFF00?style=for-the-badge&logo=daisyui&logoColor=white" />
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+<img src="https://img.shields.io/badge/Sweet Alert-7D4698?style=for-the-badge&logo=Sweet-Alert&logoColor=white" />
 
-B. kustomisasi fungsionalitas
+## 🌎Demo
 
-1. clone repository ini:
+Here is a working live demo - [EO-Bozz](https://frontend-git-dev-eo-bozz.vercel.app/)
+
+<!-- 
+## 🎨Prototype
+![MacBook_Pro_16-removebg-preview](https://user-images.githubusercontent.com/59137289/201837528-700ce87b-3b70-42bb-9c93-d979a46bc7fe.png)
+-->
+
+
+Here is the link for the UI design : [Figma](https://www.figma.com/file/kh15pd31E4equXqcLUw36H/EO-Bozz?t=vPC7ucXW27udabZd-0)
+
+<br/>
+<br/>
+
+
+## Getting Started
+
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+- npm
+  ```sh
+  npm install npm@latest -g
+  ```
+
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/Alta-Capstone-Grup2/Frontend.git
+   ```
+2. Install NPM packages
+   ```sh
+   npm install
+   ```
+
+### Usage
+
+```sh
+npm run dev
 ```
-git clone https://github.com/Alta-Capstone-Grup2/Frontend.git
-```
 
-# Kontributor Frontend
+<br/>
 
-- [Novalia](https://github.com/Novalia9517)
-- [Gilang Suprobo](https://github.com/gilangsup)
+## 💫Features
 
-# Mentor Frontend
+- Sign in
+- Logout
 
-- [Bagas](https://github.com/BagasAlterra) 
+### 👩‍💻 As admin
+
+- See statistic of the web
+- See list of Register Partner
+- Verify Partner 
+- Add Payment Fiile Transaction 
+- Edit Profile
+
+### 🧑‍🏫 As Clients
+
+- See Services that made by Partner
+- Check availibility and make order
+- Submit point for mentees
+- Payment Midtrans
+- Edit Profile Clients
+- Can ask question in discussion
+- Give rating and review after order
+
+### 🧑‍🎓 As Partner
+
+- Add Services and Additional
+- Edit and delete service and additional
+- See List Order and status of all order
+- Confirm Order
+- Edit profile
+
+## 🤝Collaboration
+
+- [GitHub (Version Control System Platform)]( https://github.com/Alta-Capstone-Grup2/)
+- [Discord](https://discord.com/)
+
+### 🧰Backend
+
+- [Github Repository for the Backend team]( https://github.com/Alta-Capstone-Grup2/BE-API-EO-Bozz-capstone-alta1)
+- [Swagger OpenAPI](https://app.swaggerhub.com/apis-docs/YUSNARSETIYADI150403_1/EO-Bozz/1.0.0)
+
+
+## 🤖Front End Engineer
+
+- Novalia :
+
+  [![GitHub](https://img.shields.io/badge/-Novalia-black?style=for-the-badge&logo=github&logoColor=white)]([https://github.com/Novalia9517) [![LinkedIn](https://img.shields.io/badge/-Novalia-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
+
+- Gilang Suprobo:
+
+  [![GitHub](https://img.shields.io/badge/-Gilang-black?style=for-the-badge&logo=github&logoColor=white)]([https://github.com/gilangsup) [![LinkedIn](https://img.shields.io/badge/-Gilang-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
+  
+  ## 🤖Back End Engineer
+
+- Faisal :
+
+  [![GitHub](https://img.shields.io/badge/-Faisal-black?style=for-the-badge&logo=github&logoColor=white)]([https://github.com/mfaishal882) [![LinkedIn](https://img.shields.io/badge/-Faisal-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
+
+- Yusnar:
+
+  [![GitHub](https://img.shields.io/badge/-Yusnar-black?style=for-the-badge&logo=github&logoColor=white)]([https://github.com/yusnarsetiyadi) [![LinkedIn](https://img.shields.io/badge/-Yusnar-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
+
+[contributors-shield]: https://img.shields.io/github/contributors/Capstone-Group3-Mentutor/Front-End.svg?style=for-the-badge
+[contributors-url]: https://github.com/Capstone-Group3-Mentutor/Front-End/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Capstone-Group3-Mentutor/Front-End.svg?style=for-the-badge
+[forks-url]: https://github.com/Capstone-Group3-Mentutor/Front-End/network/members
+[stars-shield]: https://img.shields.io/github/stars/Capstone-Group3-Mentutor/Front-End.svg?style=for-the-badge
+[stars-url]: https://github.com/Capstone-Group3-Mentutor/Front-End/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Capstone-Group3-Mentutor/Front-End.svg?style=for-the-badge
+[issues-url]: https://github.com/Capstone-Group3-Mentutor/Front-End/issues
