@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import { useLocation, Link, useNavigate } from 'react-router-dom'
 import LayoutAdmin from '../../components/LayoutAdmin'
 import { BiLeftArrow} from 'react-icons/bi'
+import Loading from '../../components/Loading'
 
 const ServiceAdditional = () => {
     const [count, setCount] = useState(1)
@@ -66,6 +67,9 @@ const ServiceAdditional = () => {
     }
 
   return (
+    <>
+    {listAdditional ?
+    
     <LayoutAdmin>
         <Link to='/partner/' className='text-bozz-one font-bold flex items-center mt-2'>
             <BiLeftArrow className='mx-2 text-xl font-bold'/>
@@ -119,6 +123,9 @@ const ServiceAdditional = () => {
             </div>
         </div>
     </LayoutAdmin>
+    : <Loading/>
+    }
+    </>
   )
 }
 

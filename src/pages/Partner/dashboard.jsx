@@ -10,6 +10,7 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateUser } from '../../store/features/userSlice'
 import ServiceAdditional from './ServiceAdditional'
+import Loading from '../../components/Loading'
 
 const Dashboard = () => {
     const [status, setStatus] = useState()
@@ -172,6 +173,9 @@ const Dashboard = () => {
 
     // console.log(status)
     return (
+        <>
+        {status && listServices && listAdditional ?
+        
         <LayoutAdmin>
             <div className='flex flex-col justify between'>
                 <div>
@@ -296,6 +300,9 @@ const Dashboard = () => {
                 </div>
             </div>
         </LayoutAdmin>
+        : <Loading/>
+        }
+        </>
     )
 }
 

@@ -6,6 +6,7 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import Swal from 'sweetalert2';
+import Loading from '../../components/Loading';
 
 const ProfileUser = () => {
 
@@ -73,6 +74,9 @@ const ProfileUser = () => {
 
 
     return (
+        <>
+        {dataClient ?
+        
         <div className='bg-white'>
             <Navbar />
             <div className='flex'>
@@ -166,6 +170,9 @@ const ProfileUser = () => {
             </div>
             <Footer />
         </div>
+        : <Loading/>
+        }
+        </>
     )
 }
 
