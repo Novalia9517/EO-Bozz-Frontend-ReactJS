@@ -44,7 +44,7 @@ const ProfilePartner = () => {
             const data = res.data
                 dispatch(updateUser(data));
         })
-        .catch(err)
+     
     }
     const onEdit = async() => {
         const body = new FormData()

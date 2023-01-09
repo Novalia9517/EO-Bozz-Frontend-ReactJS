@@ -66,7 +66,7 @@ const VerifyPartner = () => {
       })
       navigate('/admin/')
     })
-    .catch(err)
+
   }
 
   const onRevisi = async() => {
@@ -87,7 +87,7 @@ const VerifyPartner = () => {
       })
       navigate('/admin/')
     })
-    .catch(err)
+   
   }
   useEffect(() => {
     getDataPartner()

@@ -34,7 +34,7 @@ const DetailTransaction = () => {
             setStatus(res.data.order_status)
             // setStatus("Order Confirmed")
         })
-        .catch(err)
+       
     }
 
     const completeOrder = (async) => {

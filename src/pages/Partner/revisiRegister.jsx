@@ -51,7 +51,7 @@ const RevisiRegister = () => {
       setEventImg3(data.event4_image_file)
       setImg(data.company_image_file)
     })
-    .catch(err)
+  
   }
 
   const onSubmit = async() => {

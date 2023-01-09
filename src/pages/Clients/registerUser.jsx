@@ -26,7 +26,7 @@ const RegisterUser = () => {
                 setCity(res.data)
                 localStorage.setItem('city', JSON.stringify(res.data))
             })
-            .catch(err)
+         
     }
 
     useEffect(() => {

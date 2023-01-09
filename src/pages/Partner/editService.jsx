@@ -48,7 +48,7 @@ const EditService = () => {
       setCity(data.city)
       setImg(data.service_image_file)
     })
-    .catch(err)
+   
   }
   const onSubmit = async() => {
     const body = new FormData()
@@ -112,12 +112,12 @@ const EditService = () => {
     // Masih get All Additional belum by ID
     apiWithAuth(`additionals`, `GET`, null,"application/json", token)
     .then(res => setListAdditional(res.data.filter(data => data.partner_id == partnerId)))
-    .catch(err)
+
   }
   const getCity = () => {
     apiWithAuth(`city`, `GET`, null,"application/json", token)
     .then(res => setAllCity(res.data))
-    .catch(err)
+  
   }
   useEffect(() => {
     getListAdditionals()
