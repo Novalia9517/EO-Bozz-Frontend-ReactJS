@@ -106,7 +106,7 @@ npm run dev
 ## 💫Features
 
 - Sign in
-- Logout
+- Sign Out
 
 ### 👩‍💻 As admin
 
