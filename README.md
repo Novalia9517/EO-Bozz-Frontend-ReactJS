@@ -37,6 +37,10 @@
 <br>
 
 ## 📃About The Project
+<div align='center'>
+<img src='https://user-images.githubusercontent.com/116619590/213873623-9e11107d-b60f-4820-b9ce-fe8161e31026.png'/>
+<h1>EO-Bozz</h1>
+</div>
 
 EO-Bozz is an application that provides EO (Event Organizer) services with various choices, verified and clear reviews of the activities that the EO has handled. Become an intermediary between the EO and customers who need their services so as to prevent the above problems from happening in your life.
 
@@ -149,21 +153,21 @@ npm run dev
 
 - Novalia :
 
-  [![GitHub](https://img.shields.io/badge/-Novalia-black?style=for-the-badge&logo=github&logoColor=white)]([https://github.com/Novalia9517) [![LinkedIn](https://img.shields.io/badge/-Novalia-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
+  [![GitHub](https://img.shields.io/badge/-Novalia-black?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Novalia9517) [![LinkedIn](https://img.shields.io/badge/-Novalia-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nova-lia-53b911261/)
 
 - Gilang Suprobo:
 
-  [![GitHub](https://img.shields.io/badge/-Gilang-black?style=for-the-badge&logo=github&logoColor=white)]([https://github.com/gilangsup) [![LinkedIn](https://img.shields.io/badge/-Gilang-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
+  [![GitHub](https://img.shields.io/badge/-Gilang-black?style=for-the-badge&logo=github&logoColor=white)](https://github.com/gilangsup) [![LinkedIn](https://img.shields.io/badge/-Gilang-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/gilang-suprobo-653706172/)
   
   ## 🤖Back End Engineer
 
 - Faisal :
 
-  [![GitHub](https://img.shields.io/badge/-Faisal-black?style=for-the-badge&logo=github&logoColor=white)]([https://github.com/mfaishal882) [![LinkedIn](https://img.shields.io/badge/-Faisal-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
+  [![GitHub](https://img.shields.io/badge/-Faisal-black?style=for-the-badge&logo=github&logoColor=white)](https://github.com/mfaishal882) [![LinkedIn](https://img.shields.io/badge/-Faisal-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
 
 - Yusnar:
 
-  [![GitHub](https://img.shields.io/badge/-Yusnar-black?style=for-the-badge&logo=github&logoColor=white)]([https://github.com/yusnarsetiyadi) [![LinkedIn](https://img.shields.io/badge/-Yusnar-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
+  [![GitHub](https://img.shields.io/badge/-Yusnar-black?style=for-the-badge&logo=github&logoColor=white)](https://github.com/yusnarsetiyadi) [![LinkedIn](https://img.shields.io/badge/-Yusnar-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/yusnar-setiyadi-82b079252/)
 
 [contributors-shield]: https://img.shields.io/github/contributors/Capstone-Group3-Mentutor/Front-End.svg?style=for-the-badge
 [contributors-url]: https://github.com/Capstone-Group3-Mentutor/Front-End/graphs/contributors
